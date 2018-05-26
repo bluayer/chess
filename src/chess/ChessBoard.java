@@ -8,11 +8,13 @@ public class ChessBoard extends Tile{
 	/**
 	 * Board is two-dimensional Tile Object array
 	 */
-	Tile[][] board;
+	static Tile[][] board;
 	
 	/**
-	 * ChessBoard
-	 * constructor
+	 * black team: top side
+	 * white team: bottom side
+	 * red team: left side
+	 * green team: right side
 	 */
 	public ChessBoard() {
 		for(int i = 0; i < board.length; i++) {
@@ -58,7 +60,7 @@ public class ChessBoard extends Tile{
 	}
 
 	/**
-	 * legalMove
+	 * checking whether moving is legal
 	 * @param x: to-move x coordinate
 	 * @param y: to-move y coordinate
 	 * @param team: team parameter
@@ -119,8 +121,12 @@ public class ChessBoard extends Tile{
 			}
 		}
 		else {	//moving to inactive tile
-			System.out.println("illegal move");
+			System.out.println("illegal move: moving to wrong area");
 			return false;
 		}
+	}
+	
+	public static Tile[][] getInstance() {
+		return board;
 	}
 }
