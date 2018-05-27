@@ -9,5 +9,6 @@ public interface Piece {
 	PieceType getPieceType();
 	Color getColor();
 	Position getPosition();
+	GamePiece move(Position goal);
 	List<Position> getCanMoves();
 }

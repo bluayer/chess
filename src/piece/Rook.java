@@ -1,10 +1,12 @@
 package piece;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 
+
 public class Rook extends GamePiece{
-  Rook(Color color, Position position) {
-    super(color, PieceType.ROOK, position);
+  Rook(Color color, Position position, BufferedImage img) {
+    super(color, PieceType.ROOK, position, img);
   }
 
   @Override

@@ -74,11 +74,11 @@ public class Position {
       return new Direction[] {WNE, WNW, WSE, WSW};
     }
     
-    public static Direction[] WALLD() {
+    public static Direction[] WAllD() {
       return new Direction[] {WN ,WE, WS, WW, WNE, WNW, WSE, WSW};
     }
     
-    public static Direction[] WknightD() {
+    public static Direction[] WKnightD() {
       return new Direction[] {WNNE, WNNW, WSSE, WSSW, WEEN, WEES, WWWN, WWWS};
     }
     
@@ -94,21 +94,21 @@ public class Position {
       return new Direction[] {RN ,RE, RS, RW, RNE, RNW, RSE, RSW};
     }
     
-    public static Direction[] RknightD() {
+    public static Direction[] RKnightD() {
       return new Direction[] {RNNE, RNNW, RSSE, RSSW, REEN, REES, RWWN, RWWS};
     }
   }
   
-  Position move(Direction direction) {
+  Position moveTo(Direction direction) {
     return new Position(this.mx + direction.getXD(), this.my + direction.getYD());
   }
   
   List<Position> findPos(Direction direction) {
     ArrayList<Position> pos = new ArrayList<Position>();
-    Position nowPos = move(direction);
+    Position nowPos = moveTo(direction);
     while(nowPos.isValid()) {
       pos.add(nowPos);
-      nowPos = nowPos.move(direction);
+      nowPos = nowPos.moveTo(direction);
     }
     return pos;
   }
