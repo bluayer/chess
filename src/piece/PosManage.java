@@ -3,8 +3,8 @@ package piece;
 import java.util.ArrayList;
 import java.util.List;
 
-import piece.GamePiece.*;
-import piece.Position.Direction;
+import piece.GamePiece.Color;
+import piece.Position.Direction;;
 
 public class PosManage {
   private Position mpos;

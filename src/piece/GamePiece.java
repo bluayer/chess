@@ -36,7 +36,7 @@ public abstract class GamePiece implements Piece{
     this.mposition = position;
   }
   
-  boolean isWhite() {
+  public boolean isWhite() {
     if(Color.WHITE == color) {
     	  return true;
     }
@@ -45,7 +45,7 @@ public abstract class GamePiece implements Piece{
     }
   }
 
-  boolean isBlack() {
+  public boolean isBlack() {
     if(Color.BLACK == color) {
         return true;
     }
@@ -54,7 +54,7 @@ public abstract class GamePiece implements Piece{
     }
   }
   
-  boolean isRed() {
+  public boolean isRed() {
     if(Color.RED == color) {
         return true;
     }
@@ -63,7 +63,7 @@ public abstract class GamePiece implements Piece{
     }
   }
   
-  boolean isGreen() {
+  public boolean isGreen() {
     if(Color.GREEN == color) {
         return true;
     }

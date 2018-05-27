@@ -10,7 +10,7 @@ import piece.Rook;
 import piece.CreatePiece;
 
 /**
- * @author ¿Ã√¢πŒ
+ * @author ChangminYi
  * Class about chess board, and moving pieces
  */
 public class ChessBoard extends Tile{
@@ -132,13 +132,9 @@ public class ChessBoard extends Tile{
 	 * use when piece is dead
 	 * 
 	 * @param Position pos
-	 * @param TEAM t
-	 * @param PIECE p
-	 * @param int index for rook, knight, bishop, pawn. use 0 when queen or king
 	 */
 	public static void removeFromBoard(Position pos) {
 		cBoard[pos.getX()][pos.getY()].onPiece = false;
-		//removePiece(t, p, index);
 		return;
 	}
 	
@@ -156,38 +152,83 @@ public class ChessBoard extends Tile{
 		return;
 	}
 	
-	/** removePiece
-	 * 
-	 * erasing specific piece when attacked
-	 * used by removeFromBoard
-	 * @param TEAM t
-	 * @param PIECE p
-	 * @param int index for rook, knight, bishop, pawn. use 0 when queen.
-	 * there's no king cause' king never dies.
-	 */
-	private static void removePiece(TEAM t, PIECE p, int index) {
-		int rowIndex = cvtTeam(t);
+	public static boolean canMovePawn(Position pos, Position goal) {
+		Pawn temp = SearchPieceByPos.searchPawn(pos);
 		
-		switch(p) {
-		case PAWN:
-			pawn[rowIndex][index] = null;
-			break;
-		case KNIGHT:
-			knight[rowIndex][index] = null;
-			break;
-		case BISHOP:
-			bishop[rowIndex][index] = null;
-			break;
-		case ROOK:
-			rook[rowIndex][index] = null;
-			break;
-		case QUEEN:
-			queen[rowIndex] = null;
-			break;
-		default:		
+		
+		if(temp.isBlack()) {
+			if((pos.getX() + 1 == goal.getX() || pos.getX() - 1 == goal.getX()) && (pos.getY() + 1 == goal.getY())) { //moving side
+				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			else {
+				if((pos.getX() == goal.getX()) && (pos.getY() + 1 == goal.getY())) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
 		}
-		
-		return;
+		else if(temp.isWhite()) {
+			if((pos.getX() + 1 == goal.getX() || pos.getX() - 1 == goal.getX()) && (pos.getY() - 1 == goal.getY())) { //moving side
+				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			else {
+				if((pos.getX() == goal.getX()) && (pos.getY() - 1 == goal.getY())) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+		else if(temp.isRed()) {
+			if((pos.getY() + 1 == goal.getY() || pos.getY() - 1 == goal.getY()) && (pos.getX() + 1 == goal.getX())) { //moving side
+				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			else {
+				if((pos.getX() + 1 == goal.getX()) && (pos.getY() == goal.getY())) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+		else if(temp.isGreen()) {
+			if((pos.getY() + 1 == goal.getY() || pos.getY() - 1 == goal.getY()) && (pos.getX() - 1 == goal.getX())) { //moving side
+				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			else {
+				if((pos.getX() - 1 == goal.getX()) && (pos.getY() == goal.getY())) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+		return false;
 	}
-
+	
 }
