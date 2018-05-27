@@ -1,4 +1,4 @@
-package chess;
+package ChangminYi;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

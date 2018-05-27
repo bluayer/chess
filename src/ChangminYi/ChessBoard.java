@@ -1,4 +1,6 @@
-package chess;
+package ChangminYi;
+
+import piece.*;
 
 /**
  * @author ¿Ã√¢πŒ
