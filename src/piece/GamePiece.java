@@ -3,9 +3,6 @@ package piece;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import chess.ChessPieceSprite;
-import chess.ChessPieceSprite.ChessPieceSpriteType;
-
 public abstract class GamePiece implements Piece{
 
   public enum Color {
@@ -24,19 +21,16 @@ public abstract class GamePiece implements Piece{
     KING
   }
 	
-  
+  protected BufferedImage img;
   protected Color color;
   protected PieceType piece;
-  protected String sprite = (color + "_" + piece);
-  protected BufferedImage img = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.valueOf(sprite));
-  
   private Position mposition;
  
   
-  public GamePiece(Color color, PieceType piece, Position position, BufferedImage img) {
+  public GamePiece(BufferedImage img, Color color, PieceType piece, Position position) {
+    this.img = img;
     this.color = color;
     this.piece = piece;
-    this.img = img;
     this.mposition = position;
   }
   
@@ -76,13 +70,6 @@ public abstract class GamePiece implements Piece{
     }
   }
   
-
-  
-  @Override
-  public Position getPosition() {
-    return this.mposition;
-  }
-  
   @Override
   public GamePiece move(Position goal) {
     this.mposition = goal;
@@ -91,6 +78,11 @@ public abstract class GamePiece implements Piece{
   
   @Override
   public abstract List<Position> getCanMoves();
+  
+  @Override
+  public Position getPosition() {
+    return this.mposition;
+  }
   
   @Override
   public Color getColor() {
@@ -102,5 +94,9 @@ public abstract class GamePiece implements Piece{
     return piece;
   }
   
+  @Override
+  public BufferedImage getSprite() {
+    return img;
+  }
       
 }

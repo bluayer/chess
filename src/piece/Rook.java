@@ -5,8 +5,8 @@ import java.util.List;
 
 
 public class Rook extends GamePiece{
-  Rook(Color color, Position position, BufferedImage img) {
-    super(color, PieceType.ROOK, position, img);
+  Rook(BufferedImage img, Color color, Position position) {
+    super(img, color, PieceType.ROOK, position);
   }
 
   @Override
