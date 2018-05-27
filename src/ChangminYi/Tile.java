@@ -10,16 +10,33 @@ public class Tile {
 	 * if team is BLACK or White, pawn moves vertically
 	 * if team is RED or GREEN, pawn moves horizontally
 	 */
-	public static enum TEAM{
+	public enum TEAM{
 		BLACK, WHITE, RED, GREEN
 	}
-	public static enum PIECE{
+	public enum PIECE{
 		PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING
 	}
 	boolean active;
 	boolean onPiece;
-	TEAM team;
-	PIECE piece;
+	
+	/**
+	 * @param TEAM
+	 * @return index of team. black is 0, white is 1, red is 2, green is 3
+	 */
+	public int cvtTeam(TEAM t) {
+		switch(t) {
+		case BLACK:
+			return 0;
+		case WHITE:
+			return 1;
+		case RED:
+			return 2;
+		case GREEN:
+			return 3;
+		}
+		return -1;
+	}
+
 	
 	public Tile(boolean active){
 		this.active = active;

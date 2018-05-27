@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Queen extends GamePiece{
-  Queen(Color color, Position position, BufferedImage img) {
+  public Queen(Color color, Position position, BufferedImage img) {
     super(color, PieceType.QUEEN, position, img);
   }
 

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class Knight extends GamePiece {
-  Knight(Color color, Position position, BufferedImage img) {
+  public Knight(Color color, Position position, BufferedImage img) {
     super(color, PieceType.KNIGHT, position, img);
   }
 

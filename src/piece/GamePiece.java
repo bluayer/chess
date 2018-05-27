@@ -15,7 +15,6 @@ public abstract class GamePiece implements Piece{
     RED,
     GREEN
   }
-	
   public enum PieceType {
     PAWN,
     ROOK,

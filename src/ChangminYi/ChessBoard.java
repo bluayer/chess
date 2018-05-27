@@ -1,6 +1,8 @@
 package ChangminYi;
 
+import ChangminYi.ChessPieceSprite.ChessPieceSpriteType;
 import piece.*;
+import piece.GamePiece.Color;
 
 /**
  * @author ¿Ã√¢πŒ
@@ -10,125 +12,107 @@ public class ChessBoard extends Tile{
 	/**
 	 * Board is two-dimensional Tile Object array
 	 */
-	static Tile[][] board;
+	Tile[][] cBoard;
 	
 	/**
-	 * black team: top side
-	 * white team: bottom side
-	 * red team: left side
-	 * green team: right side
+	 * arrays about initial pieces
+	 * can access by using cvtTeam()
+	 * Pawn is not built yet
+	 * king, queen is only one per team, so one-dimensional
+	 * pawn is 5-column
+	 * else are 2-column
+	 */
+	//static Pawn[][] pawn = new Pawn[4][5];
+	static Knight[][] knight = new Knight[4][2];
+	static Bishop[][] bishop = new Bishop[4][2];
+	static Rook[][] rook = new Rook[4][2];
+	static Queen[] queen = new Queen[4];
+	static King[] king = new King[4];
+	
+	/**
+	 * black team: top side, 0
+	 * white team: bottom side, 1
+	 * red team: left side, 2
+	 * green team: right side, 3
 	 */
 	public ChessBoard() {
-		for(int i = 0; i < board.length; i++) {
-			for(int j = 0; j < board.length; j++) {
+		//initializing pieces
+		/*
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 5; j++) {
+				pawn[i][j] = new Pawn();
+			}
+		}*/
+		for(int i = 0; i < 4; i++) {
+			switch(i) {
+			case 0:	//black
+				for(int j = 0; j < 2; j++) {
+					bishop[i][j] = new Bishop(Color.BLACK, new Position(5 + 3 * j, 0),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.BLACK_BISHOP));
+					knight[i][j] = new Knight(Color.BLACK, new Position(4 + 5 * j, 0),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.BLACK_KNIGHT));
+					rook[i][j] = new Rook(Color.BLACK, new Position(3 + 7 * j, 0),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.BLACK_LOOK));
+				}
+				queen[i] = new Queen(Color.BLACK, new Position(7, 0),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.BLACK_QUEEN));
+				king[i] = new King(/*parameters*/);
+				break;
+			case 1:	//white
+				for(int j = 0; j < 2; j++) {
+					bishop[i][j] = new Bishop(Color.WHITE, new Position(5 + 3 * j, 13),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.WHITE_BISHOP));
+					knight[i][j] = new Knight(Color.WHITE, new Position(4 + 5 * j, 13),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.WHITE_KNIGHT));
+					rook[i][j] = new Rook(Color.WHITE, new Position(3 + 7 * j, 13),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.WHITE_LOOK));
+				}
+				queen[i] = new Queen(Color.WHITE, new Position(6, 13),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.WHITE_QUEEN));
+				king[i] = new King(/*parameters*/);
+				break;
+			case 2:	//red
+				for(int j = 0; j < 2; j++) {
+					bishop[i][j] = new Bishop(Color.RED, new Position(0, 5 + 3 * j),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.RED_BISHOP));
+					knight[i][j] = new Knight(Color.RED, new Position(0, 4 + 5 * j),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.RED_KNIGHT));
+					rook[i][j] = new Rook(Color.RED, new Position(0, 3 + 7 * j),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.RED_LOOK));
+				}
+				queen[i] = new Queen(Color.RED, new Position(0, 7),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.RED_QUEEN));
+				king[i] = new King(/*parameters*/);
+				break;
+			case 3:	//green
+				for(int j = 0; j < 2; j++) {
+					bishop[i][j] = new Bishop(Color.GREEN, new Position(13, 5 + 3 * j),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_BISHOP));
+					knight[i][j] = new Knight(Color.GREEN, new Position(13, 4 + 5 * j),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_KNIGHT));
+					rook[i][j] = new Rook(Color.GREEN, new Position(13, 3 + 7 * j),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_LOOK));
+				}
+				queen[i] = new Queen(Color.GREEN, new Position(13, 6),  ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_QUEEN));
+				king[i] = new King(/*parameters*/);
+			}
+		}
+		
+		
+		for(int i = 0; i < cBoard.length; i++) {
+			for(int j = 0; j < cBoard.length; j++) {
 				//inactive tile creation
 				if(((0 <= i && i <= 2) || (11 <= i && i <= 13)) && ((0 <= j && j <= 2) || (11 <= j && j <= 13))) {
-					board[i][j] = new Tile(false);
+					cBoard[i][j] = new Tile(false);
 				}
 				else {	//active tile creation
-					board[i][j] = new Tile(true);
+					cBoard[i][j] = new Tile(true);
 				}
 			}
 		}
 		
-		//initializing BLACK team
+		//initializing BLACK, RED team's onPiece
 		for(int i = 0; i <= 1; i++) {
 			for(int j = 3; j <= 10; j++) {
-				board[i][j].onPiece = true;
-				board[i][j].team = TEAM.BLACK;
+				cBoard[i][j].onPiece = true;
+				cBoard[j][i].onPiece = true;
 			}
 		}
-		//initializing WHITE team
+		//initializing WHITE, GREEN team's onPiece
 		for(int i = 12; i <= 13; i++) {
 			for(int j = 3; j <= 10; j++) {
-				board[i][j].onPiece = true;
-				board[i][j].team = TEAM.WHITE;
+				cBoard[i][j].onPiece = true;
+				cBoard[j][i].onPiece = true;
 			}
-		}
-		//initializing RED team
-		for(int i = 3; i <= 10; i++) {
-			for(int j = 0; j <= 1; j++) {
-				board[i][j].onPiece = true;
-				board[i][j].team = TEAM.RED;
-			}
-		}
-		//initializing GREEN team
-		for(int i = 3; i <= 10; i++) {
-			for(int j = 12; j <= 13; j++) {
-				board[i][j].onPiece = true;
-				board[i][j].team = TEAM.GREEN;
-			}
-		}
-	}
-
-	/**
-	 * checking whether moving is legal
-	 * @param x: to-move x coordinate
-	 * @param y: to-move y coordinate
-	 * @param team: team parameter
-	 * @param piece: piece parameter
-	 * @return if move is qualified, return true. else, return false.
-	 */
-	public boolean legalMove(int x, int y, TEAM team, PIECE piece) {
-		if(board[x][y].active) {
-			if(piece == PIECE.PAWN) {	//pawn's move is much fucking than others.
-				switch(team) {
-				case BLACK:
-					if(x) {
-						return true;
-					}
-					else {
-						return false;
-					}
-				case WHITE:
-					if(x) {
-						return true;
-					}
-					else {
-						return false;
-					}
-				case RED:
-					if(x) {
-							return true;
-						}
-						else {
-							return false;
-						}
-				case GREEN:
-					if(x) {
-							return true;
-						}
-						else {
-							return false;
-						}
-				default:
-						break;
-				}
-			}
-			else {	//other's move
-				switch(piece){
-				case KNIGHT:
-					break;
-				case ROOK:
-					break;
-				case BISHOP:
-					break;
-				case QUEEN:
-					break;
-				case KING:
-					break;
-				default:
-					break;
-				}
-			}
-		}
-		else {	//moving to inactive tile
-			System.out.println("illegal move: moving to wrong area");
-			return false;
 		}
 	}
 	
-	public static Tile[][] getInstance() {
-		return board;
+	public Tile[][] getInstance() {
+		return this.cBoard;
 	}
 }

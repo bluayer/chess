@@ -14,15 +14,13 @@ import javax.swing.JPanel;
 public class Screen {
 	static JFrame frame;
 	static JPanel piecePanel;
-	static ChessPieceSprite cps = ChessPieceSprite.getInstace();
 	static ImagePanel[][] img = new ImagePanel[14][14];
-	static Tile[][] chessBoard;
 	
 	public Screen() {
 		frame = new JFrame("Chess Board");
 		piecePanel = new JPanel();
-		chessBoard = ChessBoard.getInstance();
 		
+		/*
 		for(int i = 0; i < 14; i++) {
 			for(int j = 0; j < 14; j++) {
 				if(chessBoard[i][j].onPiece) {
@@ -48,7 +46,7 @@ public class Screen {
 					img[i][j] = null;
 				}
 			}
-		}
+		}*/
 	}
 	
 	
@@ -77,4 +75,5 @@ public class Screen {
 		
 		frame.setVisible(true);
 	}
+	
 }
