@@ -1,8 +1,14 @@
 package ChangminYi;
 
 import ChangminYi.ChessPieceSprite.ChessPieceSpriteType;
-import piece.*;
 import piece.GamePiece.Color;
+
+import piece.Bishop;
+import piece.King;
+import piece.Knight;
+import piece.Position;
+import piece.Queen;
+import piece.Rook;
 
 /**
  * @author ¿Ã√¢πŒ
@@ -12,7 +18,7 @@ public class ChessBoard extends Tile{
 	/**
 	 * Board is two-dimensional Tile Object array
 	 */
-	Tile[][] cBoard;
+	static Tile[][] cBoard;
 	
 	/**
 	 * arrays about initial pieces
@@ -34,6 +40,7 @@ public class ChessBoard extends Tile{
 	 * white team: bottom side, 1
 	 * red team: left side, 2
 	 * green team: right side, 3
+	 * by cvtTeam(TEAM) method in Tile class
 	 */
 	public ChessBoard() {
 		//initializing pieces
@@ -112,7 +119,114 @@ public class ChessBoard extends Tile{
 		}
 	}
 	
-	public Tile[][] getInstance() {
-		return this.cBoard;
+	/**
+	 * removeFromBoard
+	 * set cBoard[i][j].onPiece to false
+	 * use when piece is dead
+	 * 
+	 * @param Position pos
+	 * @param TEAM t
+	 * @param PIECE p
+	 * @param int index for rook, knight, bishop, pawn. use 0 when queen or king
+	 */
+	public void removeFromBoard(Position pos, TEAM t, PIECE p, int index) {
+		int rowIndex = cvtTeam(t);
+		Position temp = null;
+		
+		switch(p) {
+		case PAWN:
+//		temp = pawn[rowIndex][index].getPosition();
+			break;
+		case KNIGHT:
+			temp = knight[rowIndex][index].getPosition();
+			break;
+		case BISHOP:
+			temp = bishop[rowIndex][index].getPosition();
+			break;
+		case QUEEN:
+			temp = queen[rowIndex].getPosition();
+			break;
+		case KING:
+//		temp = king[rowIndex]].getPosition();
+			break;
+		default:
+		}
+		cBoard[temp.getX()][temp.getY()].onPiece = false;
+		removePiece(t, p, index);
+		
+		return;
 	}
+
+	/**
+	 * updateTile
+	 * set cBoard[goalX][goalY].onPiece to true, and set cBoard[currnetX][currentY].onPiece to false
+	 * use when piece move or attack
+	 * 
+	 * @param Position goal
+	 * @param TEAM t
+	 * @param PIECE p
+	 * @param int index for rook, knight, bishop, pawn. use 0 when queen or king
+	 */
+	public void updateTile(Position goal, TEAM t, PIECE p, int index) {
+		int rowIndex = cvtTeam(t);
+		Position temp = null;
+		
+		switch(p) {
+		case PAWN:
+//		temp = pawn[rowIndex][index].getPosition();
+			break;
+		case KNIGHT:
+			temp = knight[rowIndex][index].getPosition();
+			break;
+		case BISHOP:
+			temp = bishop[rowIndex][index].getPosition();
+			break;
+		case QUEEN:
+			temp = queen[rowIndex].getPosition();
+			break;
+		case KING:
+//		temp = king[rowIndex]].getPosition();
+			break;
+		default:
+		}
+		cBoard[temp.getX()][temp.getY()].onPiece = false;
+		cBoard[goal.getX()][goal.getY()].onPiece = true;
+		
+		return;
+	}
+	
+	/**
+	 * removePiece
+	 * erasing specific piece when attacked
+	 * used by removeFromBoard
+	 * @param TEAM t
+	 * @param PIECE p
+	 * @param int index for rook, knight, bishop, pawn. use 0 when queen.
+	 * there's no king cause' king never dies.
+	 */
+	private void removePiece(TEAM t, PIECE p, int index) {
+		int rowIndex = cvtTeam(t);
+		
+		switch(p) {
+		case PAWN:
+			//pawn[rowIndex][index] = null;
+			break;
+		case KNIGHT:
+			knight[rowIndex][index] = null;
+			break;
+		case BISHOP:
+			bishop[rowIndex][index] = null;
+			break;
+		case ROOK:
+			rook[rowIndex][index] = null;
+			break;
+		case QUEEN:
+			queen[rowIndex] = null;
+			break;
+		default:		
+		}
+		
+		return;
+	}
+
 }

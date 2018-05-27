@@ -16,6 +16,7 @@ public class Tile {
 	public enum PIECE{
 		PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING
 	}
+
 	boolean active;
 	boolean onPiece;
 	
