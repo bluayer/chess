@@ -3,18 +3,17 @@ package piece;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import ChangminYi.ChessPieceSprite;
-import ChangminYi.ChessPieceSprite.ChessPieceSpriteType;
-
+import ChangminYi.ChessBoard;
 
 public abstract class GamePiece implements Piece{
 
   public enum Color {
-  	WHITE,
-    BLACK,
-    RED,
-    GREEN
+    WHITE,
+  	  BLACK,
+  	  RED,
+  	  GREEN
   }
+	
   public enum PieceType {
     PAWN,
     ROOK,
@@ -24,70 +23,69 @@ public abstract class GamePiece implements Piece{
     KING
   }
 	
-  
+  protected BufferedImage img;
   protected Color color;
   protected PieceType piece;
-  protected String sprite = (color + "_" + piece);
-  protected BufferedImage img = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.valueOf(sprite));
-  
   private Position mposition;
  
   
-  public GamePiece(Color color, PieceType piece, Position position, BufferedImage img) {
+  public GamePiece(BufferedImage img, Color color, PieceType piece, Position position) {
+    this.img = img;
     this.color = color;
     this.piece = piece;
-    this.img = img;
     this.mposition = position;
   }
   
   boolean isWhite() {
     if(Color.WHITE == color) {
-    	return true;
+    	  return true;
     }
     else {
       return false;
     }
   }
+
   boolean isBlack() {
     if(Color.BLACK == color) {
-    	return true;
+        return true;
     }
     else {
       return false;
     }
   }
+  
   boolean isRed() {
     if(Color.RED == color) {
-    	return true;
+        return true;
     }
     else {
       return false;
     }
   }
+  
   boolean isGreen() {
     if(Color.GREEN == color) {
-    	return true;
+        return true;
     }
     else {
       return false;
     }
-  }
-  
-
-  
-  @Override
-  public Position getPosition() {
-    return this.mposition;
   }
   
   @Override
   public GamePiece move(Position goal) {
+  	ChessBoard.updateTile(this.mposition, goal);
     this.mposition = goal;
     return this;
   }
   
   @Override
   public abstract List<Position> getCanMoves();
+  
+  @Override
+  public Position getPosition() {
+    return this.mposition;
+  }
   
   @Override
   public Color getColor() {
@@ -99,5 +97,9 @@ public abstract class GamePiece implements Piece{
     return piece;
   }
   
+  @Override
+  public BufferedImage getSprite() {
+    return img;
+  }
       
 }

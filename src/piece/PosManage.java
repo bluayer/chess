@@ -37,14 +37,20 @@ public class PosManage {
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WKnight = Direction.WKnightD();
       for (int i=0; i< WKnight.length; i++) {
-        KnightPos.addAll(mpos.findPos(WKnight[i]));
+        Position oneMovedPos = mpos.moveTo(WKnight[i]);
+        if(oneMovedPos.isValid()) {
+          KnightPos.add(oneMovedPos);
+        }
       }
       return KnightPos;
     }
     else {
       Direction[] RKnight = Direction.RKnightD();
       for (int i=0; i< RKnight.length; i++) {
-        KnightPos.addAll(mpos.findPos(RKnight[i]));
+        Position oneMovedPos = mpos.moveTo(RKnight[i]);
+        if(oneMovedPos.isValid()) {
+          KnightPos.add(oneMovedPos);
+        }
       }
       return KnightPos;
     }
@@ -110,6 +116,87 @@ public class PosManage {
       return KingPos;
     }
   }
+  
+  public List<Position> waysPawnPos(Color color) {
+    List<Position> PawnPos = new ArrayList<Position>();
+    if (color == GamePiece.Color.WHITE) {
+      int WPawnInitialCol = 12;
+      Position oneMovedPos = mpos.moveTo(Direction.WN);
+      if (oneMovedPos.isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.getY() == WPawnInitialCol) {
+        PawnPos.add(oneMovedPos.moveTo(Direction.WN));
+      }
+      if (mpos.moveTo(Direction.WNE).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.moveTo(Direction.WNW).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      
+      return PawnPos;
+    }
+    
+    else if (color == GamePiece.Color.BLACK){
+      int BPawnInitialCol = 1;
+      Position oneMovedPos = mpos.moveTo(Direction.WS);
+      if (oneMovedPos.isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.getY() == BPawnInitialCol) {
+        PawnPos.add(oneMovedPos.moveTo(Direction.WS));
+      }
+      if (mpos.moveTo(Direction.WSE).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.moveTo(Direction.WSW).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      
+      return PawnPos;
+    }
+    
+    else if (color == GamePiece.Color.RED) {
+      int RPawnInitialRow = 1;
+      Position oneMovedPos = mpos.moveTo(Direction.RN);
+      if (oneMovedPos.isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.getY() == RPawnInitialRow) {
+        PawnPos.add(oneMovedPos.moveTo(Direction.RN));
+      }
+      if (mpos.moveTo(Direction.RNE).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.moveTo(Direction.RNW).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      
+      return PawnPos;
+    }
+      
+    else {
+      int GPawnInitialRow = 12;
+      Position oneMovedPos = mpos.moveTo(Direction.RS);
+      if (oneMovedPos.isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.getY() == GPawnInitialRow) {
+        PawnPos.add(oneMovedPos.moveTo(Direction.RS));
+      }
+      if (mpos.moveTo(Direction.RSE).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      if (mpos.moveTo(Direction.RSW).isValid()) {
+        PawnPos.add(oneMovedPos);
+      }
+      
+      return PawnPos;
+    }
+  }
+  
+  
   
 
   
