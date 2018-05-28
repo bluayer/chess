@@ -1,7 +1,7 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
 
 public class King extends GamePiece{
     King(BufferedImage img, Color color, Position position) {
@@ -10,9 +10,9 @@ public class King extends GamePiece{
 
   // it needs more coding
   @Override
-  public List<Position> getCanMoves() {
+  public ArrayList<Position> getCanMoves() {
     PosManage posM = new PosManage(getPosition());
-    List<Position> KingWay = posM.waysKingPos(color);
+    ArrayList<Position> KingWay = posM.waysKingPos(color);
     return KingWay;
   }
 }

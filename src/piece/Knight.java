@@ -1,7 +1,7 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Knight extends GamePiece {
   Knight(BufferedImage img, Color color, Position position) {
@@ -9,9 +9,9 @@ public class Knight extends GamePiece {
   }
 
   @Override
-  public List<Position> getCanMoves() {
+  public ArrayList<Position> getCanMoves() {
     PosManage posM = new PosManage(getPosition());
-    List<Position> KnightWay = posM.waysKnightPos(color);
+    ArrayList<Position> KnightWay = posM.waysKnightPos(color);
     return KnightWay;
   }
 }

@@ -1,7 +1,7 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class Rook extends GamePiece{
@@ -10,9 +10,9 @@ public class Rook extends GamePiece{
   }
 
   @Override
-  public List<Position> getCanMoves() {
+  public ArrayList<Position> getCanMoves() {
     PosManage posM = new PosManage(getPosition());
-    List<Position> RookWay = posM.waysRookPos(color);
+    ArrayList<Position> RookWay = posM.waysRookPos(color);
     return RookWay;
   }
 }

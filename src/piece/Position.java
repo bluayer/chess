@@ -1,7 +1,6 @@
 package piece;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Position {
   private int mx;
@@ -103,7 +102,7 @@ public class Position {
     return new Position(this.mx + direction.getXD(), this.my + direction.getYD());
   }
   
-  List<Position> findPos(Direction direction) {
+  ArrayList<Position> findPos(Direction direction) {
     ArrayList<Position> pos = new ArrayList<Position>();
     Position nowPos = moveTo(direction);
     while(nowPos.isValid()) {

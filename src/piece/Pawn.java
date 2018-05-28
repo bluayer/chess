@@ -1,7 +1,7 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Pawn extends GamePiece{
     Pawn(BufferedImage img, Color color, Position position) {
@@ -9,9 +9,9 @@ public class Pawn extends GamePiece{
   }
 
   @Override
-  public List<Position> getCanMoves() {
+  public ArrayList<Position> getCanMoves() {
     PosManage posM = new PosManage(getPosition());
-    List<Position> PawnWay = posM.waysPawnPos(color);
+    ArrayList<Position> PawnWay = posM.waysPawnPos(color);
     return PawnWay;
   }
 }

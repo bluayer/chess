@@ -1,7 +1,7 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Bishop extends GamePiece{
   Bishop(BufferedImage img, Color color, Position position) {
@@ -9,9 +9,9 @@ public class Bishop extends GamePiece{
   }
 
   @Override
-  public List<Position> getCanMoves() {
+  public ArrayList<Position> getCanMoves() {
     PosManage posM = new PosManage(getPosition());
-    List<Position> BishopWay = posM.waysBishopPos(color);
+    ArrayList<Position> BishopWay = posM.waysBishopPos(color);
     return BishopWay;
   }
 }

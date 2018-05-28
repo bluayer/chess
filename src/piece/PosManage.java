@@ -1,7 +1,6 @@
 package piece;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import piece.GamePiece.*;
 import piece.Position.Direction;
@@ -13,13 +12,13 @@ public class PosManage {
     this.mpos = mpos;
   }
   
-  public List<Position> waysRookPos(Color color) {
+  public ArrayList<Position> waysRookPos(Color color) {
     ArrayList<Position> RookPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WRook = Direction.WRookD();
       for (int i=0; i< WRook.length; i++) {
         RookPos.addAll(mpos.findPos(WRook[i]));
-      }
+      } 
       return RookPos;
     }
     else {
@@ -32,7 +31,7 @@ public class PosManage {
       
   }
   
-  public List<Position> waysKnightPos(Color color) {
+  public ArrayList<Position> waysKnightPos(Color color) {
     ArrayList<Position> KnightPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WKnight = Direction.WKnightD();
@@ -56,7 +55,7 @@ public class PosManage {
     }
   }
   
-  public List<Position> waysBishopPos(Color color) {
+  public ArrayList<Position> waysBishopPos(Color color) {
     ArrayList<Position> BishopPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WBishop = Direction.WBishopD();
@@ -75,7 +74,7 @@ public class PosManage {
       
   }
   
-  public List<Position> waysQueenPos(Color color) {
+  public ArrayList<Position> waysQueenPos(Color color) {
     ArrayList<Position> QueenPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WQueen = Direction.WAllD();
@@ -93,8 +92,8 @@ public class PosManage {
     }  
   }
   
-  public List<Position> waysKingPos(Color color) {
-    List<Position> KingPos = new ArrayList<Position>();
+  public ArrayList<Position> waysKingPos(Color color) {
+    ArrayList<Position> KingPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WKing = Direction.WAllD();
       for (int i=0; i < WKing.length; i++) {
@@ -117,8 +116,8 @@ public class PosManage {
     }
   }
   
-  public List<Position> waysPawnPos(Color color) {
-    List<Position> PawnPos = new ArrayList<Position>();
+  public ArrayList<Position> waysPawnPos(Color color) {
+    ArrayList<Position> PawnPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE) {
       int WPawnInitialCol = 12;
       Position oneMovedPos = mpos.moveTo(Direction.WN);
