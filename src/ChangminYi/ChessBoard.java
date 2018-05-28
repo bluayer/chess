@@ -17,7 +17,7 @@ public class ChessBoard extends Tile{
 	/**
 	 * Board is two-dimensional Tile Object array
 	 */
-	public static Tile[][] cBoard;
+	public static Tile[][] cBoard = new Tile[14][14];
 	
 	/**
 	 * arrays about initial pieces
@@ -98,8 +98,9 @@ public class ChessBoard extends Tile{
 		}
 		
 		
-		for(int i = 0; i < cBoard.length; i++) {
-			for(int j = 0; j < cBoard.length; j++) {
+		
+		for(int i = 0; i < 14; i++) {
+			for(int j = 0; j < 14; j++) {
 				//inactive tile creation
 				if(((0 <= i && i <= 2) || (11 <= i && i <= 13)) && ((0 <= j && j <= 2) || (11 <= j && j <= 13))) {
 					cBoard[i][j] = new Tile(false);
