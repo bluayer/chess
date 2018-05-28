@@ -1,4 +1,4 @@
-package gamecstate;
+package gamestate;
 
 import ChangminYi.Tile;
 
