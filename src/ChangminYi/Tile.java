@@ -1,7 +1,7 @@
 package ChangminYi;
 
 /**
- * @author ÀÌÃ¢¹Î
+ * @author ï¿½ï¿½Ã¢ï¿½ï¿½
  * class about single tile
  */
 public class Tile {
@@ -18,7 +18,7 @@ public class Tile {
 	}
 
 	boolean active;
-	boolean onPiece;
+	private boolean onPiece;
 	
 	/**
 	 * @param TEAM
@@ -41,7 +41,17 @@ public class Tile {
 	
 	public Tile(boolean active){
 		this.active = active;
-		this.onPiece = false;
+		this.setOnPiece(false);
 	}
 	public Tile() {}
+
+
+  public boolean isOnPiece() {
+    return onPiece;
+  }
+
+
+  public void setOnPiece(boolean onPiece) {
+    this.onPiece = onPiece;
+  }
 }

@@ -113,15 +113,15 @@ public class ChessBoard extends Tile{
 		//initializing BLACK, RED team's onPiece
 		for(int i = 0; i <= 1; i++) {
 			for(int j = 3; j <= 10; j++) {
-				cBoard[i][j].onPiece = true;
-				cBoard[j][i].onPiece = true;
+				cBoard[i][j].setOnPiece(true);
+				cBoard[j][i].setOnPiece(true);
 			}
 		}
 		//initializing WHITE, GREEN team's onPiece
 		for(int i = 12; i <= 13; i++) {
 			for(int j = 3; j <= 10; j++) {
-				cBoard[i][j].onPiece = true;
-				cBoard[j][i].onPiece = true;
+				cBoard[i][j].setOnPiece(true);
+				cBoard[j][i].setOnPiece(true);
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class ChessBoard extends Tile{
 	 * @param Position pos
 	 */
 	public static void removeFromBoard(Position pos) {
-		cBoard[pos.getX()][pos.getY()].onPiece = false;
+		cBoard[pos.getX()][pos.getY()].setOnPiece(false);
 		return;
 	}
 	
@@ -147,8 +147,8 @@ public class ChessBoard extends Tile{
 	 * @param Position current: current position
 	 */
 	public static void updateTile(Position current, Position goal) {
-		cBoard[current.getX()][current.getY()].onPiece = false;
-		cBoard[goal.getX()][goal.getY()].onPiece = true;
+		cBoard[current.getX()][current.getY()].setOnPiece(false);
+		cBoard[goal.getX()][goal.getY()].setOnPiece(true);
 		return;
 	}
 	
@@ -158,7 +158,7 @@ public class ChessBoard extends Tile{
 		
 		if(temp.isBlack()) {
 			if((pos.getX() + 1 == goal.getX() || pos.getX() - 1 == goal.getX()) && (pos.getY() + 1 == goal.getY())) { //moving side
-				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+				if(cBoard[goal.getX()][goal.getY()].isOnPiece() == true) {
 					return true;
 				}
 				else {
@@ -176,7 +176,7 @@ public class ChessBoard extends Tile{
 		}
 		else if(temp.isWhite()) {
 			if((pos.getX() + 1 == goal.getX() || pos.getX() - 1 == goal.getX()) && (pos.getY() - 1 == goal.getY())) { //moving side
-				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+				if(cBoard[goal.getX()][goal.getY()].isOnPiece() == true) {
 					return true;
 				}
 				else {
@@ -194,7 +194,7 @@ public class ChessBoard extends Tile{
 		}
 		else if(temp.isRed()) {
 			if((pos.getY() + 1 == goal.getY() || pos.getY() - 1 == goal.getY()) && (pos.getX() + 1 == goal.getX())) { //moving side
-				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+				if(cBoard[goal.getX()][goal.getY()].isOnPiece() == true) {
 					return true;
 				}
 				else {
@@ -212,7 +212,7 @@ public class ChessBoard extends Tile{
 		}
 		else if(temp.isGreen()) {
 			if((pos.getY() + 1 == goal.getY() || pos.getY() - 1 == goal.getY()) && (pos.getX() - 1 == goal.getX())) { //moving side
-				if(cBoard[goal.getX()][goal.getY()].onPiece == true) {
+				if(cBoard[goal.getX()][goal.getY()].isOnPiece() == true) {
 					return true;
 				}
 				else {
