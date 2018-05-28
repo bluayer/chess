@@ -18,7 +18,7 @@ public class PosManage {
       Direction[] WRook = Direction.WRookD();
       for (int i=0; i< WRook.length; i++) {
         RookPos.addAll(mpos.findPos(WRook[i]));
-      } 
+      }
       return RookPos;
     }
     else {

@@ -1,7 +1,9 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
+
+import ChangminYi.ChessBoard;
 
 public abstract class GamePiece implements Piece{
 
@@ -34,7 +36,7 @@ public abstract class GamePiece implements Piece{
     this.mposition = position;
   }
   
-  boolean isWhite() {
+  public boolean isWhite() {
     if(Color.WHITE == color) {
     	  return true;
     }
@@ -43,7 +45,7 @@ public abstract class GamePiece implements Piece{
     }
   }
 
-  boolean isBlack() {
+  public boolean isBlack() {
     if(Color.BLACK == color) {
         return true;
     }
@@ -52,7 +54,7 @@ public abstract class GamePiece implements Piece{
     }
   }
   
-  boolean isRed() {
+  public boolean isRed() {
     if(Color.RED == color) {
         return true;
     }
@@ -61,7 +63,7 @@ public abstract class GamePiece implements Piece{
     }
   }
   
-  boolean isGreen() {
+  public boolean isGreen() {
     if(Color.GREEN == color) {
         return true;
     }
@@ -72,12 +74,13 @@ public abstract class GamePiece implements Piece{
   
   @Override
   public GamePiece move(Position goal) {
+    ChessBoard.updateTile(this.mposition, goal);
     this.mposition = goal;
     return this;
   }
   
   @Override
-  public abstract List<Position> getCanMoves();
+  public abstract ArrayList<Position> getCanMoves();
   
   @Override
   public Position getPosition() {
