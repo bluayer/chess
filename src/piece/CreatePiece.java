@@ -125,6 +125,7 @@ public class CreatePiece {
   public static Piece GKing(Position position) {
     BufferedImage Gking = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_KING);
     return new Pawn(Gking, Color.GREEN, position);
+
   }
   
 }
