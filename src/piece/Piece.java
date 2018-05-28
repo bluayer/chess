@@ -1,10 +1,19 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
 
-import piece.GamePiece.Color;
-import piece.GamePiece.PieceType;
+import piece.GamePiece.*;
+
+/**
+ * A Interface for basic Piece
+ * 
+ * @see GamePiece
+ * @see BufferedImage
+ * @see ArrayList
+ * @author SongJeongWoo
+ * @since 2018-05-26
+ */
 
 public interface Piece {
   BufferedImage getSprite();
@@ -12,5 +21,5 @@ public interface Piece {
 	Color getColor();
 	Position getPosition();
 	GamePiece move(Position goal);
-	List<Position> getCanMoves();
+	ArrayList<Position> getCanMoves();
 }

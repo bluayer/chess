@@ -5,6 +5,16 @@ import java.util.ArrayList;
 
 import ChangminYi.ChessBoard;
 
+/**
+ * A abstract class to make piece in Game, so its name is GamePiece
+ * 
+ * @see Piece(Interface)
+ * @see BufferedImage
+ * @see ArrayList
+ * @author SongJeongWoo
+ * @since 2018-05-26
+ */
+
 public abstract class GamePiece implements Piece{
 
   public enum Color {

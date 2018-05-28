@@ -1,9 +1,24 @@
 package piece;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import piece.GamePiece.*;
 import piece.Position.Direction;
+
+/**
+ * A class for Piece position(location) manage.
+ * Actually, it's about how to find the all ways and locations(positions) that piece can moves
+ * So it get a current position(location) and using it. 
+ * Also it needs color of piece cause direction is different according to color.
+ * 
+ * @see GamePiece
+ * @see BufferedImage
+ * @see ArrayList
+ * @see Position#Direction
+ * @author SongJeongWoo
+ * @since 2018-05-27
+ */
 
 public class PosManage {
   private Position mpos;
