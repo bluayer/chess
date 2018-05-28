@@ -30,6 +30,8 @@ public class ChessGui {
   static JButton btn[][];
   static Color white, gray, black;
   
+  static ChessBoard b = new ChessBoard();
+  
   /**
    * allocating image to img[i][j]
    */
@@ -173,7 +175,7 @@ public class ChessGui {
   /**
    * setting initial screen
    */
- public static void setupGUI() {
+ public static void setupGUI() {   
    white = new Color(255, 255, 255);   //Color: white (for buttons)
    gray = new Color(160, 160, 160);    //Color: gray (for buttons)
    black = new Color(0, 0, 0);         //Color: black (for inactive area)
@@ -189,6 +191,7 @@ public class ChessGui {
    
    //creating and setting Buttons
    btn = new JButton[14][14];
+   MouseClick clk = new MouseClick(btn, b);
    for(int i = 0; i < 14; i++) {
      for(int j = 0; j < 14; j++) {
        btn[i][j] = new JButton();
@@ -197,13 +200,15 @@ public class ChessGui {
        if((i < 3 && j < 3) || (i < 3 && j > 10) || (i > 10 && j < 3) || (i > 10 && j > 10)) {    //inactive area
          btn[i][j].setBackground(black);
        }
-       else {    //setting ochre pattern
+       else {    //setting ochre pattern and adding event handler
          if((i % 2 == 1 && j % 2 == 0) || (i % 2 == 0 && j % 2 == 1)) {
            btn[i][j].setBackground(white);
          }
          else {
            btn[i][j].setBackground(gray);
          }
+         
+         btn[i][j].addActionListener(clk);
        }
      }
    }
@@ -231,9 +236,7 @@ public class ChessGui {
  
 
   public static void main(String[] args) {
-    ChessBoard b = new ChessBoard();
     setupGUI();
-    return;
   }
 
 }
