@@ -8,6 +8,11 @@ import piece.Position;
 import piece.Queen;
 import piece.Rook;
 
+
+/**
+ * @author ¿Ã√¢πŒ
+ * searching objects by Position
+ */
 public class SearchPieceByPos {
 	public static Pawn searchPawn(Position pos) {
 	  for(int i = 0; i < 4; i++) {
