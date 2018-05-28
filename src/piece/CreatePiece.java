@@ -109,23 +109,22 @@ public class CreatePiece {
   
   public static Piece GKnight(Position position) {
     BufferedImage Gknight = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_KNIGHT);
-    return new Pawn(Gknight, Color.GREEN, position);
+    return new Knight(Gknight, Color.GREEN, position);
   }
   
   public static Piece GBishop(Position position) {
     BufferedImage Gbishop = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_BISHOP);
-    return new Pawn(Gbishop, Color.GREEN, position);
+    return new Bishop(Gbishop, Color.GREEN, position);
   }
   
   public static Piece GQueen(Position position) {
     BufferedImage Gqueen = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_QUEEN);
-    return new Pawn(Gqueen, Color.GREEN, position);
+    return new Queen(Gqueen, Color.GREEN, position);
   }
   
   public static Piece GKing(Position position) {
     BufferedImage Gking = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_KING);
-    return new Pawn(Gking, Color.GREEN, position);
-
+    return new King(Gking, Color.GREEN, position);
   }
   
 }

@@ -25,9 +25,9 @@ public class Rook extends GamePiece{
    */
   
   @Override
-  public ArrayList<Position> getCanMoves() {
-    PosManage posM = new PosManage(getPosition());
-    ArrayList<Position> RookWay = posM.waysRookPos(color);
+  public Position[] getCanMoves() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] RookWay = way.waysRookPos(color);
     return RookWay;
   }
 }

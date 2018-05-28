@@ -23,9 +23,9 @@ public class Queen extends GamePiece{
    * @return ArrayList<Position> QueenWay
    */
   @Override
-  public ArrayList<Position> getCanMoves() {
-    PosManage posM = new PosManage(getPosition());
-    ArrayList<Position> QueenWay = posM.waysQueenPos(color);
+  public Position[] getCanMoves() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] QueenWay = way.waysQueenPos(color);
     return QueenWay;
   }
 }

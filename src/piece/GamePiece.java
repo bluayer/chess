@@ -18,19 +18,11 @@ import ChangminYi.ChessBoard;
 public abstract class GamePiece implements Piece{
 
   public enum Color {
-    WHITE,
-  	  BLACK,
-  	  RED,
-  	  GREEN
+    WHITE, BLACK, RED, GREEN
   }
 	
   public enum PieceType {
-    PAWN,
-    ROOK,
-    KNIGHT,
-    BISHOP,
-    QUEEN,
-    KING
+    PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING
   }
 	
   protected BufferedImage img;
@@ -82,15 +74,14 @@ public abstract class GamePiece implements Piece{
     }
   }
   
+  public abstract Position[] getCanMoves();
+  
   @Override
   public GamePiece move(Position goal) {
     ChessBoard.updateTile(this.mposition, goal);
     this.mposition = goal;
     return this;
   }
-  
-  @Override
-  public abstract ArrayList<Position> getCanMoves();
   
   @Override
   public Position getPosition() {

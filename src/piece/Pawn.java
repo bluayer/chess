@@ -22,10 +22,11 @@ public class Pawn extends GamePiece{
    * 
    * @return ArrayList<Position> PawnWay
    */
+    
   @Override
-  public ArrayList<Position> getCanMoves() {
-    PosManage posM = new PosManage(getPosition());
-    ArrayList<Position> PawnWay = posM.waysPawnPos(color);
+  public Position[] getCanMoves() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] PawnWay = way.waysPawnPos(color);
     return PawnWay;
   }
 }

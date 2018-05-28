@@ -23,9 +23,9 @@ public class Knight extends GamePiece {
    * @return ArrayList<Position> KnightWay
    */
   @Override
-  public ArrayList<Position> getCanMoves() {
-    PosManage posM = new PosManage(getPosition());
-    ArrayList<Position> KnightWay = posM.waysKnightPos(color);
+  public Position[] getCanMoves() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] KnightWay = way.waysKnightPos(color);
     return KnightWay;
   }
 }

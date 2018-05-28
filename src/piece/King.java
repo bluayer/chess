@@ -24,9 +24,9 @@ public class King extends GamePiece{
    * @return ArrayList<Position> KingWay
    */
   @Override
-  public ArrayList<Position> getCanMoves() {
-    PosManage posM = new PosManage(getPosition());
-    ArrayList<Position> KingWay = posM.waysKingPos(color);
+  public Position[] getCanMoves() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] KingWay = way.waysKingPos(color);
     return KingWay;
   }
 }

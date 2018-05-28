@@ -21,5 +21,6 @@ public interface Piece {
 	Color getColor();
 	Position getPosition();
 	GamePiece move(Position goal);
-	ArrayList<Position> getCanMoves();
+	Position[] getCanMoves();
+	
 }

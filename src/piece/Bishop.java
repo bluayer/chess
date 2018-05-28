@@ -24,9 +24,9 @@ public class Bishop extends GamePiece{
    * @return ArrayList<Position> BishopWay
    */
   @Override
-  public ArrayList<Position> getCanMoves() {
-    PosManage posM = new PosManage(getPosition());
-    ArrayList<Position> BishopWay = posM.waysBishopPos(color);
+  public Position[] getCanMoves() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] BishopWay = way.waysBishopPos(color);
     return BishopWay;
   }
 }

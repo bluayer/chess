@@ -17,7 +17,7 @@ public class ChessBoard extends Tile{
 	/**
 	 * Board is two-dimensional Tile Object array
 	 */
-	static Tile[][] cBoard;
+	public static Tile[][] cBoard;
 	
 	/**
 	 * arrays about initial pieces
