@@ -7,9 +7,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import ChangminYi.ChessBoard;
-import ChangminYi.Tile;
+import ChangminYi.SearchPieceByPos;
 import ChangminYi.Status.TEAM;
+import ChangminYi.Tile;
 import piece.GamePiece.Color;
+import piece.GamePiece.PieceType;
 import piece.Position.Direction;
 
 /**
@@ -32,7 +34,7 @@ public class PieceWay {
   public PieceWay(Position mpos) {
     this.mpos = mpos;
   }
-  
+
   public <T> T[] concat(T[] a, T[] b) {
     int aLen = a.length;
     int bLen = b.length;
@@ -232,10 +234,8 @@ public class PieceWay {
     }
   }
 
-  protected boolean isCheck(King king, Position tilePosition) {
-    TEAM[] oppositeTeam = new TEAM[2];
+  protected boolean isCheck(King king, Position tilePosition, ChessBoard b) {
     Color[] oppositeColor = new Color[2];
-    int teamSide; // if King is team on White and Black, teamSide is 1. However King is in other side, teamSide is 2
     int sameMoveTile = 0; // If the tile that king can move on is same as parameter tile, it will be 1
 
     Position[] kingWays = waysKingPos(king.color);
@@ -251,28 +251,31 @@ public class PieceWay {
     }
 
     if (king.color == Color.WHITE || king.color == GamePiece.Color.BLACK) { 
-        oppositeTeam[0] = TEAM.RED;
-        oppositeTeam[1] = TEAM.GREEN;
-        oppositeColor[0] = Color.RED;
-        oppositeColor[1] = Color.GREEN;
-        teamSide = 1;
+      oppositeColor[0] = Color.RED;
+      oppositeColor[1] = Color.GREEN;
     }
     else {
-      oppositeTeam[0] = TEAM.WHITE;
-      oppositeTeam[1] = TEAM.BLACK;
       oppositeColor[0] = Color.WHITE;
       oppositeColor[1] = Color.BLACK;
-      teamSide = 2;
     }
     
-    ArrayList<Position> allPos = new ArrayList<Position>();
+    Position pos = new Position(0,0);
+    GamePiece piece;
     
-    for(int i=0; i<oppositeTeam.length; i++) {
-      allPos.addAll(Arrays.asList(waysRookPos(oppositeColor[i])));
-      allPos.addAll(Arrays.asList(waysBishopPos(oppositeColor[i])));
-      allPos.addAll(Arrays.asList(waysKnightPos(oppositeColor[i])));
-      allPos.addAll(Arrays.asList(waysQueenPos(oppositeColor[i])));
-      allPos.addAll(Arrays.asList(waysPawnPos(oppositeColor[i])));
+    ArrayList<Position> allPos = new ArrayList<Position>();
+    for (int j=0; j<14; j++) {
+      for (int k=0; k<14; k++) {
+        if(pos.isValid()) {
+          pos.setX(j);
+          pos.setY(k);
+          piece = SearchPieceByPos.searchPiece(pos, b);
+          if (piece != null) {
+            if (piece.getColor() == oppositeColor[0] || piece.getColor() == oppositeColor[1]) {      
+              allPos.addAll(Arrays.asList(piece.getCanMoves()));
+            }
+          }
+        }
+      }
     }
     
     HashSet<Position> hashPos = new HashSet<Position>(allPos);
@@ -283,18 +286,14 @@ public class PieceWay {
     int tilePosY = tilePosition.getY();
     Tile aroundTile= ChessBoard.cBoard[tilePosX][tilePosY];
     
-    if (aroundTile.isOnPiece() == true) {
-      if (aroundTile.cvtTeam(oppositeTeam[0]) != teamSide ) {
-        for(int i=0; i<result.length; i++) {
-          if (result[i] == tilePosition) {
-            return true;
-          }
+    if (aroundTile.isOnPiece() == false) {
+      for(int i=0; i<result.length; i++) {
+        if (result[i] == tilePosition) {
+          return true;
         }
       }
     }
     return false;
   }
 
-    
 }
-

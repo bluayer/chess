@@ -32,6 +32,14 @@ public class Position {
   public int getY() {
     return this.my;
   }
+  
+  public void setX(int x) {
+    this.mx = x;
+  }
+  
+  public void setY(int y) {
+    this.my =y;
+  }
 
   /**
    * Judge If the piece is out of the board or not returns boolean
