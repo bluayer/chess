@@ -3,6 +3,9 @@ package piece;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import ChangminYi.ChessBoard;
+import ChangminYi.Tile;
+
 /**
  * A class for Piece position(location)
  * 
@@ -151,13 +154,26 @@ public class Position {
    */
 
   Position[] findPos(Direction direction) {
-    Position[] pos = new Position[196];
+    Position[] pos = new Position[20];
     Position nowPos = moveTo(direction);
+    int nowPosX = nowPos.getX();
+    int nowPosY = nowPos.getY();
 
-    for (int i = 0; i < pos.length; i++) {
-      while (nowPos.isValid()) {
-        pos[i] = nowPos;
-        nowPos = nowPos.moveTo(direction);
+    Tile tile = ChessBoard.cBoard[nowPosX][nowPosY];
+
+    if (nowPos.isValid()) {
+      for (int i = 0; i < pos.length; i++) {
+        if (nowPos.isValid()) {
+          if (tile.isOnPiece() == false) {
+            pos[i] = nowPos;
+            nowPos = nowPos.moveTo(direction);
+            nowPosX = nowPos.getX();
+            nowPosY = nowPos.getY();
+            tile = ChessBoard.cBoard[nowPosX][nowPosY];
+          } else {
+            break;
+          }
+        }
       }
     }
     return pos;
