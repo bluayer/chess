@@ -196,6 +196,7 @@ public class ChessGui {
      for(int j = 0; j < 14; j++) {
        btn[i][j] = new JButton();
        btn[i][j].setBorderPainted(false);
+       btn[i][j].setOpaque(true);
        
        if((i < 3 && j < 3) || (i < 3 && j > 10) || (i > 10 && j < 3) || (i > 10 && j > 10)) {    //inactive area
          btn[i][j].setBackground(black);
