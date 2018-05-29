@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ChangminYi.ChessBoard;
 import ChangminYi.Tile;
+import piece.GamePiece.Color;
 
 /**
  * A class for Piece position(location)
@@ -74,19 +75,18 @@ public class Position {
    */
 
   public enum Direction {
-    WN(0, 1), WS(0, -1), WE(1, 0), WW(-1, 0),
+    WN(-1, 0), WS(1, 0), WE(0, 1), WW(0, -1),
 
-    WNE(1, 1), WNW(-1, 1), WSE(1, -1), WSW(-1, -1),
+    WNE(-1, 1), WNW(-1, -1), WSE(1, 1), WSW(1, -1),
 
-    WNNE(1, 2), WNNW(-1, 2), WSSE(1, -2), WSSW(-1, -2), WEEN(2, 1), WEES(2, -1), WWWN(-2, 1), WWWS(-2, -1), // Standard
+    WNNE(-2, 1), WNNW(-2, -1), WSSE(2, 1), WSSW(2, -1), WEEN(-1, 2), WEES(1, 2), WWWN(-1, -2), WWWS(1, -2), // Standard
                                                                                                             // of White
                                                                                                             // and Black
+    RN(0, 1), RS(0, -1), RE(1, 0), RW(-1, 0),
 
-    RN(1, 0), RS(-1, 0), RE(0, 1), RW(0, -1),
+    RNE(1, 1), RNW(-1, 1), RSE(1, -1), RSW(-1, -1),
 
-    RNE(1, 1), RNW(1, -1), RSE(-1, 1), RSW(-1, -1),
-
-    RNNE(2, 1), RNNW(2, -1), RSSE(-2, 1), RSSW(-2, -1), REEN(1, 2), REES(-1, 2), RWWN(1, -2), RWWS(-1, -2); // Standard
+    RNNE(1, 2), RNNW(-1, 2), RSSE(1, -2), RSSW(-1, -2), REEN(2, 1), REES(2, -1), RWWN(-2, 1), RWWS(-2, -1); // Standard
                                                                                                             // of Red
                                                                                                             // and Green
 
@@ -179,6 +179,11 @@ public class Position {
             nowPosY = nowPos.getY();
             tile = ChessBoard.cBoard[nowPosX][nowPosY];
           } else {
+            pos[i] = nowPos;
+            nowPos = nowPos.moveTo(direction);
+            nowPosX = nowPos.getX();
+            nowPosY = nowPos.getY();
+            tile = ChessBoard.cBoard[nowPosX][nowPosY];
             break;
           }
         }

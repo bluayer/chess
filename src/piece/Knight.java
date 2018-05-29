@@ -3,6 +3,8 @@ package piece;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import chess.ChessGui;
+
 /**
  * A class to make Knight
  * 
