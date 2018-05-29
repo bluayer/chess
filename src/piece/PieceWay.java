@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import ChangminYi.ChessBoard;
 import ChangminYi.Tile;
-import ChangminYi.Tile.TEAM;
+import ChangminYi.Status.TEAM;
 import piece.GamePiece.Color;
 import piece.Position.Direction;
 

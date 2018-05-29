@@ -1,5 +1,6 @@
 package chess;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,20 +8,55 @@ import javax.swing.JButton;
 
 import ChangminYi.ChessBoard;
 import ChangminYi.Tile;
+import piece.GamePiece;
+import piece.Position;
+
+import ChangminYi.SearchPieceByPos;
+
 
 public class MouseClick implements ActionListener{
+  private Color clicked, backgroundBackup;
   public static JButton firstBtn, secondBtn;
+  public static Position firstPos, secondPos;
   public static JButton btn[][];
-
-  private Tile[][] tile;
+  
+  private static GamePiece toMovePiece;
+  private static ChessBoard board;
+  private static Tile[][] tile;
   private boolean isClicked;
   
   public MouseClick(JButton[][] btns, ChessBoard bd) {
-    firstBtn = null;
-    secondBtn = null;
-    btn = btns;
-    isClicked = false;
-    tile = bd.cBoard;
+    this.firstBtn = null;
+    this.secondBtn = null;
+    this.firstPos = null;
+    this.secondPos = null;
+    this.btn = btns;
+    this.isClicked = false;
+    this.board = bd;
+    tile = this.board.cBoard;
+    this.clicked = new Color(255, 255, 0);
+    this.backgroundBackup = null;
+    this.toMovePiece = null;
+  }
+  
+  public static GamePiece getMovePiece() {
+    return toMovePiece;
+  }
+  
+  private static void movePieceAtTile(Position togo, Position prev) {
+    toMovePiece = SearchPieceByPos.searchPiece(prev, board);
+    //System.out.println(toMovePiece);
+    ChessBoard.updateTile(prev, togo);
+  }
+  
+  /**
+   * move ImageIcon from prev to togo
+   * @param togo, prev
+   */
+  private void movePiece(JButton togo, JButton prev) {
+    togo.setIcon(prev.getIcon());
+    prev.setIcon(null);
+    movePieceAtTile(secondPos, firstPos);
   }
   
   @Override
@@ -30,22 +66,35 @@ public class MouseClick implements ActionListener{
         
         if(e.getSource().equals(btn[i][j])) {
           if( !isClicked ) {
+            //clearing
+            backgroundBackup = null;
             firstBtn = null;
             secondBtn = null;
+            firstPos = null;
+            secondPos = null;
+            
+            //setting first button and position
             firstBtn = btn[i][j];
+            firstPos = new Position(i, j);
+            backgroundBackup = firstBtn.getBackground();
+            firstBtn.setBackground(clicked);
             isClicked = true;
+            
+            System.out.println(firstPos.getX() + ", " + firstPos.getY());
           }
           else {
+            firstBtn.setBackground(backgroundBackup);
             secondBtn = btn[i][j];
+            secondPos = new Position(i,j);
             isClicked = false;
+            
+            if((firstBtn != null) && (secondBtn != null) && (firstBtn != secondBtn)) {
+              movePiece(secondBtn, firstBtn);
+            }
+            
+            System.out.println(secondPos.getX() + ", " + secondPos.getY());
           }
           
-          if(tile[i][j].isOnPiece()) {
-            System.out.println("Piece Clicked");
-          }
-          else {
-            System.out.println("There's no piece");
-          }
           
         }
       }

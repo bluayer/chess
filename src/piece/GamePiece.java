@@ -17,12 +17,12 @@ import ChangminYi.ChessBoard;
 
 public abstract class GamePiece implements Piece{
 
-  public enum Color {
+  public static enum Color {
     WHITE, BLACK, RED, GREEN
   }
 	
-  public enum PieceType {
-    PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING
+  public static enum PieceType {
+    PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, NOPE
   }
 	
   protected BufferedImage img;
@@ -34,6 +34,13 @@ public abstract class GamePiece implements Piece{
   public GamePiece(BufferedImage img, Color color, PieceType piece, Position position) {
     this.img = img;
     this.color = color;
+    this.piece = piece;
+    this.mposition = position;
+  }
+  
+  public GamePiece(PieceType piece, Position position) {
+    this.img = null;
+    this.color = null;
     this.piece = piece;
     this.mposition = position;
   }

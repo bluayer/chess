@@ -1,27 +1,21 @@
 package ChangminYi;
 
-import piece.Piece;
+import piece.GamePiece.PieceType;
 
 /**
- * @author ��â��
+ * @author Changmin Yi
  * class about single tile
  */
-public class Tile {
+public class Tile extends Status{
 	/**
 	 * enum about team and piece
 	 * if team is BLACK or White, pawn moves vertically
 	 * if team is RED or GREEN, pawn moves horizontally
 	 */
-	public enum TEAM{
-		BLACK, WHITE, RED, GREEN
-	}
-	public enum PIECE{
-		PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING
-	}
 
-	boolean active;
+	private boolean active;
 	private boolean onPiece;
-	private Piece occupyPiece;
+	private PieceType occupyPiece;
 	
 	/**
 	 * @param TEAM
@@ -42,20 +36,34 @@ public class Tile {
 	}
 
 	
-	public Tile(boolean active, Piece occupyPiece){
+	public Tile(boolean active, PieceType Piece){
 		this.active = active;
 		this.setOnPiece(false);
-		this.occupyPiece = occupyPiece;
+		this.occupyPiece = Piece;
 	}
 	public Tile() {}
-
-
+	
+	public void setActive(boolean tf) {
+	  this.active = tf;
+	}
+	
+	public boolean getActive() {
+	  return this.active;
+	}
+	
   public boolean isOnPiece() {
-    return onPiece;
+    return this.onPiece;
   }
-
 
   public void setOnPiece(boolean onPiece) {
     this.onPiece = onPiece;
+  }
+  
+  public void setOccupyPiece(PieceType pc) {
+    this.occupyPiece = pc;
+  }
+  
+  public PieceType getOccupyPiece() {
+    return occupyPiece;
   }
 }

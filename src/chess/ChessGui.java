@@ -30,7 +30,7 @@ public class ChessGui {
   static JButton btn[][];
   static Color white, gray, black;
   
-  static ChessBoard b = new ChessBoard();
+  static ChessBoard b;
   
   /**
    * allocating image to img[i][j]
@@ -236,7 +236,9 @@ public class ChessGui {
  
 
   public static void main(String[] args) {
+    b = new ChessBoard();
     setupGUI();
   }
 
+  
 }

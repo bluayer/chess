@@ -1,6 +1,7 @@
 package ChangminYi;
 
 import piece.Bishop;
+import piece.GamePiece;
 import piece.King;
 import piece.Knight;
 import piece.Pawn;
@@ -8,66 +9,101 @@ import piece.Position;
 import piece.Queen;
 import piece.Rook;
 
+
 public class SearchPieceByPos {
-	public static Pawn searchPawn(Position pos) {
+	static Pawn searchPawn(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
-	    for(int j = 0; j < 5; j++) {
-	      if(ChessBoard.pawn[i][j].getPosition() == pos) {
-	        return ChessBoard.pawn[i][j];
+	    for(int j = 0; j < 8; j++) {
+	      if(board.pawn[i][j].getPosition().getX() == pos.getX() && board.pawn[i][j].getPosition().getY() == pos.getY()) {
+	        //System.out.println("found pawn");
+	        return board.pawn[i][j];
 	      }
 	    }
 	  }
 	  return null;
 	}
-	
-	public static Bishop searchBishop(Position pos) {
+	static Bishop searchBishop(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
-	      if(ChessBoard.bishop[i][j].getPosition() == pos) {
-	        return ChessBoard.bishop[i][j];
+	      if(board.bishop[i][j].getPosition().getX() == pos.getX() && board.bishop[i][j].getPosition().getY() == pos.getY()) {
+          //System.out.println("found bishop");
+	        return board.bishop[i][j];
 	      }
 	    }
 	  }
 	  return null;
-	}
-	
-	public static Knight searchKnight(Position pos) {
+	}	
+	static Knight searchKnight(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
-	      if(ChessBoard.knight[i][j].getPosition() == pos) {
-	        return ChessBoard.knight[i][j];
+	      if(board.knight[i][j].getPosition().getX() == pos.getX() && board.knight[i][j].getPosition().getY() == pos.getY()) {
+          //System.out.println("found knight");
+	        return board.knight[i][j];
 	      }
 	    }
 	  }
 	  return null;
 	}
-	
-	public static Rook searchRook(Position pos) {
+	static Rook searchRook(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
-	      if(ChessBoard.rook[i][j].getPosition() == pos) {
-	        return ChessBoard.rook[i][j];
+	      if(board.rook[i][j].getPosition().getX() == pos.getX() && board.rook[i][j].getPosition().getY() == pos.getY()) {
+	        //System.out.println("found rook");
+	        return board.rook[i][j];
 	      }
+	    }
+	  }
+	  return null;
+	}	
+	static Queen searchQueen(Position pos, ChessBoard board) {
+	  for(int i = 0; i < 4; i++) {
+	    if(board.queen[i].getPosition().getX() == pos.getX() && board.queen[i].getPosition().getY() == pos.getY()) {
+        //System.out.println("found queen");
+	      return board.queen[i];
+	    }
+	  }
+	  return null;
+	}
+	static King searchKing(Position pos, ChessBoard board) {
+	  for(int i = 0; i < 4; i++) {
+	    if(board.king[i].getPosition().getX() == pos.getX() && board.king[i].getPosition().getY() == pos.getY()) {
+        System.out.println("found king");
+	      return board.king[i];
 	    }
 	  }
 	  return null;
 	}
 	
-	public static Queen searchQueen(Position pos) {
-	  for(int i = 0; i < 4; i++) {
-	    if(ChessBoard.queen[i].getPosition() == pos) {
-	      return ChessBoard.queen[i];
+	
+	public static GamePiece searchPiece(Position pos, ChessBoard Board) {
+	  if(Board.cBoard[pos.getX()][pos.getY()].isOnPiece()) {
+	      
+	    switch(Board.cBoard[pos.getX()][pos.getY()].getOccupyPiece()) {
+	    case PAWN:
+        System.out.println("found pawn");
+	      return searchPawn(pos, Board);
+      case BISHOP:
+        System.out.println("found bishop");
+	      return searchBishop(pos, Board);
+	    case KNIGHT:
+        System.out.println("found knight");
+	      return searchKnight(pos, Board);
+	    case ROOK:
+        System.out.println("found rook");
+	      return searchRook(pos, Board);
+	    case QUEEN:
+        System.out.println("found queen");
+	      return searchQueen(pos, Board);
+	    case KING:
+        System.out.println("found king");
+	      return searchKing(pos, Board);
+	    default:
+	      System.out.println("SearchPieceByPos.searchPiece() method error");
 	    }
 	  }
+	  System.out.println("error");
 	  return null;
 	}
-	  
-	public static King searchKing(Position pos) {
-	  for(int i = 0; i < 4; i++) {
-	    if(ChessBoard.king[i].getPosition() == pos) {
-	      return ChessBoard.king[i];
-	    }
-	  }
-	  return null;
-	}
+	
+
 }
