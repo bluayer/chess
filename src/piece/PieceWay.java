@@ -279,7 +279,6 @@ public class PieceWay {
     ArrayList<Position> allPosResult = new ArrayList<Position>(hashPos);
     Position[] result = allPosResult.toArray(new Position[allPosResult.size()]);
     
-    
     int tilePosX = tilePosition.getX();
     int tilePosY = tilePosition.getY();
     Tile aroundTile= ChessBoard.cBoard[tilePosX][tilePosY];

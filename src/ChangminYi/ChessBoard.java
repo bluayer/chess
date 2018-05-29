@@ -103,10 +103,10 @@ public class ChessBoard extends Tile{
 			for(int j = 0; j < 14; j++) {
 				//inactive tile creation
 				if(((0 <= i && i <= 2) || (11 <= i && i <= 13)) && ((0 <= j && j <= 2) || (11 <= j && j <= 13))) {
-					cBoard[i][j] = new Tile(false);
+					cBoard[i][j] = new Tile(false, null);
 				}
 				else {	//active tile creation
-					cBoard[i][j] = new Tile(true);
+					cBoard[i][j] = new Tile(true, null);
 				}
 			}
 		}

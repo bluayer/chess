@@ -1,5 +1,7 @@
 package ChangminYi;
 
+import piece.Piece;
+
 /**
  * @author ��â��
  * class about single tile
@@ -19,6 +21,7 @@ public class Tile {
 
 	boolean active;
 	private boolean onPiece;
+	private Piece occupyPiece;
 	
 	/**
 	 * @param TEAM
@@ -39,9 +42,10 @@ public class Tile {
 	}
 
 	
-	public Tile(boolean active){
+	public Tile(boolean active, Piece occupyPiece){
 		this.active = active;
 		this.setOnPiece(false);
+		this.occupyPiece = occupyPiece;
 	}
 	public Tile() {}
 
