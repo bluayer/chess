@@ -6,12 +6,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import ChangminYi.ChessBoard;
-import ChangminYi.Tile;
+import board.ChessBoard;
+import board.SearchPieceByPos;
+import board.Tile;
 import piece.GamePiece;
 import piece.Position;
-
-import ChangminYi.SearchPieceByPos;
 
 
 public class MouseClick implements ActionListener{

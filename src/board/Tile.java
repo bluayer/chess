@@ -1,4 +1,4 @@
-package ChangminYi;
+package board;
 
 import piece.GamePiece.PieceType;
 

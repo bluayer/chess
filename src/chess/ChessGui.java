@@ -12,10 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ChangminYi.ChessBoard;
-import ChangminYi.ChessPieceSprite;
-import ChangminYi.ChessPieceSprite.ChessPieceSpriteType;
-import ChangminYi.ImagePanel;
+import board.ChessBoard;
+import board.ChessPieceSprite;
+import board.ImagePanel;
+import board.ChessPieceSprite.ChessPieceSpriteType;
 
 public class ChessGui {
   /**

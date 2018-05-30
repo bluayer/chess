@@ -3,9 +3,9 @@ package piece;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import ChangminYi.ChessBoard;
-import ChangminYi.SearchPieceByPos;
-import ChangminYi.Tile;
+import board.ChessBoard;
+import board.SearchPieceByPos;
+import board.Tile;
 import chess.ChessGui;
 import piece.GamePiece.Color;
 

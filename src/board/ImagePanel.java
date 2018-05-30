@@ -1,4 +1,4 @@
-package ChangminYi;
+package board;
 
 import java.awt.Color;
 import java.awt.Graphics;

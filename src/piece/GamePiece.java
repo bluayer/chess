@@ -3,7 +3,7 @@ package piece;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import ChangminYi.ChessBoard;
+import board.ChessBoard;
 
 /**
  * A abstract class to make piece in Game, so its name is GamePiece

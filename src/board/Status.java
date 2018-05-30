@@ -1,4 +1,4 @@
-package ChangminYi;
+package board;
 
 public class Status {
   public static enum TEAM{

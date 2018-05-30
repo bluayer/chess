@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import ChangminYi.ChessBoard;
-import ChangminYi.SearchPieceByPos;
-import ChangminYi.Tile;
+import board.ChessBoard;
+import board.SearchPieceByPos;
+import board.Tile;
 import chess.ChessGui;
 import piece.GamePiece.Color;
 import piece.Position.Direction;

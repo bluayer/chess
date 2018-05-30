@@ -2,8 +2,8 @@ package piece;
 
 import java.awt.image.BufferedImage;
 
-import ChangminYi.ChessPieceSprite;
-import ChangminYi.ChessPieceSprite.ChessPieceSpriteType;
+import board.ChessPieceSprite;
+import board.ChessPieceSprite.ChessPieceSpriteType;
 import piece.GamePiece.Color;
 
 public class CreatePiece {
