@@ -26,7 +26,7 @@ public class King extends GamePiece{
   @Override
   public Position[] getCanMoves() {
     PieceWay way = new PieceWay(getPosition());
-    Position[] KingWay = way.waysKingPos(color);
+    Position[] KingWay = way.waysKingPosCheck(color);
     return KingWay;
   }
 }

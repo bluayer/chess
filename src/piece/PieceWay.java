@@ -434,11 +434,11 @@ public class PieceWay {
     }
   }
 
-  public boolean isCheck(King king, Position tilePosition, ChessBoard b) {
+  public boolean isCheck(Color color, Position tilePosition, ChessBoard b) {
     Color[] oppositeColor = new Color[2];
     int sameMoveTile = 0; // If the tile that king can move on is same as parameter tile, it will be 1
 
-    Position[] kingWays = waysKingPos(king.color);
+    Position[] kingWays = waysKingPos(color);
 
     for (int i = 0; i < kingWays.length; i++) {
       if (kingWays[i] == tilePosition) {
@@ -450,7 +450,7 @@ public class PieceWay {
       return false; // If the tile location is that King can't go, return false
     }
 
-    if (king.color == Color.WHITE || king.color == GamePiece.Color.BLACK) {
+    if (color == Color.WHITE || color == GamePiece.Color.BLACK) {
       oppositeColor[0] = Color.RED;
       oppositeColor[1] = Color.GREEN;
     } else {
@@ -493,6 +493,22 @@ public class PieceWay {
       }
     }
     return false;
+  }
+  
+  public Position[] waysKingPosCheck(Color color) {
+    Position KingPos[] = new Position[8];
+    for(int i=0; i<KingPos.length; i++) {
+      KingPos[i] = new Position(0, 0);
+    }
+    KingPos = waysKingPos(color);
+    for (int i=0; i<KingPos.length; i++) {
+      if(isCheck(color, KingPos[i], board) == true) {
+        for(int j = i; j<KingPos.length -1; j++) {
+          KingPos[j] = KingPos[j+1];
+        }
+      }
+    }
+    return KingPos;
   }
 
 }
