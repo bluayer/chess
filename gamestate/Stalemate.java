@@ -1,54 +1,183 @@
 package gamestate;
 
-import java.util.Arrays;
-
-import board.ChessBoard;
+import board.Status.TEAM;
 import board.Tile;
-import piece.GamePiece;
-import piece.*;
+import chess.ChessGui;
+import piece.Position;
+import piece.Bishop;
+import piece.GamePiece.Color;
+import piece.King;
+import piece.Knight;
+import piece.Pawn;
+import piece.PieceWay;
+import piece.Queen;
+import piece.Rook;
 
 public class Stalemate {
-	Position[] kingWay;
-	Position[] queenWay;
-	Position[] knightWay;
-	Position[] bishopWay;
-	Position[] rookWay;
-	Position[] pawnWay;
-	
-	King king;
-	Queen queen;
-	Knight knight;
-	Bishop bishop;
-	Rook rook;
-	Pawn pawn;
-	
-	public boolean isStalemate(){
+	TEAM team;
+	King[] king;
+	Queen[] queen;
+	Knight[][] knight;
+	Bishop[][] bishop;
+	Rook[][] rook;
+	Pawn[][] pawn;
+	Position[] aw; // availableWay
 
-		if(/*code for determine check here*/)
-			return false;
-
-		else {
-			if(king.isWhite()) {\]
-			}
-			
-			else if(king.isBlack()) {
-				
-			}
-				
-			else if(king.isGreen()) {
-				
-			}
-				
-			else {
-				
-			}
-			 
+	public Stalemate() {
+		this.king = ChessGui.b.king;
+		this.queen = ChessGui.b.queen;
+		this.knight = ChessGui.b.knight;
+		this.bishop = ChessGui.b.bishop;
+		this.rook = ChessGui.b.rook;
+		this.pawn = ChessGui.b.pawn;
+	}
+	
+	public void getStalemate(TEAM team){
+		this.team = team;
+	}
+	
+	private Color teamToColor(int num) {
+		Color color = null;
 		
-			
-			
-			return true;
+		switch(num) {
+		case 0:{
+			color = Color.BLACK;
+			break;
+			}
+		case 1:{
+			color = Color.WHITE;
+			break;
+			}
+		case 2:{
+			color = Color.RED;
+			break;
+			}
+		case 3:{
+			color = Color.GREEN;
+			break;
+			}
+		default :{
+			System.out.println("teamToColor:Error");
+			}
 		}
-
+		
+		return color;
+	}
+	
+	public boolean isStalemate() {
+		int t = Tile.cvtTeam(this.team);
+		
+	
+		if(piece.PieceWay.isCheck(teamToColor(t), this.king[t].getPosition(),ChessGui.b)) {
+			
+			return false;
+		}
+		 
+		else {
+			if(t == Tile.cvtTeam(TEAM.BLACK)) {
+				this.aw = king[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+				this.aw = queen[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+			
+				for(int i = 0; i < rook.length; i++) {
+					this.aw = rook[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < bishop.length; i++) {
+					this.aw = bishop[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < knight.length; i++) {
+					this.aw = knight[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for (int i = 0; i < pawn.length; i++) {
+					this.aw = pawn[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+			
+				return true;
+			}
+		
+			else if(t == Tile.cvtTeam(TEAM.WHITE)) {
+				this.aw = king[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+				this.aw = queen[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+			
+				for(int i = 0; i < rook.length; i++) {
+					this.aw = rook[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < bishop.length; i++) {
+					this.aw = bishop[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < knight.length; i++) {
+					this.aw = knight[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for (int i = 0; i < pawn.length; i++) {
+					this.aw = pawn[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+			
+				return true;
+			}
+		
+			else if(t == Tile.cvtTeam(TEAM.RED)) {
+				this.aw = king[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+				this.aw = queen[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+			
+				for(int i = 0; i < rook.length; i++) {
+					this.aw = rook[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < bishop.length; i++) {
+					this.aw = bishop[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < knight.length; i++) {
+					this.aw = knight[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for (int i = 0; i < pawn.length; i++) {
+					this.aw = pawn[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+			
+				return true;
+			}
+			
+			else {
+				this.aw = king[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+				this.aw = queen[t].getCanMoves();
+				if(this.aw.length != 0) {return false;}
+			
+				for(int i = 0; i < rook.length; i++) {
+					this.aw = rook[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < bishop.length; i++) {
+					this.aw = bishop[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for(int i = 0; i < knight.length; i++) {
+					this.aw = knight[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+				for (int i = 0; i < pawn.length; i++) {
+					this.aw = pawn[t][i].getCanMoves();
+					if(this.aw.length != 0) {return false;}
+				}
+			
+				return true;
+			}
+		}
 	}
 	
 }
