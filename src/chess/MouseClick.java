@@ -9,9 +9,11 @@ import javax.swing.JButton;
 import board.ChessBoard;
 import board.SearchPieceByPos;
 import board.Tile;
+import board.UpdatePiece;
 import piece.GamePiece;
 import piece.PieceWay;
 import piece.Position;
+import piece.GamePiece.PieceType;
 
 
 public class MouseClick implements ActionListener{
@@ -22,11 +24,12 @@ public class MouseClick implements ActionListener{
   public static JButton btn[][];
   
   private static GamePiece toMovePiece;
-  private static ChessBoard board;
-  private static Tile[][] tile;
+  public static ChessBoard board;
+  private static Tile[][] cBoard;
   private boolean isClicked;
   private PieceWay pieceWay;
   private Position[] tileBackup;
+  private GamePiece clickedPiece;
   
   public MouseClick(JButton[][] btns, ChessBoard bd) {
     this.firstBtn = null;
@@ -36,30 +39,52 @@ public class MouseClick implements ActionListener{
     this.btn = btns;
     this.isClicked = false;
     this.board = bd;
-    tile = this.board.getcBoard();
+    cBoard = this.board.getcBoard();
     this.clicked = new Color(255, 255, 0);
     this.backgroundBackup = null;
     this.toMovePiece = null;
+    this.clickedPiece = null;
   }
   
   public static GamePiece getMovePiece() {
     return toMovePiece;
   }
   
-  private static void movePieceAtTile(Position togo, Position prev) {
-    //toMovePiece = SearchPieceByPos.searchPiece(prev, board);
-    //System.out.println(toMovePiece);
-    board.updateTile(prev, togo);
-  }
   
   /**
-   * move ImageIcon from prev to togo
+   * move ImageIcon and Piece in ChessBoard from prev to togo
    * @param togo, prev
    */
   private void movePiece(JButton togo, JButton prev) {
     togo.setIcon(prev.getIcon());
     prev.setIcon(null);
-    movePieceAtTile(secondPos, firstPos);
+     
+    cBoard[firstPos.getX()][firstPos.getY()].setOnPiece(false);
+    cBoard[secondPos.getX()][secondPos.getY()].setOccupyPiece(cBoard[firstPos.getX()][firstPos.getY()].getOccupyPiece());
+    cBoard[firstPos.getX()][firstPos.getY()].setOccupyPiece(PieceType.NOPE);
+    cBoard[secondPos.getX()][secondPos.getY()].setOnPiece(true);
+    
+    switch(clickedPiece.getPieceType()) {
+    case PAWN:
+      UpdatePiece.updatePawn(firstPos, secondPos);
+      break;
+    case KNIGHT:
+      UpdatePiece.updateKnight(firstPos, secondPos);
+      break;
+    case BISHOP:
+      UpdatePiece.updateBishop(firstPos, secondPos);
+      break;
+    case ROOK:
+      UpdatePiece.updateRook(firstPos, secondPos);
+      break;
+    case QUEEN:
+      UpdatePiece.updateRook(firstPos, secondPos);
+      break;
+    case KING:
+      UpdatePiece.updateKing(firstPos, secondPos);
+      break;
+    default:
+    }
   }
   
   private void varsClear() {
@@ -73,7 +98,7 @@ public class MouseClick implements ActionListener{
   
   private Position[] getPossMove() {
     Position[] possPos = null, temp = null;
-    GamePiece clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
+    clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
     
     switch(clickedPiece.getPieceType()) {
       case PAWN:
@@ -99,7 +124,7 @@ public class MouseClick implements ActionListener{
     
     //checking whether return of waysXXPos is valid
     int validSize = 0;
-    while(tile[temp[validSize].getX()][temp[validSize].getY()].getActive()) {
+    while(cBoard[temp[validSize].getX()][temp[validSize].getY()].getActive()) {
       validSize++;
     }
     possPos = new Position[validSize];
@@ -111,6 +136,27 @@ public class MouseClick implements ActionListener{
   }
  
   
+  private Position[] possRemake(Position[] originalPoss) {
+    Position[] temp = null;
+    int leng = 0;
+    
+    for(int i = 0; i < originalPoss.length; i++) {
+      if(cBoard[originalPoss[i].getX()][originalPoss[i].getY()].getActive()) {
+        leng++;
+      }
+    }
+    
+    temp = new Position[leng];
+    leng = 0;
+    for(int i = 0; i < originalPoss.length; i++) {
+      if(cBoard[originalPoss[i].getX()][originalPoss[i].getY()].getActive()) {
+        temp[leng++] = originalPoss[i];
+      }      
+    }
+    
+    return temp;
+  }
+  
   private void firstClickSetup(int i,int j) {
     varsClear();
     
@@ -121,7 +167,7 @@ public class MouseClick implements ActionListener{
     firstBtn.setBackground(clicked);
     isClicked = true;
     
-    Position[] possMove = getPossMove();
+    Position[] possMove = possRemake(getPossMove());
     tileBackup = new Position[possMove.length];
     possMoveBGBackup = new Color[possMove.length];
     for(int k = 0; k < possMove.length; k++) {
@@ -143,6 +189,7 @@ public class MouseClick implements ActionListener{
     if((firstBtn != null) && (secondBtn != null) && (firstBtn != secondBtn)) {
       movePiece(secondBtn, firstBtn);
     }
+
     //rollback the tile's background
     for(int k = 0; k < tileBackup.length; k++) {
       btn[tileBackup[k].getX()][tileBackup[k].getY()].setBackground(possMoveBGBackup[k]);
@@ -166,7 +213,6 @@ public class MouseClick implements ActionListener{
             secondClickSetup(i, j);
           }
         }
-        
         
       }
     }

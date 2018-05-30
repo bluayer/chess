@@ -51,6 +51,7 @@ public class ChessBoard extends Tile{
 	  king = new King[4];
 	  
 	  
+	  
 	  for(int i = 0; i < 4; i++) {
 	    switch(i) {
 	    case 0:	//black
@@ -191,19 +192,6 @@ public class ChessBoard extends Tile{
 		    break;
 		  }
 		}
-		
-    for(int i = 0; i < 14; i++) {
-      for(int j = 0; j < 14; j++) {
-        if(getcBoard()[i][j].getActive()) {
-          System.out.print(getcBoard()[i][j].getOccupyPiece() + " ");
-        }
-        else {
-          System.out.print("INAC ");
-        }
-      }
-      System.out.println();
-    }
-		
 	}
 	
 	/** removeFromBoard
@@ -226,6 +214,7 @@ public class ChessBoard extends Tile{
 	 * @param Position goal: to-move position
 	 * @param Position current: current position
 	 */
+	
 	public static void updateTile(Position current, Position goal) {
 		getcBoard()[current.getX()][current.getY()].setOnPiece(false);
 		getcBoard()[goal.getX()][goal.getY()].setOccupyPiece(getcBoard()[current.getX()][current.getY()].getOccupyPiece());
@@ -243,5 +232,6 @@ public class ChessBoard extends Tile{
     ChessBoard.cBoard = cBoard;
   }
 	
+
 	
 }
