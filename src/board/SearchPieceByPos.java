@@ -77,31 +77,31 @@ public class SearchPieceByPos {
 	
 	public static GamePiece searchPiece(Position pos, ChessBoard Board) {
 	  if(Board.cBoard[pos.getX()][pos.getY()].isOnPiece()) {
-	      
+	    
 	    switch(Board.cBoard[pos.getX()][pos.getY()].getOccupyPiece()) {
 	    case PAWN:
-        System.out.println("found pawn");
+        System.out.println("searchPiece: found Pawn");
 	      return searchPawn(pos, Board);
       case BISHOP:
-        System.out.println("found bishop");
+        System.out.println("searchPiece: found Bishop");
 	      return searchBishop(pos, Board);
 	    case KNIGHT:
-        System.out.println("found knight");
+        System.out.println("searchPiece: found Knight");
 	      return searchKnight(pos, Board);
 	    case ROOK:
-        System.out.println("found rook");
+        System.out.println("searchPiece: found Rook");
 	      return searchRook(pos, Board);
 	    case QUEEN:
-        System.out.println("found queen");
+        System.out.println("searchPiece: found Queen");
 	      return searchQueen(pos, Board);
 	    case KING:
-        System.out.println("found king");
+        System.out.println("searchPiece: found King");
 	      return searchKing(pos, Board);
 	    default:
-	      System.out.println("SearchPieceByPos.searchPiece() method error");
+	      System.out.println("searchPiece: Exception: found NOPE");
 	    }
 	  }
-	  System.out.println("error");
+	  System.out.println("searchPiece: Error: nothing found");
 	  return null;
 	}
 	

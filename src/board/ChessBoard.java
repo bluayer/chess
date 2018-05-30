@@ -19,7 +19,7 @@ public class ChessBoard extends Tile{
 	 * Board is two-dimensional Tile Object array
 	 */
 	public static Tile[][] cBoard = new Tile[14][14];
-	
+  
 	/**
 	 * arrays about initial pieces
 	 * can access by using cvtTeam()
@@ -229,11 +229,11 @@ public class ChessBoard extends Tile{
 	public static void updateTile(Position current, Position goal) {
 		cBoard[current.getX()][current.getY()].setOnPiece(false);
 		cBoard[goal.getX()][goal.getY()].setOccupyPiece(cBoard[current.getX()][current.getY()].getOccupyPiece());
-		cBoard[current.getX()][current.getY()].setOccupyPiece(null);
+		cBoard[current.getX()][current.getY()].setOccupyPiece(PieceType.NOPE);
 		cBoard[goal.getX()][goal.getY()].setOnPiece(true);
+		System.out.println("updateTile: " + current.getX() + ", " + current.getY() + " to " + goal.getX() + ", " + goal.getY());
 		return;
 	}
-	
 	
 	
 }
