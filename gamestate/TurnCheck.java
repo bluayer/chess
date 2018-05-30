@@ -1,6 +1,6 @@
 package gamestate;
 
-import ChangminYi.Tile;
+import board.Status.TEAM;
 
 /**
  * This is the class to count turns.
@@ -11,27 +11,35 @@ import ChangminYi.Tile;
 
 public class TurnCheck {
 	
-	private static int mturn = 1;
+	private int mturn;
 	
-	void nextTurn() {
-		mturn ++;
+	public TurnCheck(){
+	  this.mturn = 0;
+	}
+	
+	private int getter() {
+		return (mturn % 4);
+	}
+	
+	public void nextTurn() {
+		this.mturn++;
 		return;
 	}
+	
 	/**
 	 * 
 	 * @return Return color that which player's turn
 	 */
 	
-	public static int getTurn() {
-		if(mturn % 4 == 1)
-			return Tile.cvtTeam(Tile.TEAM.WHITE);
-		else if(mturn % 4 == 2)
-			return Tile.cvtTeam(Tile.TEAM.RED);
-		else if(mturn % 4 == 3)
-			return Tile.cvtTeam(Tile.TEAM.BLACK);
+	public TEAM getTurn() {
+		if(this.getter() == 0)
+			return TEAM.WHITE;
+		else if(this.getter() == 1)
+			return TEAM.RED;
+		else if(this.getter() == 2)
+			return TEAM.BLACK;
 		else
-			return Tile.cvtTeam(Tile.TEAM.GREEN);
+			return TEAM.GREEN;
 	}
-	
-	
+
 }
