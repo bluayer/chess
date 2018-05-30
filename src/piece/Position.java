@@ -51,14 +51,14 @@ public class Position {
    */
 
   public boolean isValid() {
-    if (mx < 3 || mx > 10) {
-      if (my < 0 || my > 14) {
+    if (mx <= 3 || mx >= 10) {
+      if (my <= 0 || my >= 14) {
         return false;
       }
     }
 
-    if (my < 3 || my > 10) {
-      if (mx < 0 || mx > 14) {
+    if (my <= 3 || my >= 10) {
+      if (mx <= 0 || mx >= 14) {
         return false;
       }
     }
@@ -163,51 +163,64 @@ public class Position {
    * @return ArrayList<Position> pos
    */
 
-  Position[] findPos(Direction direction, Color color) {
-    Position[] pos = new Position[20];
+  ArrayList<Position> findPos(Direction direction, Color color) {
+    ArrayList<Position> posList = new ArrayList<Position>();
+    Position zero = new Position(0, 0);
+    posList.add(zero);
     Position nowPos = moveTo(direction);
     int nowPosX = nowPos.getX();
     int nowPosY = nowPos.getY();
-
-    Tile tile = ChessBoard.cBoard[nowPosX][nowPosY];
-
-    if (nowPos.isValid()) {
-      for (int i = 0; i < pos.length; i++) {
-        if (nowPos.isValid()) {
-          if (tile.isOnPiece() == false) {
-            pos[i] = nowPos;
-            nowPos = nowPos.moveTo(direction);
-            nowPosX = nowPos.getX();
-            nowPosY = nowPos.getY();
-            tile = ChessBoard.cBoard[nowPosX][nowPosY];
-          } else {
-            if (color == Color.BLACK || color == Color.WHITE) {
-              if(SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.RED
-                  || SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.GREEN) {
-                pos[i] = nowPos;
-                nowPos = nowPos.moveTo(direction);
-                nowPosX = nowPos.getX();
-                nowPosY = nowPos.getY();
-                tile = ChessBoard.cBoard[nowPosX][nowPosY];
-                break;
-              }
+    
+    System.out.println("X :" + nowPosX);
+    System.out.println("Y :" + nowPosY);
+    
+    
+    ChessBoard board = ChessGui.b;
+    
+    if (nowPosX >= 0 && nowPosY >= 0) {
+      Tile tile = board.getcBoard()[nowPosX][nowPosY];
+      while (nowPos.isValid()) {
+        if(tile.isOnPiece() == false) {
+          posList.add(nowPos);
+          nowPos = nowPos.moveTo(direction);
+          tile = ChessBoard.getcBoard()[nowPos.getX()][nowPos.getY()];
+        } 
+        else if(tile.isOnPiece() == true) {
+          if (color == Color.BLACK || color == Color.WHITE) {
+            if(SearchPieceByPos.searchPiece(nowPos, board).getColor() == Color.RED
+                || SearchPieceByPos.searchPiece(nowPos, board).getColor() == Color.GREEN) {
+              posList.add(nowPos);
+              nowPos = nowPos.moveTo(direction);
+              tile = ChessBoard.getcBoard()[nowPos.getX()][nowPos.getY()];
+              break;
             }
             else {
-              if(SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.BLACK
-                  || SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.WHITE) {
-                pos[i] = nowPos;
-                nowPos = nowPos.moveTo(direction);
-                nowPosX = nowPos.getX();
-                nowPosY = nowPos.getY();
-                tile = ChessBoard.cBoard[nowPosX][nowPosY];
-                break;
-              }
+              break;
             }
+          }  
+          else if (color == Color.RED || color == Color.GREEN){
+            if(SearchPieceByPos.searchPiece(nowPos, board).getColor() == Color.BLACK 
+                || SearchPieceByPos.searchPiece(nowPos, board).getColor() == Color.WHITE) {
+              posList.add(nowPos);
+              nowPos = nowPos.moveTo(direction);
+              tile = ChessBoard.getcBoard()[nowPos.getX()][nowPos.getY()];
+              break;
+            }
+            else {
+              break;
+            }
+          } 
+          else { 
+          System.out.println("color == null");
           }
+        }
+        else {
+          System.out.println("isPieceOn == null");
         }
       }
     }
-    return pos;
+    System.out.println("It's break time");
+    return posList;
   }
   
 }

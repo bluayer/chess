@@ -36,7 +36,7 @@ public class MouseClick implements ActionListener{
     this.btn = btns;
     this.isClicked = false;
     this.board = bd;
-    tile = this.board.cBoard;
+    tile = this.board.getcBoard();
     this.clicked = new Color(255, 255, 0);
     this.backgroundBackup = null;
     this.toMovePiece = null;
@@ -72,28 +72,27 @@ public class MouseClick implements ActionListener{
   }
   
   private Position[] getPossMove() {
-    pieceWay = new PieceWay(new Position(firstPos.getX(), firstPos.getY()));
     Position[] possPos = null, temp = null;
     GamePiece clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
     
     switch(clickedPiece.getPieceType()) {
       case PAWN:
-        temp = pieceWay.waysPawnPos(clickedPiece.getColor());
+        temp = clickedPiece.getCanMoves();
         break;
       case KNIGHT:
-        temp = pieceWay.waysKnightPos(clickedPiece.getColor());
+        temp = clickedPiece.getCanMoves();
         break;
       case BISHOP:
-        temp = pieceWay.waysBishopPos(clickedPiece.getColor());
+        temp = clickedPiece.getCanMoves();
         break;
       case ROOK:
-        temp = pieceWay.waysRookPos(clickedPiece.getColor());
+        temp = clickedPiece.getCanMoves();
         break;
       case QUEEN:
-        temp = pieceWay.waysQueenPos(clickedPiece.getColor());
+        temp = clickedPiece.getCanMoves();
         break;
       case KING:
-        temp = pieceWay.waysKingPos(clickedPiece.getColor());
+        temp = clickedPiece.getCanMoves();
         break;
       default:
     }

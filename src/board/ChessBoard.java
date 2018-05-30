@@ -18,7 +18,7 @@ public class ChessBoard extends Tile{
 	/**
 	 * Board is two-dimensional Tile Object array
 	 */
-	public static Tile[][] cBoard = new Tile[14][14];
+	private static Tile[][] cBoard = new Tile[14][14];
   
 	/**
 	 * arrays about initial pieces
@@ -115,10 +115,10 @@ public class ChessBoard extends Tile{
 			for(int j = 0; j < 14; j++) {
 				//inactive tile creation
 				if(((0 <= i && i <= 2) || (11 <= i && i <= 13)) && ((0 <= j && j <= 2) || (11 <= j && j <= 13))) {
-					cBoard[i][j] = new Tile(false, PieceType.NOPE);
+					getcBoard()[i][j] = new Tile(false, PieceType.NOPE);
 				}
 				else {	//active tile creation
-					cBoard[i][j] = new Tile(true, PieceType.NOPE);
+					getcBoard()[i][j] = new Tile(true, PieceType.NOPE);
 				}
 			}
 		}
@@ -126,76 +126,76 @@ public class ChessBoard extends Tile{
 		//initializing BLACK, RED team's onPiece
 		for(int i = 0; i <= 1; i++) {
 			for(int j = 3; j <= 10; j++) {
-				cBoard[i][j].setOnPiece(true);
-				cBoard[j][i].setOnPiece(true);
+				getcBoard()[i][j].setOnPiece(true);
+				getcBoard()[j][i].setOnPiece(true);
 			}
 		}
 		//initializing WHITE, GREEN team's onPiece
 		for(int i = 12; i <= 13; i++) {
 			for(int j = 3; j <= 10; j++) {
-				cBoard[i][j].setOnPiece(true);
-				cBoard[j][i].setOnPiece(true);
+				getcBoard()[i][j].setOnPiece(true);
+				getcBoard()[j][i].setOnPiece(true);
 			}
 		}
 		
 		for(int i = 3; i < 11; i++) {
-		  cBoard[1][i].setOccupyPiece(PieceType.PAWN);
-		  cBoard[12][i].setOccupyPiece(PieceType.PAWN);
-		  cBoard[i][1].setOccupyPiece(PieceType.PAWN);
-		  cBoard[i][12].setOccupyPiece(PieceType.PAWN);
+		  getcBoard()[1][i].setOccupyPiece(PieceType.PAWN);
+		  getcBoard()[12][i].setOccupyPiece(PieceType.PAWN);
+		  getcBoard()[i][1].setOccupyPiece(PieceType.PAWN);
+		  getcBoard()[i][12].setOccupyPiece(PieceType.PAWN);
 		}
 		for(int i = 3; i < 7; i++) {
 		  switch (i) {
 		  case 3:   //rook
-		    cBoard[0][i].setOccupyPiece(PieceType.ROOK);
-		    cBoard[0][13 - i].setOccupyPiece(PieceType.ROOK);
-		    cBoard[13][i].setOccupyPiece(PieceType.ROOK);
-		    cBoard[13][13 - i].setOccupyPiece(PieceType.ROOK);
-		    cBoard[i][0].setOccupyPiece(PieceType.ROOK);
-		    cBoard[13 - i][0].setOccupyPiece(PieceType.ROOK);
-		    cBoard[i][13].setOccupyPiece(PieceType.ROOK);
-		    cBoard[13 - i][13].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[0][i].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[0][13 - i].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[13][i].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[13][13 - i].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[i][0].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[13 - i][0].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[i][13].setOccupyPiece(PieceType.ROOK);
+		    getcBoard()[13 - i][13].setOccupyPiece(PieceType.ROOK);
 		    break;
 		    
 		  case 4:   //knight
-        cBoard[0][i].setOccupyPiece(PieceType.KNIGHT);
-        cBoard[0][13 - i].setOccupyPiece(PieceType.KNIGHT);
-        cBoard[13][i].setOccupyPiece(PieceType.KNIGHT);
-        cBoard[13][13 - i].setOccupyPiece(PieceType.KNIGHT);
-        cBoard[i][0].setOccupyPiece(PieceType.KNIGHT);
-        cBoard[13 - i][0].setOccupyPiece(PieceType.KNIGHT);
-        cBoard[i][13].setOccupyPiece(PieceType.KNIGHT);
-        cBoard[13 - i][13].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[0][i].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[0][13 - i].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[13][i].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[13][13 - i].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[i][0].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[13 - i][0].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[i][13].setOccupyPiece(PieceType.KNIGHT);
+        getcBoard()[13 - i][13].setOccupyPiece(PieceType.KNIGHT);
 		    break;
 		    
 		  case 5:   //bishop
-        cBoard[0][i].setOccupyPiece(PieceType.BISHOP);
-        cBoard[0][13 - i].setOccupyPiece(PieceType.BISHOP);
-        cBoard[13][i].setOccupyPiece(PieceType.BISHOP);
-        cBoard[13][13 - i].setOccupyPiece(PieceType.BISHOP);
-        cBoard[i][0].setOccupyPiece(PieceType.BISHOP);
-        cBoard[13 - i][0].setOccupyPiece(PieceType.BISHOP);
-        cBoard[i][13].setOccupyPiece(PieceType.BISHOP);
-        cBoard[13 - i][13].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[0][i].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[0][13 - i].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[13][i].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[13][13 - i].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[i][0].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[13 - i][0].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[i][13].setOccupyPiece(PieceType.BISHOP);
+        getcBoard()[13 - i][13].setOccupyPiece(PieceType.BISHOP);
 		    break;
 		    
 		  case 6:   //king, queen
-        cBoard[0][i].setOccupyPiece(PieceType.QUEEN);
-        cBoard[0][13 - i].setOccupyPiece(PieceType.KING);
-        cBoard[13][i].setOccupyPiece(PieceType.KING);
-        cBoard[13][13 - i].setOccupyPiece(PieceType.QUEEN);
-        cBoard[i][0].setOccupyPiece(PieceType.QUEEN);
-        cBoard[13 - i][0].setOccupyPiece(PieceType.KING);
-        cBoard[i][13].setOccupyPiece(PieceType.KING);
-        cBoard[13 - i][13].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[0][i].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[0][13 - i].setOccupyPiece(PieceType.KING);
+        getcBoard()[13][i].setOccupyPiece(PieceType.KING);
+        getcBoard()[13][13 - i].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[i][0].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[13 - i][0].setOccupyPiece(PieceType.KING);
+        getcBoard()[i][13].setOccupyPiece(PieceType.KING);
+        getcBoard()[13 - i][13].setOccupyPiece(PieceType.QUEEN);
 		    break;
 		  }
 		}
 		
     for(int i = 0; i < 14; i++) {
       for(int j = 0; j < 14; j++) {
-        if(cBoard[i][j].getActive()) {
-          System.out.print(cBoard[i][j].getOccupyPiece() + " ");
+        if(getcBoard()[i][j].getActive()) {
+          System.out.print(getcBoard()[i][j].getOccupyPiece() + " ");
         }
         else {
           System.out.print("INAC ");
@@ -214,7 +214,7 @@ public class ChessBoard extends Tile{
 	 * @param Position pos
 	 */
 	public static void removeFromBoard(Position pos) {
-		cBoard[pos.getX()][pos.getY()].setOnPiece(false);
+		getcBoard()[pos.getX()][pos.getY()].setOnPiece(false);
 		return;
 	}
 	
@@ -227,13 +227,21 @@ public class ChessBoard extends Tile{
 	 * @param Position current: current position
 	 */
 	public static void updateTile(Position current, Position goal) {
-		cBoard[current.getX()][current.getY()].setOnPiece(false);
-		cBoard[goal.getX()][goal.getY()].setOccupyPiece(cBoard[current.getX()][current.getY()].getOccupyPiece());
-		cBoard[current.getX()][current.getY()].setOccupyPiece(PieceType.NOPE);
-		cBoard[goal.getX()][goal.getY()].setOnPiece(true);
+		getcBoard()[current.getX()][current.getY()].setOnPiece(false);
+		getcBoard()[goal.getX()][goal.getY()].setOccupyPiece(getcBoard()[current.getX()][current.getY()].getOccupyPiece());
+		getcBoard()[current.getX()][current.getY()].setOccupyPiece(PieceType.NOPE);
+		getcBoard()[goal.getX()][goal.getY()].setOnPiece(true);
 		System.out.println("updateTile: " + current.getX() + ", " + current.getY() + " to " + goal.getX() + ", " + goal.getY());
 		return;
 	}
+
+  public static Tile[][] getcBoard() {
+    return cBoard;
+  }
+
+  public static void setcBoard(Tile[][] cBoard) {
+    ChessBoard.cBoard = cBoard;
+  }
 	
 	
 }

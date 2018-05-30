@@ -76,9 +76,9 @@ public class SearchPieceByPos {
 	
 	
 	public static GamePiece searchPiece(Position pos, ChessBoard Board) {
-	  if(Board.cBoard[pos.getX()][pos.getY()].isOnPiece()) {
+	  if(Board.getcBoard()[pos.getX()][pos.getY()].isOnPiece()) {
 	    
-	    switch(Board.cBoard[pos.getX()][pos.getY()].getOccupyPiece()) {
+	    switch(Board.getcBoard()[pos.getX()][pos.getY()].getOccupyPiece()) {
 	    case PAWN:
         System.out.println("searchPiece: found Pawn");
 	      return searchPawn(pos, Board);

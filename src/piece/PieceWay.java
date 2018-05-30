@@ -48,24 +48,25 @@ public class PieceWay {
   }
 
   public Position[] waysRookPos(Color color) {
-    Position[] RookPos = new Position[30];
-    for(int i=0; i<RookPos.length; i++) {
-      RookPos[i] = new Position(0, 0);
-    }
+    ArrayList <Position> RookPos = new ArrayList<Position>();
+    Position zero = new Position(0,0);
+    RookPos.add(zero);
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WRook = Direction.WRookD();
       RookPos = mpos.findPos(WRook[0], color);
       for (int i = 0; i < WRook.length; i++) {
-        RookPos = concat(RookPos, mpos.findPos(WRook[i], color));
+        RookPos.addAll(mpos.findPos(WRook[i], color));
       }
-      return RookPos;
+      Position[] Wresult = RookPos.toArray(new Position[RookPos.size()]);
+      return Wresult;
     } else {
       Direction[] RRook = Direction.RRookD();
       RookPos = mpos.findPos(RRook[0], color);
       for (int i = 0; i < RRook.length; i++) {
-        RookPos = concat(RookPos, mpos.findPos(RRook[i], color));
+        RookPos.addAll(mpos.findPos(RRook[i], color));
       }
-      return RookPos;
+      Position[] Rresult = RookPos.toArray(new Position[RookPos.size()]);
+      return Rresult;
     }
 
   }
@@ -82,7 +83,7 @@ public class PieceWay {
         if (oneMovedPos.isValid()) {
           int tileX = oneMovedPos.getX();
           int tileY = oneMovedPos.getY();
-          Tile tile = board.cBoard[tileX][tileY];
+          Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
             KnightPos[i] = oneMovedPos;
           }
@@ -102,7 +103,7 @@ public class PieceWay {
         if (oneMovedPos.isValid()) {
           int tileX = oneMovedPos.getX();
           int tileY = oneMovedPos.getY();
-          Tile tile = board.cBoard[tileX][tileY];
+          Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
             KnightPos[i] = oneMovedPos;
           }
@@ -119,47 +120,49 @@ public class PieceWay {
   }
 
   public Position[] waysBishopPos(Color color) {
-    Position[] BishopPos = new Position[22];
-    for(int i=0; i<BishopPos.length; i++) {
-      BishopPos[i] = new Position(0, 0);
-    }
+    ArrayList <Position> BishopPos = new ArrayList<Position>();
+    Position zero = new Position(0,0);
+    BishopPos.add(zero);
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WBishop = Direction.WBishopD();
       BishopPos = mpos.findPos(WBishop[0], color);
       for (int i = 0; i < WBishop.length; i++) {
-        BishopPos = concat(BishopPos, mpos.findPos(WBishop[i], color));
+        BishopPos.addAll(mpos.findPos(WBishop[i], color));
       }
-      return BishopPos;
+      Position[] Wresult = BishopPos.toArray(new Position[BishopPos.size()]);
+      return Wresult;
     } else {
       Direction[] RBishop = Direction.RBishopD();
       BishopPos = mpos.findPos(RBishop[0], color);
       for (int i = 0; i < RBishop.length; i++) {
-        BishopPos = concat(BishopPos, mpos.findPos(RBishop[i], color));
+        BishopPos.addAll(mpos.findPos(RBishop[i], color));
       }
-      return BishopPos;
+      Position[] Rresult = BishopPos.toArray(new Position[BishopPos.size()]);
+      return Rresult;
     }
-
   }
 
+
   public Position[] waysQueenPos(Color color) {
-    Position[] QueenPos = new Position[50];
-    for(int i=0; i<QueenPos.length; i++) {
-      QueenPos[i] = new Position(0, 0);
-    }
+    ArrayList <Position> QueenPos = new ArrayList<Position>();
+    Position zero = new Position(0,0);
+    QueenPos.add(zero);
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WQueen = Direction.WAllD();
       QueenPos = mpos.findPos(WQueen[0], color);
       for (int i = 0; i < WQueen.length; i++) {
-        QueenPos = concat(QueenPos, mpos.findPos(WQueen[i], color));
+        QueenPos.addAll(mpos.findPos(WQueen[i], color));
       }
-      return QueenPos;
+      Position[] Wresult = QueenPos.toArray(new Position[QueenPos.size()]);
+      return Wresult;
     } else {
       Direction[] RQueen = Direction.RAllD();
       QueenPos = mpos.findPos(RQueen[0], color);
       for (int i = 0; i < RQueen.length; i++) {
-        QueenPos = concat(QueenPos, mpos.findPos(RQueen[i], color));
+        QueenPos.addAll(mpos.findPos(RQueen[i], color));
       }
-      return QueenPos;
+      Position[] Rresult = QueenPos.toArray(new Position[QueenPos.size()]);
+      return Rresult;
     }
   }
 
@@ -175,7 +178,7 @@ public class PieceWay {
         if (oneMovedPos.isValid()) {
           int tileX = oneMovedPos.getX();
           int tileY = oneMovedPos.getY();
-          Tile tile = board.cBoard[tileX][tileY];
+          Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
             KingPos[i] = oneMovedPos;
           }
@@ -195,7 +198,7 @@ public class PieceWay {
         if (oneMovedPos.isValid()) {
           int tileX = oneMovedPos.getX();
           int tileY = oneMovedPos.getY();
-          Tile tile = board.cBoard[tileX][tileY];
+          Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
             KingPos[i] = oneMovedPos;
           }
@@ -228,7 +231,7 @@ public class PieceWay {
       if (oneMovedPos.isValid()) {
         int WtileX = oneMovedPos.getX()+1;
         int WtileY = oneMovedPos.getY();
-        Tile Wtile = board.cBoard[WtileX][WtileY];
+        Tile Wtile = board.getcBoard()[WtileX][WtileY];
         if (Wtile.isOnPiece() == false) {
           PawnPos[0] = oneMovedPos.moveTo(Direction.WN); // Basic move
         }
@@ -250,8 +253,8 @@ public class PieceWay {
         int WdiagonalTileX2 = oneMovedPos.getX()-1; // WNW
         int WdiagonalTileY2 = oneMovedPos.getY()-1; // WNW
         
-        Tile WdiagonalTile1 = board.cBoard[WdiagonalTileX1][WdiagonalTileY1]; // WNE Tile
-        Tile WdiagonalTile2 = board.cBoard[WdiagonalTileX2][WdiagonalTileY2]; // WNW Tile
+        Tile WdiagonalTile1 = board.getcBoard()[WdiagonalTileX1][WdiagonalTileY1]; // WNE Tile
+        Tile WdiagonalTile2 = board.getcBoard()[WdiagonalTileX2][WdiagonalTileY2]; // WNW Tile
         
         
         if (mpos.moveTo(Direction.WNE).isValid()) {
@@ -281,7 +284,7 @@ public class PieceWay {
       if (oneMovedPos2.isValid()) {
         int BtileX = oneMovedPos2.getX()-1;
         int BtileY = oneMovedPos2.getY();
-        Tile Btile = board.cBoard[BtileX][BtileY];
+        Tile Btile = board.getcBoard()[BtileX][BtileY];
         if (Btile.isOnPiece() == false) {
           PawnPos[0] = oneMovedPos2.moveTo(Direction.WS); // Basic move
         }
@@ -303,8 +306,8 @@ public class PieceWay {
         int BdiagonalTileX2 = oneMovedPos2.getX()+1; // WSW
         int BdiagonalTileY2 = oneMovedPos2.getY()-1; // WSW
         
-        Tile BdiagonalTile1 = board.cBoard[BdiagonalTileX1][BdiagonalTileY1]; // WSE Tile
-        Tile BdiagonalTile2 = board.cBoard[BdiagonalTileX2][BdiagonalTileY2]; // WSW Tile        
+        Tile BdiagonalTile1 = board.getcBoard()[BdiagonalTileX1][BdiagonalTileY1]; // WSE Tile
+        Tile BdiagonalTile2 = board.getcBoard()[BdiagonalTileX2][BdiagonalTileY2]; // WSW Tile        
         
         if (mpos.moveTo(Direction.WSE).isValid()) {
           if (SearchPieceByPos.searchPiece(dOneMovedPos3, board).getColor() == Color.RED 
@@ -334,7 +337,7 @@ public class PieceWay {
       if (oneMovedPos3.isValid()) {
         int RtileX = oneMovedPos3.getX();
         int RtileY = oneMovedPos3.getY()+1;
-        Tile Rtile = board.cBoard[RtileX][RtileY];
+        Tile Rtile = board.getcBoard()[RtileX][RtileY];
         if (Rtile.isOnPiece() == false) {
           PawnPos[0] = oneMovedPos3.moveTo(Direction.RN); // Basic move
         }
@@ -356,8 +359,8 @@ public class PieceWay {
         int RdiagonalTileX2 = oneMovedPos3.getX()-1; // RNW
         int RdiagonalTileY2 = oneMovedPos3.getY()+1; // RNW
           
-        Tile RdiagonalTile1 = board.cBoard[RdiagonalTileX1][RdiagonalTileY1]; // RNE Tile
-        Tile RdiagonalTile2 = board.cBoard[RdiagonalTileX2][RdiagonalTileY2]; // RNW Tile        
+        Tile RdiagonalTile1 = board.getcBoard()[RdiagonalTileX1][RdiagonalTileY1]; // RNE Tile
+        Tile RdiagonalTile2 = board.getcBoard()[RdiagonalTileX2][RdiagonalTileY2]; // RNW Tile        
           
         if (mpos.moveTo(Direction.RNE).isValid()) {
           if (SearchPieceByPos.searchPiece(dOneMovedPos5, board).getColor() == Color.WHITE 
@@ -387,7 +390,7 @@ public class PieceWay {
       if (oneMovedPos4.isValid()) {
         int GtileX = oneMovedPos4.getX();
         int GtileY = oneMovedPos4.getY()-1;
-        Tile Gtile = board.cBoard[GtileX][GtileY];
+        Tile Gtile = board.getcBoard()[GtileX][GtileY];
         if (Gtile.isOnPiece() == false) {
           PawnPos[0] = oneMovedPos4.moveTo(Direction.RS); // Basic move
         }
@@ -409,8 +412,8 @@ public class PieceWay {
         int GdiagonalTileX2 = oneMovedPos4.getX()-1; // RSW
         int GdiagonalTileY2 = oneMovedPos4.getY()-1; // RSW
           
-        Tile GdiagonalTile1 = board.cBoard[GdiagonalTileX1][GdiagonalTileY1]; // RSE Tile
-        Tile GdiagonalTile2 = board.cBoard[GdiagonalTileX2][GdiagonalTileY2]; // RSW Tile        
+        Tile GdiagonalTile1 = board.getcBoard()[GdiagonalTileX1][GdiagonalTileY1]; // RSE Tile
+        Tile GdiagonalTile2 = board.getcBoard()[GdiagonalTileX2][GdiagonalTileY2]; // RSW Tile        
           
         if (mpos.moveTo(Direction.RSE).isValid()) {
           if (SearchPieceByPos.searchPiece(dOneMovedPos7, board).getColor() == Color.WHITE 
@@ -483,7 +486,7 @@ public class PieceWay {
 
     int tilePosX = tilePosition.getX();
     int tilePosY = tilePosition.getY();
-    Tile aroundTile = ChessBoard.cBoard[tilePosX][tilePosY];
+    Tile aroundTile = ChessBoard.getcBoard()[tilePosX][tilePosY];
 
     if (aroundTile.isOnPiece() == false) {
       for (int i = 0; i < result.length; i++) {
