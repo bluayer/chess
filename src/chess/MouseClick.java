@@ -142,10 +142,11 @@ public class MouseClick implements ActionListener{
     
     if((firstBtn != null) && (secondBtn != null) && (firstBtn != secondBtn)) {
       movePiece(secondBtn, firstBtn);
-      for(int k = 0; k < tileBackup.length; k++) {
-        btn[tileBackup[k].getX()][tileBackup[k].getY()].setBackground(possMoveBGBackup[k]);
-        k++;
-      }
+    }
+    //rollback the tile's background
+    for(int k = 0; k < tileBackup.length; k++) {
+      btn[tileBackup[k].getX()][tileBackup[k].getY()].setBackground(possMoveBGBackup[k]);
+      k++;
     }
     
     System.out.println("Second Click: " + secondPos.getX() + ", " + secondPos.getY());
