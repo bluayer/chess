@@ -49,18 +49,21 @@ public class PieceWay {
 
   public Position[] waysRookPos(Color color) {
     Position[] RookPos = new Position[30];
+    for(int i=0; i<RookPos.length; i++) {
+      RookPos[i] = new Position(0, 0);
+    }
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WRook = Direction.WRookD();
-      RookPos = mpos.findPos(WRook[0]);
+      RookPos = mpos.findPos(WRook[0], color);
       for (int i = 0; i < WRook.length; i++) {
-        RookPos = concat(RookPos, mpos.findPos(WRook[i]));
+        RookPos = concat(RookPos, mpos.findPos(WRook[i], color));
       }
       return RookPos;
     } else {
       Direction[] RRook = Direction.RRookD();
-      RookPos = mpos.findPos(RRook[0]);
+      RookPos = mpos.findPos(RRook[0], color);
       for (int i = 0; i < RRook.length; i++) {
-        RookPos = concat(RookPos, mpos.findPos(RRook[i]));
+        RookPos = concat(RookPos, mpos.findPos(RRook[i], color));
       }
       return RookPos;
     }
@@ -69,6 +72,9 @@ public class PieceWay {
 
   public Position[] waysKnightPos(Color color) {
     Position[] KnightPos = new Position[8];
+    for(int i=0; i<KnightPos.length; i++) {
+      KnightPos[i] = new Position(0, 0);
+    }
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WKnight = Direction.WKnightD();
       for (int i = 0; i < WKnight.length; i++) {
@@ -79,6 +85,12 @@ public class PieceWay {
           Tile tile = board.cBoard[tileX][tileY];
           if (tile.isOnPiece() == false) {
             KnightPos[i] = oneMovedPos;
+          }
+          else {
+            if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.RED
+                || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.GREEN) {
+              KnightPos[i] = oneMovedPos;
+            }
           }
         }
       }
@@ -94,6 +106,12 @@ public class PieceWay {
           if (tile.isOnPiece() == false) {
             KnightPos[i] = oneMovedPos;
           }
+          else {
+            if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.BLACK
+                || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.WHITE) {
+              KnightPos[i] = oneMovedPos;
+            }
+          }
         }
       }
       return KnightPos;
@@ -102,18 +120,21 @@ public class PieceWay {
 
   public Position[] waysBishopPos(Color color) {
     Position[] BishopPos = new Position[22];
+    for(int i=0; i<BishopPos.length; i++) {
+      BishopPos[i] = new Position(0, 0);
+    }
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WBishop = Direction.WBishopD();
-      BishopPos = mpos.findPos(WBishop[0]);
+      BishopPos = mpos.findPos(WBishop[0], color);
       for (int i = 0; i < WBishop.length; i++) {
-        BishopPos = concat(BishopPos, mpos.findPos(WBishop[i]));
+        BishopPos = concat(BishopPos, mpos.findPos(WBishop[i], color));
       }
       return BishopPos;
     } else {
       Direction[] RBishop = Direction.RBishopD();
-      BishopPos = mpos.findPos(RBishop[0]);
+      BishopPos = mpos.findPos(RBishop[0], color);
       for (int i = 0; i < RBishop.length; i++) {
-        BishopPos = concat(BishopPos, mpos.findPos(RBishop[i]));
+        BishopPos = concat(BishopPos, mpos.findPos(RBishop[i], color));
       }
       return BishopPos;
     }
@@ -122,18 +143,21 @@ public class PieceWay {
 
   public Position[] waysQueenPos(Color color) {
     Position[] QueenPos = new Position[50];
+    for(int i=0; i<QueenPos.length; i++) {
+      QueenPos[i] = new Position(0, 0);
+    }
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WQueen = Direction.WAllD();
-      QueenPos = mpos.findPos(WQueen[0]);
+      QueenPos = mpos.findPos(WQueen[0], color);
       for (int i = 0; i < WQueen.length; i++) {
-        QueenPos = concat(QueenPos, mpos.findPos(WQueen[i]));
+        QueenPos = concat(QueenPos, mpos.findPos(WQueen[i], color));
       }
       return QueenPos;
     } else {
       Direction[] RQueen = Direction.RAllD();
-      QueenPos = mpos.findPos(RQueen[0]);
+      QueenPos = mpos.findPos(RQueen[0], color);
       for (int i = 0; i < RQueen.length; i++) {
-        QueenPos = concat(QueenPos, mpos.findPos(RQueen[i]));
+        QueenPos = concat(QueenPos, mpos.findPos(RQueen[i], color));
       }
       return QueenPos;
     }
@@ -141,6 +165,9 @@ public class PieceWay {
 
   public Position[] waysKingPos(Color color) {
     Position KingPos[] = new Position[8];
+    for(int i=0; i<KingPos.length; i++) {
+      KingPos[i] = new Position(0, 0);
+    }
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WKing = Direction.WAllD();
       for (int i = 0; i < WKing.length; i++) {
@@ -151,6 +178,12 @@ public class PieceWay {
           Tile tile = board.cBoard[tileX][tileY];
           if (tile.isOnPiece() == false) {
             KingPos[i] = oneMovedPos;
+          }
+          else {
+            if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.RED
+                || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.GREEN) {
+              KingPos[i] = oneMovedPos;
+            }
           }
         }
       }
@@ -166,14 +199,26 @@ public class PieceWay {
           if (tile.isOnPiece() == false) {
             KingPos[i] = oneMovedPos;
           }
+          else {
+            if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.BLACK
+                || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.WHITE) {
+              KingPos[i] = oneMovedPos;
+            }
+          }
         }
       }
+      
       return KingPos;
     }
   }
 
+ 
+
   public Position[] waysPawnPos(Color color) {
     Position[] PawnPos = new Position[4];
+    for(int i=0; i<PawnPos.length; i++) {
+      PawnPos[i] = new Position(0, 0);
+    }
     int x = mpos.getX();
     int y = mpos.getY();
     
@@ -389,7 +434,7 @@ public class PieceWay {
     }
   }
 
-  protected boolean isCheck(King king, Position tilePosition, ChessBoard b) {
+  public boolean isCheck(King king, Position tilePosition, ChessBoard b) {
     Color[] oppositeColor = new Color[2];
     int sameMoveTile = 0; // If the tile that king can move on is same as parameter tile, it will be 1
 

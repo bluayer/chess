@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import ChangminYi.ChessBoard;
+import ChangminYi.SearchPieceByPos;
 import ChangminYi.Tile;
+import chess.ChessGui;
 import piece.GamePiece.Color;
 
 /**
@@ -33,13 +35,13 @@ public class Position {
   public int getY() {
     return this.my;
   }
-  
+
   public void setX(int x) {
     this.mx = x;
   }
-  
+
   public void setY(int y) {
-    this.my =y;
+    this.my = y;
   }
 
   /**
@@ -161,7 +163,7 @@ public class Position {
    * @return ArrayList<Position> pos
    */
 
-  Position[] findPos(Direction direction) {
+  Position[] findPos(Direction direction, Color color) {
     Position[] pos = new Position[20];
     Position nowPos = moveTo(direction);
     int nowPosX = nowPos.getX();
@@ -179,16 +181,33 @@ public class Position {
             nowPosY = nowPos.getY();
             tile = ChessBoard.cBoard[nowPosX][nowPosY];
           } else {
-            pos[i] = nowPos;
-            nowPos = nowPos.moveTo(direction);
-            nowPosX = nowPos.getX();
-            nowPosY = nowPos.getY();
-            tile = ChessBoard.cBoard[nowPosX][nowPosY];
-            break;
+            if (color == Color.BLACK || color == Color.WHITE) {
+              if(SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.RED
+                  || SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.GREEN) {
+                pos[i] = nowPos;
+                nowPos = nowPos.moveTo(direction);
+                nowPosX = nowPos.getX();
+                nowPosY = nowPos.getY();
+                tile = ChessBoard.cBoard[nowPosX][nowPosY];
+                break;
+              }
+            }
+            else {
+              if(SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.BLACK
+                  || SearchPieceByPos.searchPiece(nowPos, ChessGui.b).getColor() == Color.WHITE) {
+                pos[i] = nowPos;
+                nowPos = nowPos.moveTo(direction);
+                nowPosX = nowPos.getX();
+                nowPosY = nowPos.getY();
+                tile = ChessBoard.cBoard[nowPosX][nowPosY];
+                break;
+              }
+            }
           }
         }
       }
     }
     return pos;
   }
+  
 }
