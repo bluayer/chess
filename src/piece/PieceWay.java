@@ -497,17 +497,23 @@ public class PieceWay {
   
   public Position[] waysKingPosCheck(Color color) {
     Position KingPos[] = new Position[8];
-    for(int i=0; i<KingPos.length; i++) {
-      KingPos[i] = new Position(0, 0);
-    }
+    int count = 0;
+    Position zero = new Position(0, 0);
     KingPos = waysKingPos(color);
     for (int i=0; i<KingPos.length; i++) {
       if(isCheck(color, KingPos[i], board) == true) {
         for(int j = i; j<KingPos.length -1; j++) {
           KingPos[j] = KingPos[j+1];
+          count++;
         }
       }
     }
+    if(count != 0) {
+      for(int k=KingPos.length-count; k<KingPos.length; k++) {
+        KingPos[k] = zero; // if Check position is valid, index in array is check that will be zero
+      }
+    }
+    
     return KingPos;
   }
 
