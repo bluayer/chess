@@ -157,7 +157,6 @@ public class MouseClick implements ActionListener{
     firstBtn = btn[i][j];
     firstPos = new Position(i, j);
     backgroundBackup = firstBtn.getBackground();
-    firstBtn.setBackground(clicked);
     isClicked = true;
     
     Position[] possMove = possRemake(getPossMove());
@@ -169,7 +168,8 @@ public class MouseClick implements ActionListener{
       btn[possMove[k].getX()][possMove[k].getY()].setBackground(new Color(255, 0, 0));
     }
     
-    System.out.println("First Click: " + firstPos.getX() + ", " + firstPos.getY());
+    firstBtn.setBackground(clicked);
+    return;
   }
   
   
@@ -179,19 +179,27 @@ public class MouseClick implements ActionListener{
     secondPos = new Position(i,j);
     isClicked = false;
     
-    if((firstBtn != null) && (secondBtn != null) && (firstBtn != secondBtn)) {
-      movePiece(secondBtn, firstBtn);
+    if(isValidMove()) {
+      if((firstBtn != null) && (secondBtn != null) && (firstBtn != secondBtn)) {
+        movePiece(secondBtn, firstBtn);
+      }
     }
 
     //rollback the tile's background
     for(int k = 0; k < tileBackup.length; k++) {
       btn[tileBackup[k].getX()][tileBackup[k].getY()].setBackground(possMoveBGBackup[k]);
-      k++;
     }
-    
-    System.out.println("Second Click: " + secondPos.getX() + ", " + secondPos.getY());
+    return;
   }
   
+  private boolean isValidMove() {
+    for(int i = 0; i < tileBackup.length; i++) {
+      if(tileBackup[i].getX()==secondPos.getX() && tileBackup[i].getY()==secondPos.getY()) {
+        return true;
+      }
+    }
+    return false;
+  }
   
   @Override
   public void actionPerformed(ActionEvent e) {
