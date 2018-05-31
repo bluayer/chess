@@ -67,8 +67,9 @@ public class Stalemate {
 	public boolean isStalemate() {
 		int t = Tile.cvtTeam(this.team);
 		
-	
-		if(piece.PieceWay.isCheck(teamToColor(t), this.king[t].getPosition(),ChessGui.b)) {
+		PieceWay p = new PieceWay(this.king[t].getPosition());
+		
+		if(p.isCheck(teamToColor(t), this.king[t].getPosition(),ChessGui.b)) {
 			
 			return false;
 		}
