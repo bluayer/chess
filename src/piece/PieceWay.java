@@ -4,13 +4,13 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 import board.ChessBoard;
 import board.SearchPieceByPos;
 import board.Tile;
 import chess.ChessGui;
 import piece.GamePiece.Color;
+import piece.GamePiece.PieceType;
 import piece.Position.Direction;
 
 /**
@@ -242,7 +242,9 @@ public class PieceWay {
       
       Position[] Wresult = KingPos.toArray(new Position[KingPos.size()]);
       return Wresult;
-    } else {
+      
+    } 
+    else {
       Direction[] RKing = Direction.RAllD();
       for (int i = 0; i < RKing.length; i++) {
         Position oneMovedPos = mpos.moveTo(RKing[i]);
@@ -477,87 +479,118 @@ public class PieceWay {
     }
   }
 
-  public boolean isCheck(Color color, Position tilePosition, ChessBoard b) {
-    Color[] oppositeColor = new Color[2];
-    int sameMoveTile = 0; // If the tile that king can move on is same as parameter tile, it will be 1
-
-    Position[] kingWays = waysKingPos(color);
-
-    for (int i = 0; i < kingWays.length; i++) {
-      if (kingWays[i] == tilePosition) {
-        sameMoveTile = 1;
-      }
+  public boolean isCheck(Color color) {
+    
+    Color oppositeColor1 = null, oppositeColor2 = null;
+    
+    switch(color) {
+    case BLACK:
+      oppositeColor1 = Color.RED;
+      oppositeColor2 = Color.GREEN;
+      break;
+    case WHITE:
+      oppositeColor1 = Color.RED;
+      oppositeColor2 = Color.GREEN;
+      break;
+    case RED:
+      oppositeColor1 = Color.BLACK;
+      oppositeColor2 = Color.WHITE;
+      break;
+    case GREEN:
+      oppositeColor1 = Color.RED;
+      oppositeColor2 = Color.WHITE;
+      break;
+    default:
     }
-
-    if (sameMoveTile == 0) {
-      return false; // If the tile location is that King can't go, return false
-    }
-
-    if (color == Color.WHITE || color == GamePiece.Color.BLACK) {
-      oppositeColor[0] = Color.RED;
-      oppositeColor[1] = Color.GREEN;
-    } else {
-      oppositeColor[0] = Color.WHITE;
-      oppositeColor[1] = Color.BLACK;
-    }
-
-    Position pos = new Position(0, 0);
-    GamePiece piece;
-
-    ArrayList<Position> allPos = new ArrayList<Position>();
-    for (int j = 0; j < 14; j++) {
-      for (int k = 0; k < 14; k++) {
-        if (pos.isValid()) {
-          pos.setX(j);
-          pos.setY(k);
-          piece = SearchPieceByPos.searchPiece(pos, b);
-          if (piece != null) {
-            if (piece.getColor() == oppositeColor[0] || piece.getColor() == oppositeColor[1]) {
-              allPos.addAll(Arrays.asList(piece.getCanMoves()));
+    
+    ArrayList<Position> kingPos = new ArrayList<Position>(Arrays.asList(waysKingPos(color)));
+    ArrayList<Position> oppositeAll = new ArrayList<Position>();
+    Position nowPos = new Position(0 , 0);
+    for(int i = 0; i < 14; i++) {
+      for(int j = 0; j < 14; j++) {
+        nowPos.setX(i);
+        nowPos.setY(j);
+        
+        if(board.getcBoard()[i][j].getActive() == true) {
+          if(board.getcBoard()[i][j].isOnPiece() == true) {
+            if (SearchPieceByPos.searchPiece(nowPos, board).getPieceType() != PieceType.KING) {
+              GamePiece piece = SearchPieceByPos.searchPiece(nowPos, board);
+              if (piece.getColor() == oppositeColor1 || piece.getColor() == oppositeColor2) {
+                if(piece.getCanMoves() != null) {
+                  for(int k=0; k < piece.getCanMoves().length; k++) {
+                    for (int l=0; l<kingPos.size(); l++) {
+                      if (piece.getCanMoves()[k].getX() == kingPos.get(l).getX() &&
+                          piece.getCanMoves()[k].getY() == kingPos.get(l).getY()) {
+                        return true;
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
     }
 
-    HashSet<Position> hashPos = new HashSet<Position>(allPos);
-    ArrayList<Position> allPosResult = new ArrayList<Position>(hashPos);
-    Position[] result = allPosResult.toArray(new Position[allPosResult.size()]);
-
-    int tilePosX = tilePosition.getX();
-    int tilePosY = tilePosition.getY();
-    Tile aroundTile = ChessBoard.getcBoard()[tilePosX][tilePosY];
-
-    if (aroundTile.isOnPiece() == false) {
-      for (int i = 0; i < result.length; i++) {
-        if (result[i] == tilePosition) {
-          return true;
-        }
-      }
-    }
     return false;
   }
   
   public Position[] waysKingPosCheck(Color color) {
-    Position KingPos[] = new Position[8];
-    int count = 0;
-    Position zero = new Position(0, 0);
-    KingPos = waysKingPos(color);
-    for (int i=0; i<KingPos.length; i++) {
-      if(isCheck(color, KingPos[i], board) == true) {
-        for(int j = i; j<KingPos.length -1; j++) {
-          KingPos[j] = KingPos[j+1];
-          count++;
+   
+    Color oppositeColor1 = null, oppositeColor2 = null;
+    
+    switch(color) {
+    case BLACK:
+      oppositeColor1 = Color.RED;
+      oppositeColor2 = Color.GREEN;
+      break;
+    case WHITE:
+      oppositeColor1 = Color.RED;
+      oppositeColor2 = Color.GREEN;
+      break;
+    case RED:
+      oppositeColor1 = Color.BLACK;
+      oppositeColor2 = Color.WHITE;
+      break;
+    case GREEN:
+      oppositeColor1 = Color.RED;
+      oppositeColor2 = Color.WHITE;
+      break;
+    default:
+    }
+    
+    ArrayList<Position> kingPos = new ArrayList<Position>(Arrays.asList(waysKingPos(color)));
+    ArrayList<Position> oppositeAll = new ArrayList<Position>();
+    Position nowPos = new Position(0 , 0);
+    for(int i = 0; i < 14; i++) {
+      for(int j = 0; j < 14; j++) {
+        nowPos.setX(i);
+        nowPos.setY(j);
+        
+        if(board.getcBoard()[i][j].getActive() == true) {
+          if(board.getcBoard()[i][j].isOnPiece() == true) {
+            if (SearchPieceByPos.searchPiece(nowPos, board).getPieceType() != PieceType.KING) {
+              GamePiece piece = SearchPieceByPos.searchPiece(nowPos, board);
+              if (piece.getColor() == oppositeColor1 || piece.getColor() == oppositeColor2) {
+                if(piece.getCanMoves() != null) {
+                  for(int k=0; k < piece.getCanMoves().length; k++) {
+                    for (int l=0; l<kingPos.size(); l++) {
+                      if (piece.getCanMoves()[k].getX() == kingPos.get(l).getX() &&
+                          piece.getCanMoves()[k].getY() == kingPos.get(l).getY()) {
+                        kingPos.remove(l);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
-    if(count != 0) {
-      for(int k=KingPos.length-count; k<KingPos.length; k++) {
-        KingPos[k] = zero; // if Check position is valid, index in array is check that will be zero
-      }
-    }
-    
-    return KingPos;
-  }
 
+    Position[] result = kingPos.toArray(new Position[kingPos.size()]);
+    return result;
+  }
 }
