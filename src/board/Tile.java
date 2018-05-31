@@ -7,12 +7,7 @@ import piece.GamePiece.PieceType;
  * class about single tile
  */
 public class Tile extends Status{
-	/**
-	 * enum about team and piece
-	 * if team is BLACK or White, pawn moves vertically
-	 * if team is RED or GREEN, pawn moves horizontally
-	 */
-
+  
 	private boolean active;
 	private boolean onPiece;
 	private PieceType occupyPiece;

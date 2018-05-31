@@ -78,7 +78,7 @@ public class MouseClick implements ActionListener{
       UpdatePiece.updateRook(firstPos, secondPos);
       break;
     case QUEEN:
-      UpdatePiece.updateRook(firstPos, secondPos);
+      UpdatePiece.updateQueen(firstPos, secondPos);
       break;
     case KING:
       UpdatePiece.updateKing(firstPos, secondPos);
@@ -98,7 +98,8 @@ public class MouseClick implements ActionListener{
   
   private Position[] getPossMove() {
     Position[] possPos = null, temp = null;
-    clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
+    GamePiece clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
+    this.clickedPiece = clickedPiece;
     
     switch(clickedPiece.getPieceType()) {
       case PAWN:
@@ -203,9 +204,10 @@ public class MouseClick implements ActionListener{
           }
           else {
             secondClickSetup(i, j);
+            ChessGui.printChessBoard();
           }
+            
         }
-        
       }
     }
     

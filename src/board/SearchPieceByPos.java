@@ -81,22 +81,22 @@ public class SearchPieceByPos {
 	    switch(Board.getcBoard()[pos.getX()][pos.getY()].getOccupyPiece()) {
 	    case PAWN:
         System.out.println("searchPiece: found Pawn");
-	      return searchPawn(pos, Board);
+	      return (GamePiece) searchPawn(pos, Board);
       case BISHOP:
         System.out.println("searchPiece: found Bishop");
-	      return searchBishop(pos, Board);
+	      return (GamePiece) searchBishop(pos, Board);
 	    case KNIGHT:
         System.out.println("searchPiece: found Knight");
-	      return searchKnight(pos, Board);
+	      return (GamePiece) searchKnight(pos, Board);
 	    case ROOK:
         System.out.println("searchPiece: found Rook");
-	      return searchRook(pos, Board);
+	      return (GamePiece) searchRook(pos, Board);
 	    case QUEEN:
         System.out.println("searchPiece: found Queen");
-	      return searchQueen(pos, Board);
+	      return (GamePiece) searchQueen(pos, Board);
 	    case KING:
         System.out.println("searchPiece: found King");
-	      return searchKing(pos, Board);
+	      return (GamePiece) searchKing(pos, Board);
 	    default:
 	      System.out.println("searchPiece: Exception: found NOPE");
 	    }
