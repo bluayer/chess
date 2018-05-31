@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 import board.ChessBoard;
 import board.SearchPieceByPos;
@@ -210,9 +211,14 @@ public class PieceWay {
             QueenPos.remove(k);
           }
         }
+
       }
       
-      Position[] Rresult = QueenPos.toArray(new Position[QueenPos.size()]);
+      HashSet<Position> dubData = new HashSet<Position>(QueenPos);
+      ArrayList<Position> QueenPosDub = new ArrayList<Position>(dubData);
+      
+      
+      Position[] Rresult = QueenPosDub.toArray(new Position[QueenPosDub.size()]);
       return Rresult;
     }
   }
