@@ -153,8 +153,6 @@ public class PieceWay {
 
   public Position[] waysBishopPos(Color color) {
     ArrayList <Position> BishopPos = new ArrayList<Position>();
-    Position zero = new Position(0,0);
-    BishopPos.add(zero);
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WBishop = Direction.WBishopD();
       BishopPos = mpos.findPos(WBishop[0], color);
@@ -186,7 +184,6 @@ public class PieceWay {
         }
       }
       
-      
       Position[] Rresult = BishopPos.toArray(new Position[BishopPos.size()]);
       return Rresult;
     }
@@ -195,14 +192,21 @@ public class PieceWay {
 
   public Position[] waysQueenPos(Color color) {
     ArrayList <Position> QueenPos = new ArrayList<Position>();
-    Position zero = new Position(0,0);
-    QueenPos.add(zero);
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WQueen = Direction.WAllD();
       QueenPos = mpos.findPos(WQueen[0], color);
-      for (int i = 0; i < WQueen.length; i++) {
+      for (int i = 1; i < WQueen.length; i++) {
         QueenPos.addAll(mpos.findPos(WQueen[i], color));
       }
+      
+      if (QueenPos.size() != 0) {
+        for(int k=0; k< QueenPos.size(); k++) {
+          if(QueenPos.get(k).getX() == 0 && QueenPos.get(k).getY()==0) {
+            QueenPos.remove(k);
+          }
+        }
+      }
+      
       Position[] Wresult = QueenPos.toArray(new Position[QueenPos.size()]);
       return Wresult;
     } else {
@@ -211,6 +215,15 @@ public class PieceWay {
       for (int i = 0; i < RQueen.length; i++) {
         QueenPos.addAll(mpos.findPos(RQueen[i], color));
       }
+      
+      if (QueenPos.size() != 0) {
+        for(int k=0; k< QueenPos.size(); k++) {
+          if(QueenPos.get(k).getX() == 0 && QueenPos.get(k).getY()==0) {
+            QueenPos.remove(k);
+          }
+        }
+      }
+      
       Position[] Rresult = QueenPos.toArray(new Position[QueenPos.size()]);
       return Rresult;
     }
