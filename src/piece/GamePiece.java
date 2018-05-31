@@ -85,7 +85,6 @@ public abstract class GamePiece implements Piece{
   
   @Override
   public GamePiece move(Position goal) {
-    ChessBoard.updateTile(this.mposition, goal);
     this.mposition = goal;
     return this;
   }
