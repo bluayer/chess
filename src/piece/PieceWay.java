@@ -393,7 +393,7 @@ public class PieceWay {
           if(Rtile.isOnPiece() == false ) {
             RtileY += 1;
             if(Rtile.isOnPiece() == false ) {
-              if (oneMovedPos3.moveTo(Direction.WS).isValid()) {
+              if (oneMovedPos3.moveTo(Direction.RN).isValid()) {
                 oneMovedPos3 = oneMovedPos3.moveTo(Direction.RN);
                 PawnPos.add(oneMovedPos3); // When Pawn in starting line
               }
@@ -443,7 +443,7 @@ public class PieceWay {
           if(Gtile.isOnPiece() == false ) {
             GtileY -= 1;
             if(Gtile.isOnPiece() == false ) {
-              if (oneMovedPos4.moveTo(Direction.WS).isValid()) {
+              if (oneMovedPos4.moveTo(Direction.RS).isValid()) {
                 oneMovedPos4 = oneMovedPos4.moveTo(Direction.RS);
                 PawnPos.add(oneMovedPos4); // When Pawn in starting line
               }
