@@ -218,10 +218,7 @@ public class PieceWay {
   }
 
   public Position[] waysKingPos(Color color) {
-    Position KingPos[] = new Position[8];
-    for(int i=0; i<KingPos.length; i++) {
-      KingPos[i] = new Position(0, 0);
-    }
+    ArrayList<Position> KingPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WKing = Direction.WAllD();
       for (int i = 0; i < WKing.length; i++) {
@@ -231,17 +228,20 @@ public class PieceWay {
           int tileY = oneMovedPos.getY();
           Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
-            KingPos[i] = oneMovedPos;
+            KingPos.add(oneMovedPos);
           }
           else {
             if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.RED
                 || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.GREEN) {
-              KingPos[i] = oneMovedPos;
+              KingPos.add(oneMovedPos);
             }
           }
         }
+        
       }
-      return KingPos;
+      
+      Position[] Wresult = KingPos.toArray(new Position[KingPos.size()]);
+      return Wresult;
     } else {
       Direction[] RKing = Direction.RAllD();
       for (int i = 0; i < RKing.length; i++) {
@@ -251,18 +251,19 @@ public class PieceWay {
           int tileY = oneMovedPos.getY();
           Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
-            KingPos[i] = oneMovedPos;
+            KingPos.add(oneMovedPos);
           }
           else {
             if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.BLACK
                 || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.WHITE) {
-              KingPos[i] = oneMovedPos;
+              KingPos.add(oneMovedPos);
             }
           }
         }
       }
       
-      return KingPos;
+      Position[] Rresult = KingPos.toArray(new Position[KingPos.size()]);
+      return Rresult;
     }
   }
 
