@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 
 public class King extends GamePiece{
-    King(BufferedImage img, Color color, Position position) {
-      super(img, color, PieceType.KING, position);
+    King(BufferedImage img, Color color, Position position, boolean alive) {
+      super(img, color, PieceType.KING, position, alive);
   }
     
   /**

@@ -19,6 +19,7 @@ public interface Piece {
   BufferedImage getSprite();
 	PieceType getPieceType();
 	Color getColor();
+	boolean isAlive();
 	Position getPosition();
 	GamePiece move(Position goal);
 	Position[] getCanMoves();

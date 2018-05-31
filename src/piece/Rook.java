@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 
 public class Rook extends GamePiece{
-  Rook(BufferedImage img, Color color, Position position) {
-    super(img, color, PieceType.ROOK, position);
+  Rook(BufferedImage img, Color color, Position position, boolean alive) {
+    super(img, color, PieceType.ROOK, position, alive);
   }
   
   /**

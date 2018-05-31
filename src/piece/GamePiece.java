@@ -28,21 +28,24 @@ public abstract class GamePiece implements Piece{
   protected BufferedImage img;
   protected Color color;
   protected PieceType piece;
+  protected boolean alive;
   private Position mposition;
  
   
-  public GamePiece(BufferedImage img, Color color, PieceType piece, Position position) {
+  public GamePiece(BufferedImage img, Color color, PieceType piece, Position position, boolean alive) {
     this.img = img;
     this.color = color;
     this.piece = piece;
     this.mposition = position;
+    this.alive = alive;
   }
   
-  public GamePiece(PieceType piece, Position position) {
+  public GamePiece(PieceType piece, Position position, boolean alive) {
     this.img = null;
     this.color = null;
     this.piece = piece;
     this.mposition = position;
+    this.alive = false;
   }
   
   public boolean isWhite() {
@@ -103,6 +106,11 @@ public abstract class GamePiece implements Piece{
   @Override
   public PieceType getPieceType() {
     return piece;
+  }
+  
+  @Override
+  public boolean isAlive() {
+    return alive;
   }
   
   @Override

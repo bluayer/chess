@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 
 public class Knight extends GamePiece {
-  Knight(BufferedImage img, Color color, Position position) {
-    super(img, color, PieceType.KNIGHT, position);
+  Knight(BufferedImage img, Color color, Position position, boolean alive) {
+    super(img, color, PieceType.KNIGHT, position, alive);
   }
   /**
    * returns current Knight can move position

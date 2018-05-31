@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 
 public class Bishop extends GamePiece{
-  Bishop(BufferedImage img, Color color, Position position) {
-    super(img, color, PieceType.BISHOP, position);
+  Bishop(BufferedImage img, Color color, Position position, boolean alive) {
+    super(img, color, PieceType.BISHOP, position, alive);
   }
 
   /**

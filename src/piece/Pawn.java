@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 
 public class Pawn extends GamePiece{
-    Pawn(BufferedImage img, Color color, Position position) {
-      super(img, color, PieceType.PAWN, position);
+    Pawn(BufferedImage img, Color color, Position position, boolean alive) {
+      super(img, color, PieceType.PAWN, position, alive);
   }
   /**
    * returns current Pawn can move position

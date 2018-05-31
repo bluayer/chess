@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 
 public class Queen extends GamePiece{
-  Queen(BufferedImage img, Color color, Position position) {
-    super(img, color, PieceType.QUEEN, position);
+  Queen(BufferedImage img, Color color, Position position, boolean alive) {
+    super(img, color, PieceType.QUEEN, position, alive);
   }
   /**
    * returns current Queen can move position

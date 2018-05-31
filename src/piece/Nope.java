@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 
 public class Nope extends GamePiece { 
-  Nope(Position position) {
-    super(PieceType.NOPE, position);
+  Nope(Position position, boolean alive) {
+    super(PieceType.NOPE, position, alive);
   }
   /**
    * returns current Knight can move position
