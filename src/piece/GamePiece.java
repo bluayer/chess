@@ -85,6 +85,7 @@ public abstract class GamePiece implements Piece{
   
   @Override
   public GamePiece move(Position goal) {
+    this.mposition = null;
     this.mposition = goal;
     return this;
   }

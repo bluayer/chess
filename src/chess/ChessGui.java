@@ -239,7 +239,49 @@ public class ChessGui {
   public static void main(String[] args) {
     b = new ChessBoard();
     setupGUI();
+    
+    printChessBoard();
+    return;
   }
 
+  public static void printChessBoard() {
+    for(int i = 0; i < 14; i++) {
+      for(int j = 0; j < 14; j++) {
+        
+        if(b.getcBoard()[i][j].getActive() == false) {
+          System.out.print("  ");
+        }
+        else {
+          if(b.getcBoard()[i][j].isOnPiece() == false) {
+            System.out.print(". ");
+          }
+          else {
+            switch(b.getcBoard()[i][j].getOccupyPiece()) {
+            case PAWN:
+              System.out.print("P ");
+              break;
+            case KNIGHT:
+              System.out.print("N ");
+              break;
+            case BISHOP:
+              System.out.print("B ");
+              break;
+            case ROOK:
+              System.out.print("R ");
+              break;
+            case QUEEN:
+              System.out.print("Q ");
+              break;
+            case KING:
+              System.out.print("K ");
+            }
+          }
+        }
+      }
+      
+      System.out.println();
+    }
+  }
+  
   
 }

@@ -92,8 +92,8 @@ public class ChessBoard extends Tile{
 					rook[i][j] = (Rook) CreatePiece.RRook(new Position(3 + 7 * j, 0));
 
 				}
-				queen[i] = (Queen) CreatePiece.RQueen(new Position(6, 0));
-				king[i] = (King) CreatePiece.RKing(new Position(7, 0));
+				queen[i] = (Queen) CreatePiece.RQueen(new Position(7, 0));
+				king[i] = (King) CreatePiece.RKing(new Position(6, 0));
 				break;
 			case 3:	//green
 			  
@@ -105,8 +105,8 @@ public class ChessBoard extends Tile{
 					knight[i][j] = (Knight) CreatePiece.GKnight(new Position(4 + 5 * j, 13));
 					rook[i][j] = (Rook) CreatePiece.GRook(new Position(3 + 7 * j, 13));
 				}
-				queen[i] = (Queen) CreatePiece.GQueen(new Position(7, 13));
-				king[i] = (King) CreatePiece.GKing(new Position(6, 13));
+				queen[i] = (Queen) CreatePiece.GQueen(new Position(6, 13));
+				king[i] = (King) CreatePiece.GKing(new Position(7, 13));
 			}
 		}
 		
@@ -181,14 +181,14 @@ public class ChessBoard extends Tile{
 		    break;
 		    
 		  case 6:   //king, queen
-        getcBoard()[0][i].setOccupyPiece(PieceType.QUEEN);
-        getcBoard()[0][13 - i].setOccupyPiece(PieceType.KING);
-        getcBoard()[13][i].setOccupyPiece(PieceType.KING);
-        getcBoard()[13][13 - i].setOccupyPiece(PieceType.QUEEN);
-        getcBoard()[i][0].setOccupyPiece(PieceType.QUEEN);
-        getcBoard()[13 - i][0].setOccupyPiece(PieceType.KING);
-        getcBoard()[i][13].setOccupyPiece(PieceType.KING);
-        getcBoard()[13 - i][13].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[0][13 - i].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[0][i].setOccupyPiece(PieceType.KING);
+        getcBoard()[13][13 - i].setOccupyPiece(PieceType.KING);
+        getcBoard()[13][i].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[13 - i][0].setOccupyPiece(PieceType.QUEEN);
+        getcBoard()[i][0].setOccupyPiece(PieceType.KING);
+        getcBoard()[13 - i][13].setOccupyPiece(PieceType.KING);
+        getcBoard()[i][13].setOccupyPiece(PieceType.QUEEN);
 		    break;
 		  }
 		}
