@@ -83,8 +83,8 @@ public class MouseClick implements ActionListener{
     case KING:
       UpdatePiece.updateKing(firstPos, secondPos);
       break;
-    default:
     }
+    return;
   }
   
   private void varsClear() {
@@ -94,6 +94,7 @@ public class MouseClick implements ActionListener{
     secondBtn = null;
     firstPos = null;
     secondPos = null;
+    return;
   }
   
   private Position[] getPossMove() {
@@ -120,7 +121,6 @@ public class MouseClick implements ActionListener{
       case KING:
         temp = clickedPiece.getCanMoves();
         break;
-      default:
     }
     
     //checking whether return of waysXXPos is valid
