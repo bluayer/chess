@@ -123,16 +123,8 @@ public class MouseClick implements ActionListener{
     }
     
     //checking whether return of waysXXPos is valid
-    int validSize = 0;
-    while(cBoard[temp[validSize].getX()][temp[validSize].getY()].getActive()) {
-      validSize++;
-    }
-    possPos = new Position[validSize];
-    for(int i = 0; i < validSize; i++) {
-      possPos[i] = temp[i];
-    }
-    
-    return possPos;
+
+    return temp;
   }
  
   
