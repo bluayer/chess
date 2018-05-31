@@ -58,7 +58,7 @@ public class Position {
     }
 
     if (my >= 3 && my <= 10) {
-      if (mx >= 0 && mx <= 14) {
+      if (mx >= 0 && mx <= 13) {
         return true;
       }
     }
@@ -169,16 +169,9 @@ public class Position {
     int nowPosX = nowPos.getX();
     int nowPosY = nowPos.getY();
     
-    System.out.println("X :" + nowPosX);
-    System.out.println("Y :" + nowPosY);
-    
-    
     ChessBoard board = ChessGui.b;
     
     if (nowPos.isValid()) {
-      System.out.println(nowPos.isValid());
-      System.out.println("X :" + nowPos.getX());
-      System.out.println("Y :" + nowPos.getY());
       
       Tile tile = board.getcBoard()[nowPosX][nowPosY];
       while (nowPos.isValid()) {
@@ -221,12 +214,13 @@ public class Position {
         }
       }
     }
-    System.out.println("It's break time");
+    /* 
     for(int i=0; i<posList.size(); i++) {
       System.out.println(posList.get(i).getX());
       System.out.println(posList.get(i).getY());
       System.out.println("Next");
     }
+    */
     
     return posList;
   }

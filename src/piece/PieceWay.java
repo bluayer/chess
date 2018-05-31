@@ -82,20 +82,6 @@ public class PieceWay {
         }
       }
       
-      /*
-      
-      System.out.println(RookPos);
-      if (RookPos.size() != 0) {
-        for(int i=0; i< RookPos.size(); i++) {
-          System.out.println(RookPos.get(i).getX());
-          System.out.println(RookPos.get(i).getY());
-          System.out.println("Next");
-        }
-      }
-      System.out.println(board.getcBoard()[3][0].isOnPiece());
-      
-      */
-      
       Position[] Rresult = RookPos.toArray(new Position[RookPos.size()]);
       return Rresult;
     }
@@ -104,30 +90,31 @@ public class PieceWay {
   }
 
   public Position[] waysKnightPos(Color color) {
-    Position[] KnightPos = new Position[8];
-    for(int i=0; i<KnightPos.length; i++) {
-      KnightPos[i] = new Position(0, 0);
-    }
+    ArrayList<Position> KnightPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
       Direction[] WKnight = Direction.WKnightD();
       for (int i = 0; i < WKnight.length; i++) {
+
         Position oneMovedPos = mpos.moveTo(WKnight[i]);
+
         if (oneMovedPos.isValid()) {
           int tileX = oneMovedPos.getX();
           int tileY = oneMovedPos.getY();
           Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
-            KnightPos[i] = oneMovedPos;
+            KnightPos.add(oneMovedPos);
           }
           else {
             if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.RED
                 || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.GREEN) {
-              KnightPos[i] = oneMovedPos;
+              KnightPos.add(oneMovedPos);
             }
           }
         }
       }
-      return KnightPos;
+      Position[] Wresult = KnightPos.toArray(new Position[KnightPos.size()]);
+      return Wresult;
+      
     } else {
       Direction[] RKnight = Direction.RKnightD();
       for (int i = 0; i < RKnight.length; i++) {
@@ -137,17 +124,18 @@ public class PieceWay {
           int tileY = oneMovedPos.getY();
           Tile tile = board.getcBoard()[tileX][tileY];
           if (tile.isOnPiece() == false) {
-            KnightPos[i] = oneMovedPos;
+            KnightPos.add(oneMovedPos);
           }
           else {
             if(SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.BLACK
                 || SearchPieceByPos.searchPiece(oneMovedPos, ChessGui.b).getColor() == Color.WHITE) {
-              KnightPos[i] = oneMovedPos;
+              KnightPos.add(oneMovedPos);
             }
           }
         }
       }
-      return KnightPos;
+      Position[] Rresult = KnightPos.toArray(new Position[KnightPos.size()]);
+      return Rresult;
     }
   }
 
