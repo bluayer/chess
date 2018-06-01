@@ -3,8 +3,11 @@ package chess;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import board.ChessBoard;
 import board.SearchPieceByPos;
@@ -13,30 +16,31 @@ import board.Tile;
 import board.UpdatePiece;
 import gamestate.TurnCheck;
 import piece.GamePiece;
+import piece.GamePiece.PieceType;
 import piece.PieceWay;
 import piece.Position;
-import piece.GamePiece.PieceType;
 
-public class MouseClick implements ActionListener{
-  private Color clicked, backgroundBackup;
-  private Color[] possMoveBGBackup;
-  public static JButton firstBtn, secondBtn;
+public class MouseClick{
+  private static Color clicked;
+  private static Color backgroundBackup;
+  private static Color[] possMoveBGBackup;
+  public static JLabel firstClk, secondClk;
   public static Position firstPos, secondPos;
-  public static JButton btn[][];
+  public static JLabel btn[][];
   
   private static GamePiece toMovePiece;
   public static ChessBoard board;
   private static Tile[][] cBoard;
-  private boolean isClicked;
-  private PieceWay pieceWay;
-  private Position[] tileBackup;
-  private GamePiece clickedPiece;
+  private static boolean isClicked;
+  private static PieceWay pieceWay;
+  private static Position[] tileBackup;
+  private static GamePiece clickedPiece;
   
-  TurnCheck nowTurn = new TurnCheck();
+  //TurnCheck nowTurn = new TurnCheck();
   
-  public MouseClick(JButton[][] btns, ChessBoard bd) {
-    this.firstBtn = null;
-    this.secondBtn = null;
+  public MouseClick(JLabel[][] btns, ChessBoard bd) {
+    this.firstClk = null;
+    this.secondClk = null;
     this.firstPos = null;
     this.secondPos = null;
     this.btn = btns;
@@ -86,7 +90,7 @@ public class MouseClick implements ActionListener{
    * move ImageIcon and Piece in ChessBoard from prev to togo
    * @param togo, prev
    */
-  private void movePiece(JButton togo, JButton prev) {
+  private static void movePiece(JLabel togo, JLabel prev) {
     togo.setIcon(prev.getIcon());
     prev.setIcon(null);
      
@@ -118,21 +122,19 @@ public class MouseClick implements ActionListener{
     return;
   }
   
-  private void varsClear() {
+  private static void varsClear() {
     //clearing
     backgroundBackup = null;
-    firstBtn = null;
-    secondBtn = null;
+    firstClk = null;
+    secondClk = null;
     firstPos = null;
     secondPos = null;
     return;
   }
   
-  private Position[] getPossMove() {
+  private static Position[] getPossMove() {
     Position[] possPos = null, temp = null;
     GamePiece clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
-    
-    this.clickedPiece = clickedPiece;
     
     switch(clickedPiece.getPieceType()) {
       case PAWN:
@@ -160,7 +162,7 @@ public class MouseClick implements ActionListener{
   }
  
   
-  private Position[] possRemake(Position[] originalPoss) {
+  private static Position[] possRemake(Position[] originalPoss) {
     Position[] temp = null;
     int leng = 0;
     
@@ -181,13 +183,13 @@ public class MouseClick implements ActionListener{
     return temp;
   }
   
-  private void firstClickSetup(int i,int j) {
+  private static void firstClickSetup(int i,int j) {
     varsClear();
     
     //setting first button and position
-    firstBtn = btn[i][j];
+    firstClk = btn[i][j];
     firstPos = new Position(i, j);
-    backgroundBackup = firstBtn.getBackground();
+    backgroundBackup = firstClk.getBackground();
     isClicked = true;
     
     Position[] possMove = possRemake(getPossMove());
@@ -199,20 +201,20 @@ public class MouseClick implements ActionListener{
       btn[possMove[k].getX()][possMove[k].getY()].setBackground(new Color(255, 0, 0));
     }
     
-    firstBtn.setBackground(clicked);
+    firstClk.setBackground(clicked);
     return;
   }
   
   
-  private void secondClickSetup(int i, int j) {
-    firstBtn.setBackground(backgroundBackup);
-    secondBtn = btn[i][j];
+  private static void secondClickSetup(int i, int j) {
+    firstClk.setBackground(backgroundBackup);
+    secondClk = btn[i][j];
     secondPos = new Position(i,j);
     isClicked = false;
     
     if(isValidMove()) {
-      if((firstBtn != null) && (secondBtn != null) && (firstBtn != secondBtn)) {
-        movePiece(secondBtn, firstBtn);
+      if((firstClk != null) && (secondClk != null) && (firstClk != secondClk)) {
+        movePiece(secondClk, firstClk);
       }
     }
 
@@ -223,7 +225,8 @@ public class MouseClick implements ActionListener{
     return;
   }
   
-  private boolean isValidMove() {
+  
+  private static boolean isValidMove() {
     if(!nowTurn.isValidTurn(nowTurn, firstPos)) {
       System.out.println("Not your turn!");
       return false;
@@ -237,9 +240,10 @@ public class MouseClick implements ActionListener{
     }
     return false;
   }
-  
-  @Override
-  public void actionPerformed(ActionEvent e) {
+
+
+  public static void mouseInput(MouseEvent e) {
+    // TODO Auto-generated method stub
     for(int i = 0; i < 14; i++) {
       for(int j = 0; j < 14; j++) {
         
@@ -257,5 +261,6 @@ public class MouseClick implements ActionListener{
     }
     return;
   }
+
 
 }

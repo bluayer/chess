@@ -9,13 +9,14 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import board.ChessBoard;
 import board.ChessPieceSprite;
-import board.ImagePanel;
 import board.ChessPieceSprite.ChessPieceSpriteType;
+import board.ImagePanel;
 
 public class ChessGui {
   /**
@@ -27,8 +28,9 @@ public class ChessGui {
   static JFrame mainFrame;
   static JPanel chessBoard;
   static ImagePanel img[][];
-  static JButton btn[][];
+  static JLabel btn[][];
   static Color white, gray, black;
+  static MClickBridge mClkB;
   
   public static ChessBoard b;
   
@@ -190,12 +192,12 @@ public class ChessGui {
    setupImg();
    
    //creating and setting Buttons
-   btn = new JButton[14][14];
+   btn = new JLabel[14][14];
    MouseClick clk = new MouseClick(btn, b);
    for(int i = 0; i < 14; i++) {
      for(int j = 0; j < 14; j++) {
-       btn[i][j] = new JButton();
-       btn[i][j].setBorderPainted(false);
+       btn[i][j] = new JLabel();
+       //btn[i][j].setBorderPainted(false);
        btn[i][j].setOpaque(true);
        
        if((i < 3 && j < 3) || (i < 3 && j > 10) || (i > 10 && j < 3) || (i > 10 && j > 10)) {    //inactive area
@@ -209,7 +211,7 @@ public class ChessGui {
            btn[i][j].setBackground(gray);
          }
          
-         btn[i][j].addActionListener(clk);
+         btn[i][j].addMouseListener(mClkB);
        }
      }
    }
@@ -238,6 +240,7 @@ public class ChessGui {
 
   public static void main(String[] args) {
     b = new ChessBoard();
+    mClkB = new MClickBridge();
     setupGUI();
     
     printChessBoard();
