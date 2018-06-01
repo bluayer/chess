@@ -35,41 +35,12 @@ public class Stalemate {
 	public void getStalemate(TEAM team){
 		this.team = team;
 	}
-	
-	private Color teamToColor(int num) {
-		Color color = null;
-		
-		switch(num) {
-		case 0:{
-			color = Color.BLACK;
-			break;
-			}
-		case 1:{
-			color = Color.WHITE;
-			break;
-			}
-		case 2:{
-			color = Color.RED;
-			break;
-			}
-		case 3:{
-			color = Color.GREEN;
-			break;
-			}
-		default :{
-			System.out.println("teamToColor:Error");
-			}
-		}
-		
-		return color;
-	}
-	
-	public boolean isStalemate() {
-		int t = Tile.cvtTeam(this.team);
+
+	public boolean isStalemate(TEAM team) {
+		int t = Tile.cvtTeam(team);
 		
 		Check p = new Check();
-		
-		//error!
+	
 		if(p.isCheck(this.king[t])) {
 			
 			return false;
