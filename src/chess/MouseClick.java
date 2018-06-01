@@ -36,7 +36,7 @@ public class MouseClick{
   private static Position[] tileBackup;
   private static GamePiece clickedPiece;
   
-  TurnCheck nowTurn = new TurnCheck();
+  //TurnCheck nowTurn = new TurnCheck();
   
   public MouseClick(JLabel[][] btns, ChessBoard bd) {
     this.firstClk = null;
@@ -226,14 +226,14 @@ public class MouseClick{
   }
   
   private static boolean isValidMove() {
-    if(!nowTurn.isValidTurn(nowTurn, firstPos)) {
+    /*if(!nowTurn.isValidTurn(nowTurn, firstPos)) {
       System.out.println("Not your turn!");
       return false;
-    }
+    }*/
       
     for(int i = 0; i < tileBackup.length; i++) {
       if(tileBackup[i].getX()==secondPos.getX() && tileBackup[i].getY()==secondPos.getY()) {
-        nowTurn.nextTurn();
+        //nowTurn.nextTurn();
         return true;
       }
     }

@@ -67,7 +67,7 @@ public class Stalemate {
 	public boolean isStalemate() {
 		int t = Tile.cvtTeam(this.team);
 		
-		PieceWay p = new PieceWay(this.king[t].getPosition());
+		Check p = new Check();
 		
 		//error!
 		if(p.isCheck(this.king[t])) {
