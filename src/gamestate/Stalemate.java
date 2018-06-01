@@ -69,6 +69,7 @@ public class Stalemate {
 		
 		PieceWay p = new PieceWay(this.king[t].getPosition());
 		
+		//error!
 		if(p.isCheck(teamToColor(t))) {
 			
 			return false;

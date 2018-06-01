@@ -14,6 +14,7 @@ import piece.Position;
  * 
  * @author Yeoilgoo
  * @since 2018-05-29
+ * 
  */
 
 public class TurnCheck {
