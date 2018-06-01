@@ -501,10 +501,13 @@ public class PieceWay {
     }
   }
 
-  public boolean isCheck(Color color) {
-
+  public boolean isCheck(King king) {
+    Color color = king.getColor();
     Color oppositeColor1 = null, oppositeColor2 = null;
 
+    int kingX = king.getPosition().getX();
+    int kingY = king.getPosition().getY();
+    
     switch (color) {
     case BLACK:
       oppositeColor1 = Color.RED;
@@ -525,8 +528,6 @@ public class PieceWay {
     default:
     }
 
-    ArrayList<Position> kingPos = new ArrayList<Position>(Arrays.asList(waysKingPos(color)));
-    ArrayList<Position> oppositeAll = new ArrayList<Position>();
     Position nowPos = new Position(0, 0);
     for (int i = 0; i < 14; i++) {
       for (int j = 0; j < 14; j++) {
@@ -539,40 +540,9 @@ public class PieceWay {
               GamePiece piece = SearchPieceByPos.searchPiece(nowPos, board);
               if (piece.getColor() == oppositeColor1 || piece.getColor() == oppositeColor2) {
                 if (piece.getCanMoves() != null) {
-                  if (piece.getPieceType() == PieceType.PAWN) { // pawn diagonal exception
-                    ArrayList<Position> PawnPos = new ArrayList<Position>(Arrays.asList(waysPawnPos(piece.getColor())));
-                    Position diagonalMove1 = piece.getPosition();
-                    Position diagonalMove2 = piece.getPosition();
-                    if (piece.isWhite()) {
-                      diagonalMove1 = diagonalMove1.moveTo(Direction.WNE);
-                      diagonalMove2 = diagonalMove2.moveTo(Direction.WNW);
-                    } else if (piece.isBlack()) {
-                      diagonalMove1 = diagonalMove1.moveTo(Direction.WSE);
-                      diagonalMove2 = diagonalMove2.moveTo(Direction.WSW);
-                    } else if (piece.isRed()) {
-                      diagonalMove1 = diagonalMove1.moveTo(Direction.RNE);
-                      diagonalMove2 = diagonalMove2.moveTo(Direction.RNW);
-                    } else {
-                      diagonalMove1 = diagonalMove1.moveTo(Direction.RSE);
-                      diagonalMove2 = diagonalMove2.moveTo(Direction.RSW);
-                    }
-
-                    PawnPos.add(diagonalMove1);
-                    PawnPos.add(diagonalMove2);
-
-                    for (int k = 0; k < PawnPos.size(); k++) {
-                      for (int l = 0; l < kingPos.size(); l++) {
-                        if (PawnPos.get(k).getX() == kingPos.get(l).getX()
-                            && PawnPos.get(k).getY() == kingPos.get(l).getY()) {
-                          return true;
-                        }
-                      }
-                    }
-                  }
-                  for (int k = 0; k < piece.getCanMoves().length; k++) {
-                    for (int l = 0; l < kingPos.size(); l++) {
-                      if (piece.getCanMoves()[k].getX() == kingPos.get(l).getX()
-                          && piece.getCanMoves()[k].getY() == kingPos.get(l).getY()) {
+                  for (int k = 0; k < piece.getCanMoves().length; k++) {               
+                      if (piece.getCanMoves()[k].getX() == kingX
+                          && piece.getCanMoves()[k].getY() == kingY) {
                         return true;
                       }
                     }
@@ -583,7 +553,6 @@ public class PieceWay {
           }
         }
       }
-    }
 
     return false;
   }
@@ -613,7 +582,6 @@ public class PieceWay {
     }
 
     ArrayList<Position> kingPos = new ArrayList<Position>(Arrays.asList(waysKingPos(color)));
-    ArrayList<Position> oppositeAll = new ArrayList<Position>();
     Position nowPos = new Position(0, 0);
     for (int i = 0; i < 14; i++) {
       for (int j = 0; j < 14; j++) {
