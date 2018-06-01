@@ -26,7 +26,7 @@ public class TurnCheck {
 	  this.mturn = 0;
 	}
 	
-	private int getter() {
+	public int getter() {
 		return (mturn % 4);
 	}
 	
