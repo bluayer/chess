@@ -70,7 +70,7 @@ public class Stalemate {
 		PieceWay p = new PieceWay(this.king[t].getPosition());
 		
 		//error!
-		if(p.isCheck(teamToColor(t))) {
+		if(p.isCheck(this.king[t])) {
 			
 			return false;
 		}
