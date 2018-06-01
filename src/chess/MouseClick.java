@@ -8,13 +8,14 @@ import javax.swing.JButton;
 
 import board.ChessBoard;
 import board.SearchPieceByPos;
+import board.Status.TEAM;
 import board.Tile;
 import board.UpdatePiece;
+import gamestate.TurnCheck;
 import piece.GamePiece;
 import piece.PieceWay;
 import piece.Position;
 import piece.GamePiece.PieceType;
-
 
 public class MouseClick implements ActionListener{
   private Color clicked, backgroundBackup;
@@ -31,6 +32,8 @@ public class MouseClick implements ActionListener{
   private Position[] tileBackup;
   private GamePiece clickedPiece;
   
+  TurnCheck nowTurn = new TurnCheck();
+  
   public MouseClick(JButton[][] btns, ChessBoard bd) {
     this.firstBtn = null;
     this.secondBtn = null;
@@ -44,6 +47,34 @@ public class MouseClick implements ActionListener{
     this.backgroundBackup = null;
     this.toMovePiece = null;
     this.clickedPiece = null;
+  }
+  
+  private static GamePiece.Color teamToColor(TEAM t) {
+    GamePiece.Color color = null;
+    
+    switch(t) {
+    case BLACK:{
+      color = GamePiece.Color.BLACK;
+      break;
+      }
+    case WHITE:{
+      color = GamePiece.Color.WHITE;
+      break;
+      }
+    case RED:{
+      color = GamePiece.Color.RED;
+      break;
+      }
+    case GREEN:{
+      color = GamePiece.Color.GREEN;
+      break;
+      }
+    default :{
+      System.out.println("teamToColor:Error");
+      }
+    }
+    
+    return color;
   }
   
   public static GamePiece getMovePiece() {
@@ -100,6 +131,7 @@ public class MouseClick implements ActionListener{
   private Position[] getPossMove() {
     Position[] possPos = null, temp = null;
     GamePiece clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
+    
     this.clickedPiece = clickedPiece;
     
     switch(clickedPiece.getPieceType()) {
@@ -124,7 +156,6 @@ public class MouseClick implements ActionListener{
     }
     
     //checking whether return of waysXXPos is valid
-
     return temp;
   }
  
@@ -193,8 +224,14 @@ public class MouseClick implements ActionListener{
   }
   
   private boolean isValidMove() {
+    if(!nowTurn.isValidTurn(nowTurn, firstPos)) {
+      System.out.println("Not your turn!");
+      return false;
+    }
+      
     for(int i = 0; i < tileBackup.length; i++) {
       if(tileBackup[i].getX()==secondPos.getX() && tileBackup[i].getY()==secondPos.getY()) {
+        nowTurn.nextTurn();
         return true;
       }
     }
@@ -218,9 +255,7 @@ public class MouseClick implements ActionListener{
         }
       }
     }
-    
     return;
   }
 
-  
 }

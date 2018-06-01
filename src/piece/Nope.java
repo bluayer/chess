@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class Nope extends GamePiece { 
-  Nope(Position position, boolean alive) {
+  public Nope(Position position, boolean alive) {
     super(PieceType.NOPE, position, alive);
   }
   /**
