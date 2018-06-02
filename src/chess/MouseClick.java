@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import board.ChessBoard;
+import board.ImagePanel;
 import board.SearchPieceByPos;
 import board.Status.TEAM;
 import board.Tile;
@@ -21,30 +22,30 @@ import piece.PieceWay;
 import piece.Position;
 
 public class MouseClick{
-  private static Color clicked;
+  private static Color clicked = Color.YELLOW;
   private static Color backgroundBackup;
   private static Color[] possMoveBGBackup;
-  public static JLabel firstClk, secondClk;
+  public static ImagePanel firstClk, secondClk;
   public static Position firstPos, secondPos;
-  public static JLabel btn[][];
+  public static ImagePanel[][] btn = ChessGui.btn;
   
   private static GamePiece toMovePiece;
-  public static ChessBoard board;
-  private static Tile[][] cBoard;
+  public static ChessBoard board = ChessGui.b;
+  private static Tile[][] cBoard = ChessGui.b.getcBoard();
   private static boolean isClicked;
   private static Position[] tileBackup;
   private static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
   
-  public MouseClick(JLabel[][] btns, ChessBoard bd) {
+  public MouseClick() {
     this.firstClk = null;
     this.secondClk = null;
     this.firstPos = null;
     this.secondPos = null;
-    this.btn = btns;
+    this.btn = ChessGui.btn;
     this.isClicked = false;
-    this.board = bd;
-    cBoard = this.board.getcBoard();
+    this.board = ChessGui.b;
+    cBoard = ChessGui.b.getcBoard();
     this.clicked = new Color(255, 255, 0);
     this.backgroundBackup = null;
     this.toMovePiece = null;
@@ -88,9 +89,9 @@ public class MouseClick{
    * move ImageIcon and Piece in ChessBoard from prev to togo
    * @param togo, prev
    */
-  private static void movePiece(JLabel togo, JLabel prev) {
-    togo.setIcon(prev.getIcon());
-    prev.setIcon(null);
+  private static void movePiece(ImagePanel togo, ImagePanel prev) {
+    togo.setImage(prev.getImage());
+    prev.setImage(null);
      
     cBoard[firstPos.getX()][firstPos.getY()].setOnPiece(false);
     cBoard[secondPos.getX()][secondPos.getY()].setOccupyPiece(cBoard[firstPos.getX()][firstPos.getY()].getOccupyPiece());
@@ -171,7 +172,11 @@ public class MouseClick{
     //setting first button and position
     firstClk = btn[i][j];
     firstPos = new Position(i, j);  
+    
+    //backup and change background of clicked tile
     backgroundBackup = firstClk.getBackground();
+    firstClk.setBackground(clicked);
+    firstClk.repaint();
     isClicked = true;
     
     //get movable area and backup the areas' tile status
@@ -182,10 +187,9 @@ public class MouseClick{
       tileBackup[k] = new Position(possMove[k].getX(), possMove[k].getY());
       possMoveBGBackup[k] = btn[possMove[k].getX()][possMove[k].getY()].getBackground();
       btn[possMove[k].getX()][possMove[k].getY()].setBackground(new Color(255, 0, 0));
+      btn[possMove[k].getX()][possMove[k].getY()].repaint();
     }
     
-    //change background of clicked tile
-    firstClk.setBackground(clicked);
     return;
   }
   
@@ -206,6 +210,7 @@ public class MouseClick{
     //rollback the tile's background
     for(int k = 0; k < tileBackup.length; k++) {
       btn[tileBackup[k].getX()][tileBackup[k].getY()].setBackground(possMoveBGBackup[k]);
+      btn[tileBackup[k].getX()][tileBackup[k].getY()].repaint();
     }
     return;
   }
@@ -226,9 +231,8 @@ public class MouseClick{
 
 
   public static void mouseInput(MouseEvent e) {
-    // TODO Auto-generated method stub
-    for(int i = 0; i < 14; i++) {
-      for(int j = 0; j < 14; j++) {
+    for(int i = 0; i < btn.length; i++) {
+      for(int j = 0; j < btn.length; j++) {
         
         if(e.getSource().equals(btn[i][j])) {
           if( !isClicked ) {
@@ -242,6 +246,7 @@ public class MouseClick{
         }
       }
     }
+    
     return;
   }
 

@@ -7,32 +7,25 @@ public class MClickBridge implements MouseListener{
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    // TODO Auto-generated method stub
     MouseClick.mouseInput(e);
   }
 
+  
   @Override
   public void mousePressed(MouseEvent e) {
-    // TODO Auto-generated method stub
-    
+    return;
   }
-
   @Override
   public void mouseReleased(MouseEvent e) {
-    // TODO Auto-generated method stub
-    
+    return;
   }
-
   @Override
   public void mouseEntered(MouseEvent e) {
-    // TODO Auto-generated method stub
-    
+    return;
   }
-
   @Override
   public void mouseExited(MouseEvent e) {
-    // TODO Auto-generated method stub
-    
+    return;
   }
 
 }
