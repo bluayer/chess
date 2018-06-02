@@ -1,4 +1,7 @@
 /.classpath
 /.project
-/sprite2.png
+/board/
 /chess/
+/gamestate/
+/piece/
+/sprite2.png

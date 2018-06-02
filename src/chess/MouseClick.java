@@ -32,11 +32,9 @@ public class MouseClick{
   public static ChessBoard board;
   private static Tile[][] cBoard;
   private static boolean isClicked;
-  private static PieceWay pieceWay;
   private static Position[] tileBackup;
   private static GamePiece clickedPiece;
-  
-  //TurnCheck nowTurn = new TurnCheck();
+  private static TurnCheck nowTurn = new TurnCheck();
   
   public MouseClick(JLabel[][] btns, ChessBoard bd) {
     this.firstClk = null;
@@ -99,6 +97,9 @@ public class MouseClick{
     cBoard[firstPos.getX()][firstPos.getY()].setOccupyPiece(PieceType.NOPE);
     cBoard[secondPos.getX()][secondPos.getY()].setOnPiece(true);
     
+    //setting attacked piece dead
+
+    
     switch(clickedPiece.getPieceType()) {
     case PAWN:
       UpdatePiece.updatePawn(firstPos, secondPos);
@@ -123,7 +124,7 @@ public class MouseClick{
   }
   
   private static void varsClear() {
-    //clearing
+    //clearing variables
     backgroundBackup = null;
     firstClk = null;
     secondClk = null;
@@ -133,8 +134,8 @@ public class MouseClick{
   }
   
   private static Position[] getPossMove() {
-    Position[] possPos = null, temp = null;
-    GamePiece clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
+    Position[] temp = null;
+    clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
     
     switch(clickedPiece.getPieceType()) {
       case PAWN:
@@ -155,44 +156,26 @@ public class MouseClick{
       case KING:
         temp = clickedPiece.getCanMoves();
         break;
+      default:    //checking whether return of waysXXPos is valid
+        System.out.println("getPossMove: Found nothing from pieces");
+        break;
     }
     
-    //checking whether return of waysXXPos is valid
     return temp;
   }
  
-  
-  private static Position[] possRemake(Position[] originalPoss) {
-    Position[] temp = null;
-    int leng = 0;
-    
-    for(int i = 0; i < originalPoss.length; i++) {
-      if(cBoard[originalPoss[i].getX()][originalPoss[i].getY()].getActive()) {
-        leng++;
-      }
-    }
-    
-    temp = new Position[leng];
-    leng = 0;
-    for(int i = 0; i < originalPoss.length; i++) {
-      if(cBoard[originalPoss[i].getX()][originalPoss[i].getY()].getActive()) {
-        temp[leng++] = originalPoss[i];
-      }      
-    }
-    
-    return temp;
-  }
   
   private static void firstClickSetup(int i,int j) {
     varsClear();
     
     //setting first button and position
     firstClk = btn[i][j];
-    firstPos = new Position(i, j);
+    firstPos = new Position(i, j);  
     backgroundBackup = firstClk.getBackground();
     isClicked = true;
     
-    Position[] possMove = possRemake(getPossMove());
+    //get movable area and backup the areas' tile status
+    Position[] possMove = getPossMove();
     tileBackup = new Position[possMove.length];
     possMoveBGBackup = new Color[possMove.length];
     for(int k = 0; k < possMove.length; k++) {
@@ -201,6 +184,7 @@ public class MouseClick{
       btn[possMove[k].getX()][possMove[k].getY()].setBackground(new Color(255, 0, 0));
     }
     
+    //change background of clicked tile
     firstClk.setBackground(clicked);
     return;
   }
@@ -212,8 +196,9 @@ public class MouseClick{
     secondPos = new Position(i,j);
     isClicked = false;
     
-    if(isValidMove()) {
+    if(isValidTurnClick()) {
       if((firstClk != null) && (secondClk != null) && (firstClk != secondClk)) {
+        UpdatePiece.updateDead(secondPos);
         movePiece(secondClk, firstClk);
       }
     }
@@ -225,15 +210,14 @@ public class MouseClick{
     return;
   }
   
-  private static boolean isValidMove() {
-    /*if(!nowTurn.isValidTurn(nowTurn, firstPos)) {
-      System.out.println("Not your turn!");
+  private static boolean isValidTurnClick() {
+    if( !nowTurn.isValidTurn(nowTurn, firstPos) ) {
       return false;
-    }*/
-      
+    }
+    
     for(int i = 0; i < tileBackup.length; i++) {
-      if(tileBackup[i].getX()==secondPos.getX() && tileBackup[i].getY()==secondPos.getY()) {
-        //nowTurn.nextTurn();
+      if(tileBackup[i].getX() == secondPos.getX() && tileBackup[i].getY() == secondPos.getY()) {
+        nowTurn.nextTurn();
         return true;
       }
     }

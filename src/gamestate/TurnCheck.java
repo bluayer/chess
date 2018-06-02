@@ -53,8 +53,9 @@ public class TurnCheck {
 	
 	public boolean isValidTurn(TurnCheck nowTurn, Position pos) {
 	  
-	  if(board.getcBoard()[pos.getX()][pos.getY()].isOnPiece())
+	  if(ChessGui.b.getcBoard()[pos.getX()][pos.getY()].isOnPiece()) {
 	    nowPiece = SearchPieceByPos.searchPiece(pos, board);
+	  }
 	  
 	  Color nowColor = nowPiece.getColor();
 	  TEAM nowTEAM = null;
@@ -77,9 +78,9 @@ public class TurnCheck {
 	  if(nowTEAM == nowTurn.getTurn()) {
 	    return true;
 	  }
-	  
-	  else
+	  else {
+	    System.out.println("isValidTurn: It's " + nowTurn.getTurn() + "'s turn");
 	    return false;
-
+	  }
 	}
 }

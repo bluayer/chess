@@ -113,6 +113,10 @@ public abstract class GamePiece implements Piece{
     return alive;
   }
   
+  public void setAlive(boolean alive) {
+    this.alive = alive;
+  }
+  
   @Override
   public BufferedImage getSprite() {
     return img;

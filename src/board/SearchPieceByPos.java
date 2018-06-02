@@ -15,7 +15,12 @@ public class SearchPieceByPos {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 8; j++) {
 	      if(board.pawn[i][j].getPosition().getX() == pos.getX() && board.pawn[i][j].getPosition().getY() == pos.getY()) {
-	        return board.pawn[i][j];
+	        if(board.pawn[i][j].isAlive()) {
+	          return board.pawn[i][j];
+	        }
+	        else {
+	          continue;
+	        }
 	      }
 	    }
 	  }
@@ -25,7 +30,12 @@ public class SearchPieceByPos {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
 	      if(board.bishop[i][j].getPosition().getX() == pos.getX() && board.bishop[i][j].getPosition().getY() == pos.getY()) {
-	        return board.bishop[i][j];
+	        if(board.bishop[i][j].isAlive()) {
+	          return board.bishop[i][j];
+	        }
+	        else {
+	          continue;
+	        }
 	      }
 	    }
 	  }
@@ -35,7 +45,12 @@ public class SearchPieceByPos {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
 	      if(board.knight[i][j].getPosition().getX() == pos.getX() && board.knight[i][j].getPosition().getY() == pos.getY()) {
-	        return board.knight[i][j];
+	        if(board.knight[i][j].isAlive()) {
+	          return board.knight[i][j];
+	        }
+	        else {
+	          continue;
+	        }
 	      }
 	    }
 	  }
@@ -45,7 +60,12 @@ public class SearchPieceByPos {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
 	      if(board.rook[i][j].getPosition().getX() == pos.getX() && board.rook[i][j].getPosition().getY() == pos.getY()) {
-	        return board.rook[i][j];
+	        if(board.rook[i][j].isAlive()) {
+	          return board.rook[i][j];
+	        }
+	        else {
+	          continue;
+	        }
 	      }
 	    }
 	  }
@@ -54,7 +74,12 @@ public class SearchPieceByPos {
 	static Queen searchQueen(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    if(board.queen[i].getPosition().getX() == pos.getX() && board.queen[i].getPosition().getY() == pos.getY()) {
-	      return board.queen[i];
+	      if(board.queen[i].isAlive()) {
+	        return board.queen[i];
+	      }
+	      else {
+	        continue;
+	      }
 	    }
 	  }
 	  return null;
@@ -62,7 +87,12 @@ public class SearchPieceByPos {
 	static King searchKing(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    if(board.king[i].getPosition().getX() == pos.getX() && board.king[i].getPosition().getY() == pos.getY()) {
-	      return board.king[i];
+	      if(board.king[i].isAlive()) {
+	        return board.king[i];
+	      }
+	      else {
+	        continue;
+	      }
 	    }
 	  }
 	  return null;

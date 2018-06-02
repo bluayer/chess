@@ -284,7 +284,9 @@ public class ChessGui {
       
       System.out.println();
     }
+    System.out.println("----------------------------------");
+    return;
   }
-  
+
   
 }
