@@ -15,13 +15,12 @@ import piece.GamePiece.*;
  * @since 2018-05-26
  */
 
-public interface Piece {
-  BufferedImage getSprite();
-	PieceType getPieceType();
-	Color getColor();
-	boolean isAlive();
-	Position getPosition();
-	GamePiece move(Position goal);
-	Position[] getCanMoves();
-	
+public abstract class Piece {
+  public abstract BufferedImage getSprite();
+  public abstract PieceType getPieceType();
+  public abstract Color getColor();
+  public abstract boolean isAlive();
+  public abstract Position getPosition();
+  public abstract GamePiece move(Position goal);
+  public abstract Position[] getCanMoves();
 }

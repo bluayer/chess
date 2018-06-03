@@ -15,7 +15,7 @@ import board.ChessBoard;
  * @since 2018-05-26
  */
 
-public abstract class GamePiece implements Piece{
+public abstract class GamePiece extends Piece{
 
   public static enum Color {
     WHITE, BLACK, RED, GREEN
