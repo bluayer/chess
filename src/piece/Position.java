@@ -23,6 +23,10 @@ public class Position {
   private int mx;
   private int my;
 
+  public Position() {
+    
+  }
+  
   public Position(int x, int y) {
     this.mx = x;
     this.my = y;

@@ -3,6 +3,7 @@ package chess;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +13,8 @@ import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
 import piece.Position;
+import voice.Speech;
+
 
 public class ChessGui {
   /**
@@ -78,11 +81,12 @@ public class ChessGui {
  }
  
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException{
     b = new ChessBoard();
     mClkB = new MClickBridge();
     setupGUI();
-    
+    Speech.recognition();
+
     printChessBoard();
     return;
   }
