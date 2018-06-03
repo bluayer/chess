@@ -72,8 +72,8 @@ public class Check {
     oppositeTeam1 = ChessBoard.cvtTeam(GameController.colorToTeam(oppositeColor1));
     oppositeTeam2 = ChessBoard.cvtTeam(GameController.colorToTeam(oppositeColor2));
     
-    for(int i = 0; i < 14; i++)
-      for(int j = 0; j < 14; j++)
+    for(int i = 0; i < ChessGui.b.getcBoard().length; i++)
+      for(int j = 0; j < ChessGui.b.getcBoard().length; j++)
         if(board[i][j].isOnPiece())
           if(board[i][j].getActive()) {
             nowPos.setX(i); nowPos.setY(j);

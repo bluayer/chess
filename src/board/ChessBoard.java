@@ -18,7 +18,7 @@ public class ChessBoard extends Tile{
 	/**
 	 * Board is two-dimensional Tile Object array
 	 */
-	private static Tile[][] cBoard = new Tile[14][14];
+	private Tile[][] cBoard = new Tile[14][14];
   
 	/**
 	 * arrays about initial pieces
@@ -28,12 +28,12 @@ public class ChessBoard extends Tile{
 	 * pawn is 5-column
 	 * else are 2-column
 	 */
-	public static Pawn[][] pawn;
-	public static Knight[][] knight;
-	public static Bishop[][] bishop;
-	public static Rook[][] rook;
-	public static Queen[] queen;
-	public static King[] king;
+	public Pawn[][] pawn;
+	public Knight[][] knight;
+	public Bishop[][] bishop;
+	public Rook[][] rook;
+	public Queen[] queen;
+	public King[] king;
 	
 	/**
 	 * black team: top side, 0
@@ -201,7 +201,7 @@ public class ChessBoard extends Tile{
 	 * 
 	 * @param Position pos
 	 */
-	public static void removeFromBoard(Position pos) {
+	public void removeFromBoard(Position pos) {
 		getcBoard()[pos.getX()][pos.getY()].setOnPiece(false);
 		return;
 	}
@@ -215,21 +215,21 @@ public class ChessBoard extends Tile{
 	 * @param Position current: current position
 	 */
 	
-	public static void updateTile(Position current, Position goal) {
-		getcBoard()[current.getX()][current.getY()].setOnPiece(false);
-		getcBoard()[goal.getX()][goal.getY()].setOccupyPiece(getcBoard()[current.getX()][current.getY()].getOccupyPiece());
-		getcBoard()[current.getX()][current.getY()].setOccupyPiece(PieceType.NOPE);
-		getcBoard()[goal.getX()][goal.getY()].setOnPiece(true);
+	public void updateTile(Position current, Position goal) {
+		this.cBoard[current.getX()][current.getY()].setOnPiece(false);
+		this.cBoard[goal.getX()][goal.getY()].setOccupyPiece(this.cBoard[current.getX()][current.getY()].getOccupyPiece());
+		this.cBoard[current.getX()][current.getY()].setOccupyPiece(PieceType.NOPE);
+		this.cBoard[goal.getX()][goal.getY()].setOnPiece(true);
 		System.out.println("updateTile: " + current.getX() + ", " + current.getY() + " to " + goal.getX() + ", " + goal.getY());
 		return;
 	}
 
-  public static Tile[][] getcBoard() {
+  public Tile[][] getcBoard() {
     return cBoard;
   }
 
-  public static void setcBoard(Tile[][] cBoard) {
-    ChessBoard.cBoard = cBoard;
+  public void setcBoard(Tile[][] cBoard) {
+    this.cBoard = cBoard;
   }
 	
 

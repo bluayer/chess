@@ -110,7 +110,7 @@ public class ChessGui {
        btn[i][j].addMouseListener(mClkB);
        
        if( !b.getcBoard()[i][j].getActive() ) {
-         btn[i][j].setBackground(black);
+         btn[i][j].setBackground(Color.DARK_GRAY);
        }
        else {
          btn[i][j].setBackground(((i + j) % 2 == 0)? white: gray);
@@ -169,6 +169,8 @@ public class ChessGui {
               break;
             case KING:
               System.out.print("K ");
+            default:
+              break;
             }
           }
         }

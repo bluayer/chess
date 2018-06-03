@@ -1,5 +1,6 @@
 package board;
 
+import chess.ChessGui;
 import piece.Bishop;
 import piece.GamePiece;
 import piece.King;
@@ -14,9 +15,9 @@ public class SearchPieceByPos {
 	static Pawn searchPawn(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 8; j++) {
-	      if(board.pawn[i][j].getPosition().getX() == pos.getX() && board.pawn[i][j].getPosition().getY() == pos.getY()) {
-	        if(board.pawn[i][j].isAlive()) {
-	          return board.pawn[i][j];
+	      if(ChessGui.b.pawn[i][j].getPosition().getX() == pos.getX() && ChessGui.b.pawn[i][j].getPosition().getY() == pos.getY()) {
+	        if(ChessGui.b.pawn[i][j].isAlive()) {
+	          return ChessGui.b.pawn[i][j];
 	        }
 	        else {
 	          continue;
@@ -29,9 +30,9 @@ public class SearchPieceByPos {
 	static Bishop searchBishop(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
-	      if(board.bishop[i][j].getPosition().getX() == pos.getX() && board.bishop[i][j].getPosition().getY() == pos.getY()) {
-	        if(board.bishop[i][j].isAlive()) {
-	          return board.bishop[i][j];
+	      if(ChessGui.b.bishop[i][j].getPosition().getX() == pos.getX() && ChessGui.b.bishop[i][j].getPosition().getY() == pos.getY()) {
+	        if(ChessGui.b.bishop[i][j].isAlive()) {
+	          return ChessGui.b.bishop[i][j];
 	        }
 	        else {
 	          continue;
@@ -44,9 +45,9 @@ public class SearchPieceByPos {
 	static Knight searchKnight(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
-	      if(board.knight[i][j].getPosition().getX() == pos.getX() && board.knight[i][j].getPosition().getY() == pos.getY()) {
-	        if(board.knight[i][j].isAlive()) {
-	          return board.knight[i][j];
+	      if(ChessGui.b.knight[i][j].getPosition().getX() == pos.getX() && ChessGui.b.knight[i][j].getPosition().getY() == pos.getY()) {
+	        if(ChessGui.b.knight[i][j].isAlive()) {
+	          return ChessGui.b.knight[i][j];
 	        }
 	        else {
 	          continue;
@@ -59,9 +60,9 @@ public class SearchPieceByPos {
 	static Rook searchRook(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
 	    for(int j = 0; j < 2; j++) {
-	      if(board.rook[i][j].getPosition().getX() == pos.getX() && board.rook[i][j].getPosition().getY() == pos.getY()) {
-	        if(board.rook[i][j].isAlive()) {
-	          return board.rook[i][j];
+	      if(ChessGui.b.rook[i][j].getPosition().getX() == pos.getX() && ChessGui.b.rook[i][j].getPosition().getY() == pos.getY()) {
+	        if(ChessGui.b.rook[i][j].isAlive()) {
+	          return ChessGui.b.rook[i][j];
 	        }
 	        else {
 	          continue;
@@ -73,9 +74,9 @@ public class SearchPieceByPos {
 	}	
 	static Queen searchQueen(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
-	    if(board.queen[i].getPosition().getX() == pos.getX() && board.queen[i].getPosition().getY() == pos.getY()) {
-	      if(board.queen[i].isAlive()) {
-	        return board.queen[i];
+	    if(ChessGui.b.queen[i].getPosition().getX() == pos.getX() && ChessGui.b.queen[i].getPosition().getY() == pos.getY()) {
+	      if(ChessGui.b.queen[i].isAlive()) {
+	        return ChessGui.b.queen[i];
 	      }
 	      else {
 	        continue;
@@ -86,9 +87,9 @@ public class SearchPieceByPos {
 	}
 	static King searchKing(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {
-	    if(board.king[i].getPosition().getX() == pos.getX() && board.king[i].getPosition().getY() == pos.getY()) {
-	      if(board.king[i].isAlive()) {
-	        return board.king[i];
+	    if(ChessGui.b.king[i].getPosition().getX() == pos.getX() && ChessGui.b.king[i].getPosition().getY() == pos.getY()) {
+	      if(ChessGui.b.king[i].isAlive()) {
+	        return ChessGui.b.king[i];
 	      }
 	      else {
 	        continue;
@@ -100,9 +101,9 @@ public class SearchPieceByPos {
 	
 	
 	public static GamePiece searchPiece(Position pos, ChessBoard Board) {
-	  if(Board.getcBoard()[pos.getX()][pos.getY()].isOnPiece()) {
+	  if(ChessGui.b.getcBoard()[pos.getX()][pos.getY()].isOnPiece()) {
 	    
-	    switch(Board.getcBoard()[pos.getX()][pos.getY()].getOccupyPiece()) {
+	    switch(ChessGui.b.getcBoard()[pos.getX()][pos.getY()].getOccupyPiece()) {
 	    case PAWN:
 	      return (GamePiece) searchPawn(pos, Board);
       case BISHOP:
@@ -115,6 +116,9 @@ public class SearchPieceByPos {
 	      return (GamePiece) searchQueen(pos, Board);
 	    case KING:
 	      return (GamePiece) searchKing(pos, Board);
+      default:
+        System.out.println("searchPiece: nothing found");
+        break;
 	    }
 	  }
 	  return null;

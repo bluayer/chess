@@ -39,7 +39,7 @@ public class Checkmate {
   
   public Checkmate(King k) {
     this.myKing = k;
-    this.nowTile = ChessBoard.getcBoard();
+    this.nowTile = ChessGui.b.getcBoard();
     this.king = ChessGui.b.king;
     this.queen = ChessGui.b.queen;
     this.knight = ChessGui.b.knight;

@@ -1,14 +1,7 @@
 package chess;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
 import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
@@ -18,7 +11,6 @@ import board.UpdatePiece;
 import gamestate.TurnCheck;
 import piece.GamePiece;
 import piece.GamePiece.PieceType;
-import piece.PieceWay;
 import piece.Position;
 
 public class MouseClick{
@@ -119,6 +111,9 @@ public class MouseClick{
       break;
     case KING:
       UpdatePiece.updateKing(firstPos, secondPos);
+      break;
+    default:
+      System.out.println("movePiece: cannot get type of clicked piece");
       break;
     }
     return;

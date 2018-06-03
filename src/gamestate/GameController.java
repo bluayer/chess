@@ -3,6 +3,7 @@ package gamestate;
 import board.Status.TEAM;
 import board.ChessBoard;
 import board.Tile;
+import chess.ChessGui;
 import gamestate.Checkmate;
 import gamestate.Stalemate;
 import piece.GamePiece.Color;
@@ -14,29 +15,33 @@ public class GameController {
   private int[] checkmateFlag = new int[4];
 
   public void setStalemateFlag(TEAM team) {
-    Stalemate s = new Stalemate();
-    if(s.isStalemate(team))
+    Stalemate s = new Stalemate(ChessGui.b.king[Tile.cvtTeam(team)]);
+    if(s.isStalemate(team)) {
       stalemateFlag[Tile.cvtTeam(team)] = 1;
+    }
   }
   
   public void resetStalemateFlag(TEAM team) {
-    Stalemate s = new Stalemate();
-    if(!s.isStalemate(team))
+    Stalemate s = new Stalemate(ChessGui.b.king[Tile.cvtTeam(team)]);
+    if(!s.isStalemate(team)) {
       stalemateFlag[Tile.cvtTeam(team)] = 0;
+    }
   }
   
   public void setCheckmateFlag(King king) {
     Checkmate c = new Checkmate(king);
     Color c1 = king.getColor();
-    if(c.isCheckmate(king.getPosition(), ChessBoard.getcBoard()))
+    if(c.isCheckmate(king.getPosition(), ChessGui.b.getcBoard())) {
       checkmateFlag[Tile.cvtTeam(colorToTeam(c1))] = 1;
+    }
   }
   
   public void resetCheckmateFlag(King king) {
     Checkmate c = new Checkmate(king);
     Color c1 = king.getColor();
-    if(!c.isCheckmate(king.getPosition(), ChessBoard.getcBoard()))
+    if(!c.isCheckmate(king.getPosition(), ChessGui.b.getcBoard())) {
       checkmateFlag[Tile.cvtTeam(colorToTeam(c1))] = 0;
+    }
   }
   
   public static Color teamToColor(int num) {
@@ -86,18 +91,23 @@ public class GameController {
   }
   
   public int GameResult() {
-    if(this.checkmateFlag[0] + this.checkmateFlag[1] == 2)
+    if(this.checkmateFlag[0] + this.checkmateFlag[1] == 2) {
       return 1; //Team1(Black, White) is win
-    else if(this.checkmateFlag[2] + this.checkmateFlag[3] == 2)
+    }
+    else if(this.checkmateFlag[2] + this.checkmateFlag[3] == 2) {
       return 2; //Team2(Black, White) is win
-    else if(this.stalemateFlag[0] + this.stalemateFlag[1] == 2)
+    }
+    else if(this.stalemateFlag[0] + this.stalemateFlag[1] == 2) {
       return -1; //draw
-    else if(this.stalemateFlag[2] + this.stalemateFlag[3] == 2)
+    }
+    else if(this.stalemateFlag[2] + this.stalemateFlag[3] == 2) {
       return -1;
+    }
     
     //add code here about skip some player's turn and other draw condition.
     
-    else
-      return 0; 
+    else {
+      return 0;
+    }
   }
 }
