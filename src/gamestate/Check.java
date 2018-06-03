@@ -30,7 +30,8 @@ public class Check {
   } 
   
   public boolean isCheck() { 
-    Color color = nowPiece.getColor(); 
+    this.nowPiece = MouseClick.clickedPiece;
+    Color color = nowPiece.getColor();
     Color oppositeColor1 = null, oppositeColor2 = null; 
     TEAM oppositeTeam1, oppositeTeam2;
     int op1 = 0, op2 = 0;
@@ -63,18 +64,18 @@ public class Check {
     aw = this.nowPiece.getCanMoves();
     
     if(this.nowPiece.getPieceType() == PieceType.KING) {
-      System.out.println("Check Error:clicked Piecetype is King");
+      System.out.println("Check Error: clicked Piecetype is King");
       return false;
     }
     
     for(int i = 0; i < aw.length; i++) {
-      if(aw[i] == allKing[op1].getPosition()) {
-        System.out.println("Player" + (i + 1) + " is on Check");
+      if(aw[i].getX() == allKing[op1].getPosition().getX() && aw[i].getY() == allKing[op1].getPosition().getY()) {
+        System.out.println("Player" + ((i + 1) % 4) + " is on Check");
         checkFlag = 1;
       }
       
-      if(aw[i] == allKing[op2].getPosition()) {
-        System.out.println("Player" + (i + 1) + " is on Check");
+      if(aw[i].getX() == allKing[op2].getPosition().getX() && aw[i].getY() == allKing[op2].getPosition().getY()) {
+        System.out.println("Player" + ((i + 1) % 4)+ " is on Check");
         checkFlag = 1;
       }
     }

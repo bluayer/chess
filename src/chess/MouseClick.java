@@ -33,7 +33,7 @@ public class MouseClick{
   private static Position[] tileBackup;
   public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
-  private static Check[] check = new Check[4];
+  private static Check check = new Check();
   
   public MouseClick() {
     this.firstClk = null;
@@ -195,10 +195,7 @@ public class MouseClick{
     }
     
     //if it's check or checkmate
-    for(int k = 0; k < check.length; k++) {
-      check[k].isCheck();
-       
-    }
+    check.isCheck();
     
     return;
   }
@@ -220,13 +217,6 @@ public class MouseClick{
 
 
   public static void mouseInput(MouseEvent e) {
-    if(check[0]==null) {
-      check[0] = new Check(ChessGui.b.king[0], ChessGui.b.getcBoard());
-      check[1] = new Check(ChessGui.b.king[1], ChessGui.b.getcBoard());
-      check[2] = new Check(ChessGui.b.king[2], ChessGui.b.getcBoard());
-      check[3] = new Check(ChessGui.b.king[3], ChessGui.b.getcBoard());
-    }
-    
     for(int i = 0; i < btn.length; i++) {
       for(int j = 0; j < btn.length; j++) {
         
