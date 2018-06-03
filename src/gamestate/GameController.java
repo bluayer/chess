@@ -13,7 +13,7 @@ import piece.Position;
 public class GameController {
   public static int[] stalemateFlag = {0, 0, 0, 0};
   public static int[] checkmateFlag = {0, 0, 0, 0};
-  public static int[] checkFlag = {0, 0, 0, 0};
+  //public static int[] checkFlag = {0, 0, 0, 0};
 
   public static void setStalemateFlag(TEAM team) {
     Stalemate s = new Stalemate(ChessGui.b.king[Tile.cvtTeam(team)]);
@@ -44,7 +44,7 @@ public class GameController {
       checkmateFlag[Tile.cvtTeam(colorToTeam(c1))] = 0;
     }
   }
-  
+  /*
   public static void setCheckFlag(TEAM team) {
     Check c = new Check();
     if(c.isCheck()) {
@@ -55,7 +55,7 @@ public class GameController {
   public static void resetCheckFlag(TEAM team) {
     checkFlag[Tile.cvtTeam(team)] = 0;
   }
-  
+  */
   public static Color teamToColor(int num) {
     Color color = null;
     

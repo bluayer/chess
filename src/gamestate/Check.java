@@ -5,11 +5,11 @@ import board.Status.TEAM;
 import chess.ChessGui;
 import chess.MouseClick;
 import gamestate.GameController;
-import piece.GamePiece.Color; 
+import piece.GamePiece.Color;
+import piece.GamePiece.PieceType;
 import piece.GamePiece;
 import piece.King;
 import piece.Position;
-
 
 /** 
 *  
@@ -34,6 +34,7 @@ public class Check {
     Color oppositeColor1 = null, oppositeColor2 = null; 
     TEAM oppositeTeam1, oppositeTeam2;
     int op1 = 0, op2 = 0;
+    int checkFlag = 0;
 
     switch (color) { 
     case BLACK: 
@@ -61,23 +62,27 @@ public class Check {
     op2 = ChessBoard.cvtTeam(oppositeTeam2);
     aw = this.nowPiece.getCanMoves();
     
+    if(this.nowPiece.getPieceType() == PieceType.KING) {
+      System.out.println("Check Error:clicked Piecetype is King");
+      return false;
+    }
+    
     for(int i = 0; i < aw.length; i++) {
       if(aw[i] == allKing[op1].getPosition()) {
-        GameController.setCheckFlag(oppositeTeam1);
+        System.out.println("Player" + (i + 1) + " is on Check");
+        checkFlag = 1;
       }
       
       if(aw[i] == allKing[op2].getPosition()) {
-        GameController.setCheckFlag(oppositeTeam2);
-      }
-    }
-    
-    for(int i = 0; i < 4; i++) {
-      if(GameController.checkFlag[i] == 1) {
         System.out.println("Player" + (i + 1) + " is on Check");
-        return true;
+        checkFlag = 1;
       }
     }
     
+    if(checkFlag == 1) {
+      return true;
+    }
+
     return false;
   }
  } 
