@@ -1,14 +1,18 @@
 package gamestate;
 
 import board.ChessBoard;
+import board.SearchPieceByPos;
 import board.Tile;
 import chess.ChessGui;
 import gamestate.GameController;
 import piece.Bishop;
+import piece.GamePiece;
 import piece.GamePiece.Color;
+import piece.GamePiece.PieceType;
 import piece.King;
 import piece.Knight;
 import piece.Pawn;
+import piece.PieceWay;
 import piece.Position;
 import piece.Queen;
 import piece.Rook;
@@ -45,75 +49,124 @@ public class Checkmate {
   }
   
   public boolean isCheckmate(Position kingPos, Tile[][] tile) {
-    Check c = new Check();
-    Tile[][] bufferTile;
+    Check c = new Check(this.myKing, nowTile);
+    Tile[][] bufferTile = tile;
+    Tile t;
     Color teamColor = myKing.getColor();
     int team = ChessBoard.cvtTeam(GameController.colorToTeam(teamColor));
+    Position temp = new Position(0, 0);
+    PieceWay kingWay = new PieceWay(kingPos);
+    Position nowPos = new Position(0, 0);
+    GamePiece piece;
     
-    if(!c.isCheck(this.myKing))
+    if(!c.isCheck() && kingWay.waysKingPosCheck(teamColor) == null)
       return false;
     
     else {
-      if(myKing.getColor() == Color.BLACK) {
-        aw = king[0].getCanMoves();
-        for(int i = 0; i < aw.length; i++) {
-          if(!isCheckmate(aw[i], tile))
-            return false;
-        }
-        
-        aw = queen[0].getCanMoves();
-        for(int i = 0; i < aw.length; i++) {
-          ChessBoard.updateTile(queen[0].getPosition(), aw[i]);
-          bufferTile = ChessBoard.getcBoard();
-          if(!isCheckmate(kingPos, bufferTile)) {
-            bufferTile = this.nowTile;
-            return false;
-          }
-        }
-        
-        for(int i = 0; i < knight.length; i++) {
-          aw = knight[0][i].getCanMoves();
-          ChessBoard.updateTile(knight[0][i].getPosition(), aw[i]);
-          bufferTile = ChessBoard.getcBoard();
-          if(!isCheckmate(kingPos, bufferTile)) {
-            bufferTile = this.nowTile;
-            return false;
-          }
-        }
-        
-        for(int i = 0; i < bishop.length; i++) {
-          aw = bishop[0][i].getCanMoves();
-          ChessBoard.updateTile(bishop[0][i].getPosition(), aw[i]);
-          bufferTile = ChessBoard.getcBoard();
-          if(!isCheckmate(kingPos, bufferTile)) {
-            bufferTile = this.nowTile;
-            return false;
-          }
-        }
-        
-        for(int i = 0; i < rook.length; i++) {
-          aw = rook[0][i].getCanMoves();
-          ChessBoard.updateTile(rook[0][i].getPosition(), aw[i]);
-          bufferTile = ChessBoard.getcBoard();
-          if(!isCheckmate(kingPos, bufferTile)) {
-            bufferTile = this.nowTile;
-            return false;
-          }
-        }
-        
-        for(int i = 0; i < pawn.length; i++) {
-          aw = pawn[0][i].getCanMoves();
-          ChessBoard.updateTile(pawn[0][i].getPosition(), aw[i]);
-          bufferTile = ChessBoard.getcBoard();
-          if(!isCheckmate(kingPos, bufferTile)) {
-            bufferTile = this.nowTile;
-            return false;
-          }
-        }    
-      }    
+      for(int i = 0; i < 14; i++)
+        for(int j = 0; j < 14; j++)
+          if(bufferTile[i][j].getActive())
+            if(bufferTile[i][j].isOnPiece()) {
+              nowPos.setX(i); nowPos.setY(j);
+              piece = SearchPieceByPos.searchPiece(nowPos, ChessGui.b);
+              if(piece.getColor() == teamColor)
+                if(bufferTile[i][j].getOccupyPiece() == PieceType.QUEEN) {
+                  aw = queen[team].getCanMoves();
+                
+                  for(int k = 0; k < aw.length; k++) {
+                    t = new Tile(false, PieceType.NOPE);
+                    bufferTile[aw[k].getX()][aw[k].getY()] = bufferTile[i][j];
+                    bufferTile[i][j] = t;
+                    c = new Check(this.myKing, bufferTile);
+                  
+                    if(!c.isCheck()) {
+                      bufferTile = tile;
+                      return false;
+                      }
+                    }
+                }
+      
+                else if(bufferTile[i][j].getOccupyPiece() == PieceType.BISHOP) {
+                  for(int k = 0; k < bishop[team].length; k++) {
+                    aw = bishop[team][k].getCanMoves();
+                
+                    for(int l = 0; l < aw.length; l++) {
+                      t = new Tile(false, PieceType.NOPE);
+                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
+                      bufferTile[i][j] = t;
+                      c = new Check(this.myKing, bufferTile);
+                      
+                      if(!c.isCheck()) {
+                        bufferTile = tile;
+                        return false;
+                      }
+                    }
+                  }
+                }
+              
+                else if(bufferTile[i][j].getOccupyPiece() == PieceType.KNIGHT) {
+                  for(int k = 0; k < knight[team].length; k++) {
+                    aw = knight[team][k].getCanMoves();
+                
+                    for(int l = 0; l < aw.length; l++) {
+                      t = new Tile(false, PieceType.NOPE);
+                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
+                      bufferTile[i][j] = t;
+                      c = new Check(this.myKing, bufferTile);
+                      
+                      if(!c.isCheck()) {
+                        bufferTile = tile;
+                        return false;
+                      }
+                    }
+                  }
+                }
+              
+                else if(bufferTile[i][j].getOccupyPiece() == PieceType.ROOK) {
+                  for(int k = 0; k < rook[team].length; k++) {
+                    aw = rook[team][k].getCanMoves();
+                
+                    for(int l = 0; l < aw.length; l++) {
+                      t = new Tile(false, PieceType.NOPE);
+                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
+                      bufferTile[i][j] = t;
+                      c = new Check(this.myKing, bufferTile);
+                      
+                      if(!c.isCheck()) {
+                        bufferTile = tile;
+                        return false;
+                      }
+                    }
+                  }
+                }
+              
+                else if(bufferTile[i][j].getOccupyPiece() == PieceType.PAWN) {
+                  for(int k = 0; k < pawn[team].length; k++) {
+                    aw = pawn[team][k].getCanMoves();
+                
+                    for(int l = 0; l < aw.length; l++) {
+                      t = new Tile(false, PieceType.NOPE);
+                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
+                      bufferTile[i][j] = t;
+                      c = new Check(this.myKing, bufferTile);
+                      
+                      if(!c.isCheck()) {
+                        bufferTile = tile;
+                        return false;
+                      }
+                    }
+                  }
+                }
+              
+                else {
+                  System.out.println("Checkmate:Error");
+                  return false;
+                }
+            }
+      
+      bufferTile = tile;
+      return true;
     }
-    
-    return true;
-  }
   
+  }
 }
