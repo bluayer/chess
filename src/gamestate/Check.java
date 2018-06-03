@@ -82,16 +82,20 @@ public class Check {
                 aw = queen[oppositeTeam1].getCanMoves();
               
                 for(int k = 0; k < aw.length; k++) 
-                  if(aw[k] == kingPos)
+                  if(aw[k] == kingPos) {
+                    System.out.println("Check");
                     return true;
+                  }
               }
             
               else if(queen[oppositeTeam2].getPosition() == nowPos) {
                 aw = queen[oppositeTeam2].getCanMoves();
               
                 for(int k = 0; k < aw.length; k++)
-                  if(aw[k] == kingPos)
+                  if(aw[k] == kingPos) {
+                    System.out.println("Check");
                     return true;
+                  }
               }
             }
             
@@ -101,16 +105,20 @@ public class Check {
                   aw = bishop[oppositeTeam1][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
                 
                 else if(bishop[oppositeTeam2][k].getPosition() == nowPos) {
                   aw = bishop[oppositeTeam2][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
               }
             }
@@ -121,16 +129,20 @@ public class Check {
                   aw = rook[oppositeTeam1][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
                 
                 else if(rook[oppositeTeam2][k].getPosition() == nowPos) {
                   aw = rook[oppositeTeam2][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
               }
             }
@@ -141,16 +153,20 @@ public class Check {
                   aw = knight[oppositeTeam1][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
                 
                 else if(knight[oppositeTeam2][k].getPosition() == nowPos) {
                   aw = knight[oppositeTeam2][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
               }
             }
@@ -161,16 +177,20 @@ public class Check {
                   aw = pawn[oppositeTeam1][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
                 
                 else if(pawn[oppositeTeam2][k].getPosition() == nowPos) {
                   aw = pawn[oppositeTeam2][k].getCanMoves();
                   
                   for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos)
+                    if(aw[l] == kingPos) {
+                      System.out.println("Check");
                       return true;
+                    }
                 }
               }
             }

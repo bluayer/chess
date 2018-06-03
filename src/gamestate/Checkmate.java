@@ -165,6 +165,7 @@ public class Checkmate {
             }
       
       bufferTile = tile;
+      System.out.println("Checkmate");
       return true;
     }
   

@@ -14,6 +14,9 @@ import piece.Queen;
 import piece.Rook;
 
 public class Stalemate {
+  King myKing;
+  Tile[][] board;
+  
 	TEAM team;
 	King[] king;
 	Queen[] queen;
@@ -23,13 +26,15 @@ public class Stalemate {
 	Pawn[][] pawn;
 	Position[] aw; // availableWay
 
-	public Stalemate() {
+	public Stalemate(King king) {
 		this.king = ChessGui.b.king;
 		this.queen = ChessGui.b.queen;
 		this.knight = ChessGui.b.knight;
 		this.bishop = ChessGui.b.bishop;
 		this.rook = ChessGui.b.rook;
 		this.pawn = ChessGui.b.pawn;
+		this.myKing = king;
+		this.board = ChessGui.b.getcBoard();
 	}
 	
 	public void getStalemate(TEAM team){
@@ -39,12 +44,10 @@ public class Stalemate {
 	public boolean isStalemate(TEAM team) {
 		int t = Tile.cvtTeam(team);
 		
-		Check p = new Check();
+		Check p = new Check(this.myKing, this.board);
 	
-		if(p.isCheck(this.king[t])) {
-			
+		if(p.isCheck())
 			return false;
-		}
 		 
 		else {
 			if(t == Tile.cvtTeam(TEAM.BLACK)) {
@@ -70,6 +73,7 @@ public class Stalemate {
 					if(this.aw.length != 0) {return false;}
 				}
 			
+				System.out.println("Stalemate");
 				return true;
 			}
 		
@@ -96,6 +100,7 @@ public class Stalemate {
 					if(this.aw.length != 0) {return false;}
 				}
 			
+				System.out.println("Stalemate");
 				return true;
 			}
 		
@@ -122,6 +127,7 @@ public class Stalemate {
 					if(this.aw.length != 0) {return false;}
 				}
 			
+				System.out.println("Stalemate");
 				return true;
 			}
 			
@@ -148,6 +154,7 @@ public class Stalemate {
 					if(this.aw.length != 0) {return false;}
 				}
 			
+				System.out.println("Stalemate");
 				return true;
 			}
 		}
