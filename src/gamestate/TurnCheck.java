@@ -35,16 +35,16 @@ public class TurnCheck {
 		this.mturn++;
 		
     if(this.getter() == 0) {
-      ChessGui.statusBar.setBackground(ChessGui.white);
+      ChessGui.chessBoard.setBackground(ChessGui.white);
     }
     else if(this.getter() == 1){
-      ChessGui.statusBar.setBackground(ChessGui.red);
+      ChessGui.chessBoard.setBackground(ChessGui.red);
     }
     else if(this.getter() == 2){
-      ChessGui.statusBar.setBackground(ChessGui.black);
+      ChessGui.chessBoard.setBackground(ChessGui.black);
     }
     else {
-      ChessGui.statusBar.setBackground(ChessGui.green);
+      ChessGui.chessBoard.setBackground(ChessGui.green);
     }
 		
 		return;

@@ -21,8 +21,7 @@ public class ChessGui {
   static final int FRAME_WIDTH = 1000, FRAME_HEIGHT = 1000;
   
   private static JFrame mainFrame;
-  private static JPanel chessBoard;
-  public static JPanel statusBar;
+  public static JPanel chessBoard;
   static ImagePanel btn[][];
   public static Color white = Color.WHITE, gray = Color.GRAY, black = Color.black, red = Color.RED, green = Color.GREEN;
   private static MClickBridge mClkB;
@@ -93,7 +92,6 @@ public class ChessGui {
  public static void setup2vs2ChessGUI() {   
    mainFrame = new JFrame("2 vs 2 Chess");
    chessBoard = new JPanel();
-   statusBar = new JPanel();
    btn = new ImagePanel[b.getcBoard().length][b.getcBoard().length];
    
    mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -102,8 +100,8 @@ public class ChessGui {
    mainFrame.setLocationRelativeTo(null);
    
    chessBoard.setLayout(new GridLayout(14, 14));
-   chessBoard.setBackground(Color.LIGHT_GRAY);
-   chessBoard.setBorder(new EmptyBorder(0, 50, 50, 50));
+   chessBoard.setBackground(white);
+   chessBoard.setBorder(new EmptyBorder(50, 50, 50, 50));
    
    for(int i = 0; i < b.getcBoard().length; i++) {
      for(int j = 0; j < b.getcBoard().length; j++) {
@@ -129,10 +127,7 @@ public class ChessGui {
 
    mainFrame.repaint();
    mainFrame.add(chessBoard);
-   mainFrame.add(statusBar, BorderLayout.NORTH);
    mainFrame.setVisible(true);
-   
-   statusBar.setBackground(white);
    
    return;
  }

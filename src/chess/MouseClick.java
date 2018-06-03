@@ -168,6 +168,9 @@ public class MouseClick{
   
   private static void firstClickSetup(int i,int j) {
     varsClear();
+    if(btn[i][j].getImage() == null) {
+      return;
+    }
     
     //setting first button and position
     firstClk = btn[i][j];
