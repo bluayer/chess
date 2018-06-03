@@ -1,17 +1,15 @@
 package gamestate; 
 
-import board.ChessBoard; 
-import board.Tile;
+import board.ChessBoard;
+import board.Status.TEAM;
 import chess.ChessGui;
-import piece.Bishop;
+import chess.MouseClick;
+import gamestate.GameController;
 import piece.GamePiece.Color; 
-import piece.GamePiece.PieceType; 
+import piece.GamePiece;
 import piece.King;
-import piece.Knight;
-import piece.Pawn;
 import piece.Position;
-import piece.Queen;
-import piece.Rook; 
+
 
 /** 
 *  
@@ -21,33 +19,21 @@ import piece.Rook;
 
 public class Check { 
 
-  private ChessBoard cboard = ChessGui.b; 
-  private Tile[][] board;
-  private King king;
+  private GamePiece nowPiece;
   
-  Queen[] queen;
-  Knight[][] knight;
-  Bishop[][] bishop;
-  Rook[][] rook;
-  Pawn[][] pawn;
-  Position[] aw; //available way
+  private King[] allKing;
+  private Position[] aw; //available way
   
-  public Check(King king, Tile[][] board){
-    this.king = king;
-    this.board = board;
-    this.queen = ChessGui.b.queen;
-    this.knight = ChessGui.b.knight;
-    this.bishop = ChessGui.b.bishop;
-    this.rook = ChessGui.b.rook;
-    this.pawn = ChessGui.b.pawn;
+  public Check(){
+    this.nowPiece = MouseClick.clickedPiece;
+    this.allKing = ChessGui.b.king;
   } 
   
   public boolean isCheck() { 
-    Color color = king.getColor(); 
+    Color color = nowPiece.getColor(); 
     Color oppositeColor1 = null, oppositeColor2 = null; 
-    int oppositeTeam1, oppositeTeam2;
-    Position kingPos = king.getPosition();
-    Position nowPos = new Position(0, 0);
+    TEAM oppositeTeam1, oppositeTeam2;
+    int op1 = 0, op2 = 0;
 
     switch (color) { 
     case BLACK: 
@@ -69,138 +55,29 @@ public class Check {
     default: 
     } 
     
-    oppositeTeam1 = ChessBoard.cvtTeam(GameController.colorToTeam(oppositeColor1));
-    oppositeTeam2 = ChessBoard.cvtTeam(GameController.colorToTeam(oppositeColor2));
+    oppositeTeam1 = GameController.colorToTeam(oppositeColor1);
+    oppositeTeam2 = GameController.colorToTeam(oppositeColor2);
+    op1 = ChessBoard.cvtTeam(oppositeTeam1);
+    op2 = ChessBoard.cvtTeam(oppositeTeam2);
+    aw = this.nowPiece.getCanMoves();
     
-    for(int i = 0; i < ChessGui.b.getcBoard().length; i++)
-      for(int j = 0; j < ChessGui.b.getcBoard().length; j++)
-        if(board[i][j].isOnPiece())
-          if(board[i][j].getActive()) {
-            nowPos.setX(i); nowPos.setY(j);
-            if(board[i][j].getOccupyPiece() == PieceType.QUEEN) {
-              if(queen[oppositeTeam1].getPosition() == nowPos) {
-                aw = queen[oppositeTeam1].getCanMoves();
-              
-                for(int k = 0; k < aw.length; k++) 
-                  if(aw[k] == kingPos) {
-                    System.out.println("Check");
-                    return true;
-                  }
-              }
-            
-              else if(queen[oppositeTeam2].getPosition() == nowPos) {
-                aw = queen[oppositeTeam2].getCanMoves();
-              
-                for(int k = 0; k < aw.length; k++)
-                  if(aw[k] == kingPos) {
-                    System.out.println("Check");
-                    return true;
-                  }
-              }
-            }
-            
-            else if(board[i][j].getOccupyPiece() == PieceType.BISHOP) {
-              for(int k = 0; k < bishop[oppositeTeam1].length; k++) {
-                if(bishop[oppositeTeam1][k].getPosition() == nowPos) {
-                  aw = bishop[oppositeTeam1][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-                
-                else if(bishop[oppositeTeam2][k].getPosition() == nowPos) {
-                  aw = bishop[oppositeTeam2][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-              }
-            }
-             
-            else if(board[i][j].getOccupyPiece() == PieceType.ROOK) {
-              for(int k = 0; k < rook[oppositeTeam1].length; k++) {
-                if(rook[oppositeTeam1][k].getPosition() == nowPos) {
-                  aw = rook[oppositeTeam1][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-                
-                else if(rook[oppositeTeam2][k].getPosition() == nowPos) {
-                  aw = rook[oppositeTeam2][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-              }
-            }
-            
-            else if(board[i][j].getOccupyPiece() == PieceType.KNIGHT) {
-              for(int k = 0; k < knight[oppositeTeam1].length; k++) {
-                if(knight[oppositeTeam1][k].getPosition() == nowPos) {
-                  aw = knight[oppositeTeam1][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-                
-                else if(knight[oppositeTeam2][k].getPosition() == nowPos) {
-                  aw = knight[oppositeTeam2][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-              }
-            }
-            
-            else if(board[i][j].getOccupyPiece() == PieceType.PAWN) {
-              for(int k = 0; k < pawn[oppositeTeam1].length; k++) {
-                if(pawn[oppositeTeam1][k].getPosition() == nowPos) {
-                  aw = pawn[oppositeTeam1][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-                
-                else if(pawn[oppositeTeam2][k].getPosition() == nowPos) {
-                  aw = pawn[oppositeTeam2][k].getCanMoves();
-                  
-                  for(int l = 0; l < aw.length; l++)
-                    if(aw[l] == kingPos) {
-                      System.out.println("Check");
-                      return true;
-                    }
-                }
-              }
-            }
-            
-            else {
-              System.out.println("Check:Error");
-              return false;
-            }
-          }
-            
+    for(int i = 0; i < aw.length; i++) {
+      if(aw[i] == allKing[op1].getPosition()) {
+        GameController.setCheckFlag(oppositeTeam1);
+      }
+      
+      if(aw[i] == allKing[op2].getPosition()) {
+        GameController.setCheckFlag(oppositeTeam2);
+      }
+    }
+    
+    for(int i = 0; i < 4; i++) {
+      if(GameController.checkFlag[i] == 1) {
+        System.out.println("Player" + (i + 1) + " is on Check");
+        return true;
+      }
+    }
+    
     return false;
-  } 
+  }
  } 

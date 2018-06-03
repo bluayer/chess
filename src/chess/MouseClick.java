@@ -26,7 +26,7 @@ public class MouseClick{
   private static Tile[][] cBoard = ChessGui.b.getcBoard();
   private static boolean isClicked;
   private static Position[] tileBackup;
-  private static GamePiece clickedPiece;
+  public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
   
   public MouseClick() {
@@ -214,10 +214,11 @@ public class MouseClick{
   }
   
   private static boolean isValidTurnClick() {
+    
     if( !nowTurn.isValidTurn(nowTurn, firstPos) ) {
       return false;
     }
-    
+ 
     for(int i = 0; i < tileBackup.length; i++) {
       if(tileBackup[i].getX() == secondPos.getX() && tileBackup[i].getY() == secondPos.getY()) {
         nowTurn.nextTurn();

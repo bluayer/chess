@@ -63,13 +63,13 @@ public class Checkmate {
       return false;
     
     else {
-      for(int i = 0; i < 14; i++)
-        for(int j = 0; j < 14; j++)
-          if(bufferTile[i][j].getActive())
+      for(int i = 0; i < 14; i++) {
+        for(int j = 0; j < 14; j++) {
+          if(bufferTile[i][j].getActive()) {
             if(bufferTile[i][j].isOnPiece()) {
               nowPos.setX(i); nowPos.setY(j);
               piece = SearchPieceByPos.searchPiece(nowPos, ChessGui.b);
-              if(piece.getColor() == teamColor)
+              if(piece.getColor() == teamColor) {
                 if(bufferTile[i][j].getOccupyPiece() == PieceType.QUEEN) {
                   aw = queen[team].getCanMoves();
                 
@@ -84,6 +84,7 @@ public class Checkmate {
                       return false;
                       }
                     }
+                  }
                 }
       
                 else if(bufferTile[i][j].getOccupyPiece() == PieceType.BISHOP) {
@@ -162,12 +163,14 @@ public class Checkmate {
                   System.out.println("Checkmate:Error");
                   return false;
                 }
+              }
             }
+          }
+        }
       
       bufferTile = tile;
       System.out.println("Checkmate");
       return true;
     }
-  
   }
 }
