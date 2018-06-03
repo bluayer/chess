@@ -17,6 +17,10 @@ import board.ImagePanel;
 import board.SearchPieceByPos;
 import piece.Position;
 
+/**
+ * @author ChangminYi
+ * class about executing program and setting initial screen
+ */
 public class ChessGui {
   static final int FRAME_WIDTH = 1000, FRAME_HEIGHT = 1000;
   

@@ -5,6 +5,10 @@ import chess.MouseClick;
 import piece.GamePiece;
 import piece.Position;
 
+/**
+ * @author ¿Ã√¢πŒ
+ * class about methods update piece in Chess Board
+ */
 public class UpdatePiece {
   public static void updatePawn(Position prev, Position togo) {
     SearchPieceByPos.searchPawn(prev, MouseClick.board).move(togo);

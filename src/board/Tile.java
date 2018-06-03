@@ -3,7 +3,7 @@ package board;
 import piece.GamePiece.PieceType;
 
 /**
- * @author Changmin Yi
+ * @author ChangminYi
  * class about single tile
  */
 public class Tile extends Status{
