@@ -44,10 +44,11 @@ public class Stalemate {
 	public boolean isStalemate(TEAM team) {
 		int t = Tile.cvtTeam(team);
 		
-		Check p = new Check(this.myKing, this.board);
+		Check p = new Check();
 	
-		if(p.isCheck())
+		if(p.isCheck()) {
 			return false;
+		}
 		 
 		else {
 			if(t == Tile.cvtTeam(TEAM.BLACK)) {

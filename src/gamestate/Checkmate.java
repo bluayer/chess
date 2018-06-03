@@ -26,10 +26,9 @@ import piece.Rook;
  */
 public class Checkmate {
 
-  private Tile[][] nowTile; 
-  King myKing;
+  private King myKing;
+  private GamePiece target;
   
-  King[] king;
   Queen[] queen;
   Knight[][] knight;
   Bishop[][] bishop;
@@ -37,10 +36,7 @@ public class Checkmate {
   Pawn[][] pawn;
   Position[] aw; // availableWay
   
-  public Checkmate(King k) {
-    this.myKing = k;
-    this.nowTile = ChessGui.b.getcBoard();
-    this.king = ChessGui.b.king;
+  public Checkmate() {
     this.queen = ChessGui.b.queen;
     this.knight = ChessGui.b.knight;
     this.bishop = ChessGui.b.bishop;
@@ -48,129 +44,407 @@ public class Checkmate {
     this.pawn = ChessGui.b.pawn;
   }
   
-  public boolean isCheckmate(Position kingPos, Tile[][] tile) {
-    Check c = new Check(this.myKing, nowTile);
-    Tile[][] bufferTile = tile;
-    Tile t;
-    Color teamColor = myKing.getColor();
-    int team = ChessBoard.cvtTeam(GameController.colorToTeam(teamColor));
-    Position temp = new Position(0, 0);
-    PieceWay kingWay = new PieceWay(kingPos);
-    Position nowPos = new Position(0, 0);
-    GamePiece piece;
+  public boolean isCheckmate() {
+    Color teamColor = this.myKing.getColor();
+    Check check = new Check();
+    int targetX, targetY;
+    int kingX = this.myKing.getPosition().getX();
+    int kingY = this.myKing.getPosition().getY();
+    int directionX, directionY;
+    int teamNum = ChessBoard.cvtTeam((GameController.colorToTeam(teamColor)));
     
-    if(!c.isCheck() && kingWay.waysKingPosCheck(teamColor) == null)
+    if(!check.isCheck() || this.myKing.getCanMoves().length != 0) {
       return false;
+    }
     
     else {
-      for(int i = 0; i < 14; i++) {
-        for(int j = 0; j < 14; j++) {
-          if(bufferTile[i][j].getActive()) {
-            if(bufferTile[i][j].isOnPiece()) {
-              nowPos.setX(i); nowPos.setY(j);
-              piece = SearchPieceByPos.searchPiece(nowPos, ChessGui.b);
-              if(piece.getColor() == teamColor) {
-                if(bufferTile[i][j].getOccupyPiece() == PieceType.QUEEN) {
-                  aw = queen[team].getCanMoves();
-                
-                  for(int k = 0; k < aw.length; k++) {
-                    t = new Tile(false, PieceType.NOPE);
-                    bufferTile[aw[k].getX()][aw[k].getY()] = bufferTile[i][j];
-                    bufferTile[i][j] = t;
-                    c = new Check(this.myKing, bufferTile);
-                  
-                    if(!c.isCheck()) {
-                      bufferTile = tile;
-                      return false;
-                      }
-                    }
-                  }
-                }
+      target = check.nowPiece;
+      targetX = target.getPosition().getX();
+      targetY = target.getPosition().getY();
       
-                else if(bufferTile[i][j].getOccupyPiece() == PieceType.BISHOP) {
-                  for(int k = 0; k < bishop[team].length; k++) {
-                    aw = bishop[team][k].getCanMoves();
-                
-                    for(int l = 0; l < aw.length; l++) {
-                      t = new Tile(false, PieceType.NOPE);
-                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
-                      bufferTile[i][j] = t;
-                      c = new Check(this.myKing, bufferTile);
-                      
-                      if(!c.isCheck()) {
-                        bufferTile = tile;
-                        return false;
-                      }
-                    }
-                  }
-                }
+      aw = queen[teamNum].getCanMoves();
+      for(int i = 0; i < aw.length; i++) {
+        if(aw[i].getX() == targetX && aw[i].getY() == targetY) {
+          return false;
+        }
+      }
+      
+      for(int i = 0; i < rook[teamNum].length; i++) {
+        aw = rook[teamNum][i].getCanMoves();
+        for(int j = 0; j < aw.length; j++) {
+          if(aw[j].getX() == targetX && aw[j].getY() == targetY)
+            return false;
+        }
+      }
+      
+      for(int i = 0; i < bishop[teamNum].length; i++) {
+        aw = bishop[teamNum][i].getCanMoves();
+        for(int j = 0; j < aw.length; j++) {
+          if(aw[j].getX() == targetX && aw[j].getY() == targetY)
+            return false;
+        }
+      }
+      
+      for(int i = 0; i < knight[teamNum].length; i++) {
+        aw = knight[teamNum][i].getCanMoves();
+        for(int j = 0; j < aw.length; j++) {
+          if(aw[j].getX() == targetX && aw[j].getY() == targetY)
+            return false;
+        }
+      }
+      
+      for(int i = 0; i < pawn[teamNum].length; i++) {
+        aw = pawn[teamNum][i].getCanMoves();
+        for(int j = 0; j < aw.length; j++) {
+          if(aw[j].getX() == targetX && aw[j].getY() == targetY)
+            return false;
+        }
+      }
+      
+      /*
+       * if target piece type is pawn or knight, player must delete target.
+       */
+      
+      if(target.getPieceType() == PieceType.PAWN || target.getPieceType() == PieceType.KNIGHT) {
+        System.out.println("Checkmate");
+        return true;
+      }
+      
+      else if(target.getPieceType() == PieceType.QUEEN) {
+        directionX = targetX - kingX;
+        directionY = targetY - kingY;
+        
+        if(directionX == 0) {
+          for(int i = 0; i < Math.abs(directionY); i++) {
+            aw = queen[teamNum].getCanMoves();
+            
+            for(int j = 0; j < aw.length; j++) {
+              if(aw[j].getX() == kingX && aw[j].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                return false;
+              }
+            }
+            
+            for(int j = 0; j < bishop.length; j++) {
+              aw = bishop[teamNum][j].getCanMoves();
               
-                else if(bufferTile[i][j].getOccupyPiece() == PieceType.KNIGHT) {
-                  for(int k = 0; k < knight[team].length; k++) {
-                    aw = knight[team][k].getCanMoves();
-                
-                    for(int l = 0; l < aw.length; l++) {
-                      t = new Tile(false, PieceType.NOPE);
-                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
-                      bufferTile[i][j] = t;
-                      c = new Check(this.myKing, bufferTile);
-                      
-                      if(!c.isCheck()) {
-                        bufferTile = tile;
-                        return false;
-                      }
-                    }
-                  }
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
                 }
+              }
+            }
+            
+            for(int j = 0; j < rook.length; j++) {
+              aw = rook[teamNum][j].getCanMoves();
               
-                else if(bufferTile[i][j].getOccupyPiece() == PieceType.ROOK) {
-                  for(int k = 0; k < rook[team].length; k++) {
-                    aw = rook[team][k].getCanMoves();
-                
-                    for(int l = 0; l < aw.length; l++) {
-                      t = new Tile(false, PieceType.NOPE);
-                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
-                      bufferTile[i][j] = t;
-                      c = new Check(this.myKing, bufferTile);
-                      
-                      if(!c.isCheck()) {
-                        bufferTile = tile;
-                        return false;
-                      }
-                    }
-                  }
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
                 }
+              }
+            }
+            
+            for(int j = 0; j < knight.length; j++) {
+              aw = knight[teamNum][j].getCanMoves();
               
-                else if(bufferTile[i][j].getOccupyPiece() == PieceType.PAWN) {
-                  for(int k = 0; k < pawn[team].length; k++) {
-                    aw = pawn[team][k].getCanMoves();
-                
-                    for(int l = 0; l < aw.length; l++) {
-                      t = new Tile(false, PieceType.NOPE);
-                      bufferTile[aw[l].getX()][aw[l].getY()] = bufferTile[i][j];
-                      bufferTile[i][j] = t;
-                      c = new Check(this.myKing, bufferTile);
-                      
-                      if(!c.isCheck()) {
-                        bufferTile = tile;
-                        return false;
-                      }
-                    }
-                  }
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
                 }
+              }
+            }
+            
+            for(int j = 0; j < pawn.length; j++) {
+              aw = pawn[teamNum][j].getCanMoves();
               
-                else {
-                  System.out.println("Checkmate:Error");
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
                   return false;
                 }
               }
             }
           }
         }
+        
+        else if(directionY == 0) {
+          for(int i = 0; i < Math.abs(directionX); i++) {
+            aw = queen[teamNum].getCanMoves();
+            
+            for(int j = 0; j < aw.length; j++) {
+              if(aw[j].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[j].getY() == kingY) {
+                return false;
+              }
+            }
+            
+            for(int j = 0; j < bishop.length; j++) {
+              aw = bishop[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < rook.length; j++) {
+              aw = rook[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < knight.length; j++) {
+              aw = knight[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < pawn.length; j++) {
+              aw = pawn[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+          }
+        }
+        
+        else {
+          for(int i = 0; i < Math.abs(directionX); i++) {
+            aw = queen[teamNum].getCanMoves();
+            
+            for(int j = 0; j < aw.length; j++) {
+              if(aw[j].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[j].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                return false;
+              }
+            }
+            
+            for(int j = 0; j < bishop.length; j++) {
+              aw = bishop[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < rook.length; j++) {
+              aw = rook[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < knight.length; j++) {
+              aw = knight[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < pawn.length; j++) {
+              aw = pawn[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+          } 
+        }
+      }
       
-      bufferTile = tile;
-      System.out.println("Checkmate");
-      return true;
+      else if(target.getPieceType() == PieceType.BISHOP) {
+        directionX = targetX - kingX;
+        directionY = targetY - kingY;
+        
+        for(int i = 0; i < Math.abs(directionX); i++) {
+          for(int j = 0; j < bishop[teamNum].length; j++) {
+            aw = bishop[teamNum][j].getCanMoves();
+          }
+          
+          for(int j = 0; j < aw.length; j++) {
+            if(aw[j].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[j].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+              return false;
+            }
+          }
+          
+          for(int j = 0; j < bishop.length; j++) {
+            aw = bishop[teamNum][j].getCanMoves();
+            
+            for(int k = 0; k < aw.length; k++) {
+              if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                return false;
+              }
+            }
+          }
+          
+          for(int j = 0; j < rook.length; j++) {
+            aw = rook[teamNum][j].getCanMoves();
+            
+            for(int k = 0; k < aw.length; k++) {
+              if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                return false;
+              }
+            }
+          }
+          
+          for(int j = 0; j < knight.length; j++) {
+            aw = knight[teamNum][j].getCanMoves();
+            
+            for(int k = 0; k < aw.length; k++) {
+              if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                return false;
+              }
+            }
+          }
+          
+          for(int j = 0; j < pawn.length; j++) {
+            aw = pawn[teamNum][j].getCanMoves();
+            
+            for(int k = 0; k < aw.length; k++) {
+              if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                return false;
+              }
+            }
+          }
+        }
+      }
+      
+      else if(target.getPieceType() == PieceType.ROOK) {
+        directionX = targetX - kingX;
+        directionY = targetY - kingY;
+        
+        if(directionX == 0) {
+          for(int i = 0; i < Math.abs(directionY); i++) {
+            for(int j = 0; j < rook[teamNum].length; j++) {
+              aw = queen[teamNum].getCanMoves();
+            }
+            
+            for(int j = 0; j < aw.length; j++) {
+              if(aw[j].getX() == kingX && aw[j].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                return false;
+              }
+            }
+            
+            for(int j = 0; j < bishop.length; j++) {
+              aw = bishop[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < rook.length; j++) {
+              aw = rook[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < knight.length; j++) {
+              aw = knight[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < pawn.length; j++) {
+              aw = pawn[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX && aw[k].getY() == kingY + i * (directionY / Math.abs(directionY))) {
+                  return false;
+                }
+              }
+            }
+          }
+        }
+        
+        else{
+          for(int i = 0; i < Math.abs(directionX); i++) {
+            for(int j = 0; j < rook[teamNum].length; j++) {
+              aw = queen[teamNum].getCanMoves();
+            }
+            
+            for(int j = 0; j < aw.length; j++) {
+              if(aw[j].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[j].getY() == kingY) {
+                return false;
+              }
+            }
+            
+            for(int j = 0; j < bishop.length; j++) {
+              aw = bishop[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < rook.length; j++) {
+              aw = rook[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < knight.length; j++) {
+              aw = knight[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+            
+            for(int j = 0; j < pawn.length; j++) {
+              aw = pawn[teamNum][j].getCanMoves();
+              
+              for(int k = 0; k < aw.length; k++) {
+                if(aw[k].getX() == kingX + i * (directionX / Math.abs(directionX)) && aw[k].getY() == kingY) {
+                  return false;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      else {
+        System.out.println("Checkmate");
+        return true;
+      }
     }
   }
 }

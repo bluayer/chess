@@ -19,7 +19,7 @@ import piece.Position;
 
 public class Check { 
 
-  private GamePiece nowPiece;
+  protected GamePiece nowPiece;
   
   private King[] allKing;
   private Position[] aw; //available way
