@@ -10,7 +10,10 @@ import piece.Position;
 import piece.Queen;
 import piece.Rook;
 
-
+/**
+ * @author ¿Ã√¢πŒ
+ * class about searching piece in chessboard by position
+ */
 public class SearchPieceByPos {
 	static Pawn searchPawn(Position pos, ChessBoard board) {
 	  for(int i = 0; i < 4; i++) {

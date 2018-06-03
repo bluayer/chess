@@ -8,11 +8,16 @@ import board.SearchPieceByPos;
 import board.Status.TEAM;
 import board.Tile;
 import board.UpdatePiece;
+import gamestate.Check;
 import gamestate.TurnCheck;
 import piece.GamePiece;
 import piece.GamePiece.PieceType;
 import piece.Position;
 
+/**
+ * @author ChangminYi
+ * class about overall reaction to mouse click
+ */
 public class MouseClick{
   private static Color clicked = Color.YELLOW;
   private static Color backgroundBackup;
@@ -28,6 +33,7 @@ public class MouseClick{
   private static Position[] tileBackup;
   private static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
+  private static Check[] check = new Check[4];
   
   public MouseClick() {
     this.firstClk = null;
@@ -130,34 +136,11 @@ public class MouseClick{
   }
   
   private static Position[] getPossMove() {
-    Position[] temp = null;
+    //set clickPiece for whether is check
     clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
     
-    switch(clickedPiece.getPieceType()) {
-      case PAWN:
-        temp = clickedPiece.getCanMoves();
-        break;
-      case KNIGHT:
-        temp = clickedPiece.getCanMoves();
-        break;
-      case BISHOP:
-        temp = clickedPiece.getCanMoves();
-        break;
-      case ROOK:
-        temp = clickedPiece.getCanMoves();
-        break;
-      case QUEEN:
-        temp = clickedPiece.getCanMoves();
-        break;
-      case KING:
-        temp = clickedPiece.getCanMoves();
-        break;
-      default:    //checking whether return of waysXXPos is valid
-        System.out.println("getPossMove: Found nothing from pieces");
-        break;
-    }
-    
-    return temp;
+    //return possible moves
+    return clickedPiece.getCanMoves();
   }
  
   
@@ -210,6 +193,13 @@ public class MouseClick{
       btn[tileBackup[k].getX()][tileBackup[k].getY()].setBackground(possMoveBGBackup[k]);
       btn[tileBackup[k].getX()][tileBackup[k].getY()].repaint();
     }
+    
+    //if it's check or checkmate
+    for(int k = 0; k < check.length; k++) {
+      check[k].isCheck();
+       
+    }
+    
     return;
   }
   
@@ -229,6 +219,13 @@ public class MouseClick{
 
 
   public static void mouseInput(MouseEvent e) {
+    if(check[0]==null) {
+      check[0] = new Check(ChessGui.b.king[0], ChessGui.b.getcBoard());
+      check[1] = new Check(ChessGui.b.king[1], ChessGui.b.getcBoard());
+      check[2] = new Check(ChessGui.b.king[2], ChessGui.b.getcBoard());
+      check[3] = new Check(ChessGui.b.king[3], ChessGui.b.getcBoard());
+    }
+    
     for(int i = 0; i < btn.length; i++) {
       for(int j = 0; j < btn.length; j++) {
         
