@@ -33,6 +33,20 @@ public class TurnCheck {
 	
 	public void nextTurn() {
 		this.mturn++;
+		
+    if(this.getter() == 0) {
+      ChessGui.statusBar.setBackground(ChessGui.white);
+    }
+    else if(this.getter() == 1){
+      ChessGui.statusBar.setBackground(ChessGui.red);
+    }
+    else if(this.getter() == 2){
+      ChessGui.statusBar.setBackground(ChessGui.black);
+    }
+    else {
+      ChessGui.statusBar.setBackground(ChessGui.green);
+    }
+		
 		return;
 	}
 	
