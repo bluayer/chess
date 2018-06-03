@@ -519,7 +519,7 @@ public class PieceWay {
       oppositeColor2 = Color.WHITE;
       break;
     case GREEN:
-      oppositeColor1 = Color.RED;
+      oppositeColor1 = Color.BLACK;
       oppositeColor2 = Color.WHITE;
       break;
     default:
