@@ -71,6 +71,7 @@ public class Check {
     
     for(int i = 0; i < aw.length; i++) {
       if(aw[i].getX() == allKing[op1].getPosition().getX() && aw[i].getY() == allKing[op1].getPosition().getY()) {
+        /* need check flags of each king to print check status
         if(i % 4 == 0) {
           ChessGui.checkLabel[(i + 1) % 4].setText("Red checked");
         }
@@ -82,12 +83,13 @@ public class Check {
         }
         if(i % 4 == 3) {
           ChessGui.checkLabel[(i + 1) % 4].setText("White checked");
-        }
+        }*/
         
         checkFlag = 1;
       }
       
       if(aw[i].getX() == allKing[op2].getPosition().getX() && aw[i].getY() == allKing[op2].getPosition().getY()) {
+        /*
         if(i % 4 == 0) {
           ChessGui.checkLabel[(i + 1) % 4].setText("Red checked");
         }
@@ -99,7 +101,7 @@ public class Check {
         }
         if(i % 4 == 3) {
           ChessGui.checkLabel[(i + 1) % 4].setText("White checked");
-        }
+        }*/
         
         checkFlag = 1;
       }

@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -20,6 +22,7 @@ import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
 import piece.Position;
+import voice.Speech;
 
 
 /**
@@ -29,8 +32,9 @@ import piece.Position;
 public class ChessGui {
   static final int FRAME_WIDTH = 1050, FRAME_HEIGHT = 1000;
   
+  private static JButton recog, reset;
   private static JFrame mainFrame;
-  public static JPanel chessBoard, underBar;
+  public static JPanel chessBoard, underBar, forVoice;
   public static JLabel currentTeam, gameStatus, turnCount;
   public static JLabel[] checkLabel = new JLabel[4];
   static ImagePanel btn[][];
@@ -145,6 +149,34 @@ public class ChessGui {
    gameStatus = new JLabel("Test gameStatus");
    underBar.add(currentTeam, BorderLayout.WEST);
    underBar.add(gameStatus, BorderLayout.EAST);
+   
+   forVoice = new JPanel();
+   forVoice.setLayout(new FlowLayout());
+   forVoice.setBorder(new EmptyBorder(0, 50, 0, 50));
+   recog = new JButton("Rec.");
+   recog.addActionListener(new ActionListener() {
+    @Override
+    //for voice recognition: not completely written
+    public void actionPerformed(ActionEvent e) {
+      System.out.println("Record Button Clicked");
+      //Position firstPos = Speech.recognition();
+      //MouseClick.firstClick(firstPos.getX(), firstPos.getY());
+      //Position secondPos = Speech.recognition();
+      //MouseClick.secondClick(secondPos.getX(), secondPos.getY());
+    }
+  });
+   reset = new JButton("Reset");
+   reset.addActionListener(new ActionListener() {
+    @Override
+    //for voice reset
+    public void actionPerformed(ActionEvent e) {
+      System.out.println("Reset Button Clicked");
+      //MouseClick.varsClear();
+    }
+  });
+   forVoice.add(recog);
+   forVoice.add(reset);
+   underBar.add(forVoice, BorderLayout.CENTER);
    
    JPanel panel1 = new JPanel();
    panel1.setLayout(new GridLayout(0, 1));

@@ -125,7 +125,7 @@ public class MouseClick{
     return;
   }
   
-  private static void varsClear() {
+  public static void varsClear() {
     //clearing variables
     backgroundBackup = null;
     firstClk = null;
