@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import board.ChessBoard;
@@ -41,6 +42,8 @@ public class ChessGui {
   public static Color white = Color.WHITE, gray = Color.GRAY, black = Color.black, red = Color.RED, green = Color.GREEN;
   private static MClickBridge mClkB;
   public static ChessBoard b;
+  public static String[] playerName = new String[4];
+  
   
   public static void setupStartUI() {
     mainFrame = new JFrame("Selection Mode");
@@ -66,10 +69,7 @@ public class ChessGui {
           System.out.println("We didn't make 1 vs 1 Chess!");
         }
         else if(e.getSource().equals(twoVStwo)) {
-          b = new ChessBoard();
-          mClkB = new MClickBridge();
-          setup2vs2ChessGUI();
-          printChessBoard();
+          setupNameInputGUI();
         }
       }
       @Override
@@ -102,9 +102,85 @@ public class ChessGui {
   }
   
   /**
+   * set GUI receiving player's name
+   */
+  public static void setupNameInputGUI() {
+    mainFrame = new JFrame("Name Input");
+    mainFrame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
+    mainFrame.setLocationRelativeTo(null);
+    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+    JPanel bigPanel = new JPanel();
+    bigPanel.setLayout(new GridLayout(5, 1));
+    JPanel[] textPanel = new JPanel[playerName.length + 1];
+    for(int i = 0; i < textPanel.length; i++) {
+      textPanel[i] = new JPanel();
+      textPanel[i].setLayout(new GridLayout(1, 2));
+      textPanel[i].setBorder(new EmptyBorder(5, 20, 5, 20));
+      bigPanel.add(textPanel[i]);
+    }
+    JTextField[] inputName = new JTextField[playerName.length];
+    for(int i = 0; i < inputName.length; i++) {
+      inputName[i] = new JTextField();
+      switch(i) {
+      case 0:
+        textPanel[i].add(new JLabel("Player White's name"));
+        break;
+      case 1:
+        textPanel[i].add(new JLabel("Player Red's name"));
+        break;
+      case 2:
+        textPanel[i].add(new JLabel("Player Black's name"));
+        break;
+      case 3:
+        textPanel[i].add(new JLabel("Player Green's name"));
+      }
+      textPanel[i].add(inputName[i]);
+    }
+    
+    JButton inputEnter = new JButton("Start");
+    inputEnter.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        mainFrame.setVisible(false);
+        
+        for(int i = 0; i < inputName.length; i++) {
+          playerName[i] = inputName[i].getText();
+          if(playerName[i].length() == 0) {
+            switch(i) {
+            case 0:
+              playerName[i] = new String("White");
+              break;
+            case 1:
+              playerName[i] = new String("Red");
+              break;
+            case 2:
+              playerName[i] = new String("Black");
+              break;
+            case 3:
+              playerName[i] = new String("Green");
+              break;
+            }
+          }
+          System.out.println(playerName[i]);
+        }
+        
+        b = new ChessBoard();
+        mClkB = new MClickBridge();
+        setup2vs2ChessGUI();
+        printChessBoard();
+      }
+    });
+    textPanel[4].add(inputEnter);
+    
+    mainFrame.add(bigPanel);
+    mainFrame.setVisible(true);
+  }
+  
+  /**
    * setting 2 vs 2 chess screen
    */
- public static void setup2vs2ChessGUI() {   
+  public static void setup2vs2ChessGUI() {   
    mainFrame = new JFrame("2 vs 2 Chess");
    mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,9 +236,9 @@ public class ChessGui {
     public void actionPerformed(ActionEvent e) {
       System.out.println("Record Button Clicked");
       //Position firstPos = Speech.recognition();
-      //MouseClick.firstClick(firstPos.getX(), firstPos.getY());
+      //MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
       //Position secondPos = Speech.recognition();
-      //MouseClick.secondClick(secondPos.getX(), secondPos.getY());
+      //MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
     }
   });
    reset = new JButton("Reset");
