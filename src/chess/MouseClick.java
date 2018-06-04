@@ -9,6 +9,7 @@ import board.Status.TEAM;
 import board.Tile;
 import board.UpdatePiece;
 import gamestate.Check;
+import gamestate.Checkmate;
 import gamestate.TurnCheck;
 import piece.GamePiece;
 import piece.GamePiece.PieceType;
@@ -33,7 +34,8 @@ public class MouseClick{
   private static Position[] tileBackup;
   public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
-  private static Check check = new Check();
+  public static Check check = new Check();
+  private static Checkmate checkMate = new Checkmate();
   
   public MouseClick() {
     this.firstClk = null;
@@ -195,7 +197,11 @@ public class MouseClick{
     }
     
     //if it's check or checkmate
+
     check.isCheck();
+    check.returnCheck();
+    checkMate.isCheckmate();
+    checkMate.returnCheckmate();
     
     return;
   }
