@@ -21,7 +21,7 @@ public class Check {
 
   protected GamePiece nowPiece;
   
-  King[] allKing;
+  private King[] allKing;
   private Position[] aw; //available way
   
   public Check(){
@@ -29,7 +29,7 @@ public class Check {
     this.allKing = ChessGui.b.king;
   } 
   
-  public void isCheck() { 
+  public boolean isCheck() { 
     this.nowPiece = MouseClick.clickedPiece;
     Color color = nowPiece.getColor();
     Color oppositeColor1 = null, oppositeColor2 = null; 
@@ -65,51 +65,52 @@ public class Check {
     
     if(this.nowPiece.getPieceType() == PieceType.KING) {
       System.out.println("Check Error: clicked Piecetype is King");
-      return;
+      return false;
     }
+    
     
     for(int i = 0; i < aw.length; i++) {
       if(aw[i].getX() == allKing[op1].getPosition().getX() && aw[i].getY() == allKing[op1].getPosition().getY()) {
-        System.out.println("Player" + ((op1 + 1) % 4) + " is on Check");
+        /* need check flags of each king to print check status
+        if(i % 4 == 0) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Red checked");
+        }
+        if(i % 4 == 1) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Green checked");
+        }
+        if(i % 4 == 2) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Black checked");
+        }
+        if(i % 4 == 3) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("White checked");
+        }*/
+        
         checkFlag = 1;
-        GameController.checkFlag[op1] = 1;
       }
       
       if(aw[i].getX() == allKing[op2].getPosition().getX() && aw[i].getY() == allKing[op2].getPosition().getY()) {
-        System.out.println("Player" + ((op2 + 1) % 4)+ " is on Check");
+        /*
+        if(i % 4 == 0) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Red checked");
+        }
+        if(i % 4 == 1) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Green checked");
+        }
+        if(i % 4 == 2) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Black checked");
+        }
+        if(i % 4 == 3) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("White checked");
+        }*/
+        
         checkFlag = 1;
-        GameController.checkFlag[op2] = 1;
       }
     }
     
     if(checkFlag == 1) {
-      return;
+      return true;
     }
-    
-    else {
-      GameController.checkFlag[op1] = 0;
-      GameController.checkFlag[op2] = 0;
-    }
+
+    return false;
   }
-  
-  public boolean returnCheck() {
-    int sum = 0;
-    
-   for(int i = 0; i < 4; i++) {
-      if(GameController.checkFlag[i] == 1) {
-        System.out.println(i + "is on Check");
-      }
-    }
-   for(int i = 0; i < 4; i++) {
-     sum += GameController.checkmateFlag[i];
-   }
-   
-   if(sum == 0) {
-     return false;
-   }
-   
-   else {
-     return true;
-   }
-  } 
-}
+ } 

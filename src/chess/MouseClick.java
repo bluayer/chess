@@ -9,7 +9,6 @@ import board.Status.TEAM;
 import board.Tile;
 import board.UpdatePiece;
 import gamestate.Check;
-import gamestate.Checkmate;
 import gamestate.TurnCheck;
 import piece.GamePiece;
 import piece.GamePiece.PieceType;
@@ -34,8 +33,7 @@ public class MouseClick{
   private static Position[] tileBackup;
   public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
-  public static Check check = new Check();
-  private static Checkmate checkMate = new Checkmate();
+  private static Check check = new Check();
   
   public MouseClick() {
     this.firstClk = null;
@@ -127,7 +125,7 @@ public class MouseClick{
     return;
   }
   
-  private static void varsClear() {
+  public static void varsClear() {
     //clearing variables
     backgroundBackup = null;
     firstClk = null;
@@ -146,7 +144,7 @@ public class MouseClick{
   }
  
   
-  private static void firstClickSetup(int i,int j) {
+  public static void firstClickSetup(int i,int j) {
     varsClear();
     if(btn[i][j].getImage() == null) {
       return;
@@ -177,7 +175,7 @@ public class MouseClick{
   }
   
   
-  private static void secondClickSetup(int i, int j) {
+  public static void secondClickSetup(int i, int j) {
     firstClk.setBackground(backgroundBackup);
     secondClk = btn[i][j];
     secondPos = new Position(i,j);
@@ -196,12 +194,12 @@ public class MouseClick{
       btn[tileBackup[k].getX()][tileBackup[k].getY()].repaint();
     }
     
-    //if it's check or checkmate
-
+    //Cleaning ChessGui's chess state message
+    for(int k = 0; k < ChessGui.checkLabel.length; k++) {
+      ChessGui.checkLabel[k].setText(null);
+    }
+    //...and see it's check or checkmate
     check.isCheck();
-    check.returnCheck();
-    checkMate.isCheckmate();
-    checkMate.returnCheckmate();
     
     return;
   }

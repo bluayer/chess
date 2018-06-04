@@ -1,2 +1,7 @@
 /voice/
 /chess/
+/board/
+/gamestate/
+/piece/
+/speechDIC.dic
+/speechLM.lm

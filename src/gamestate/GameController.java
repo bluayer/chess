@@ -13,8 +13,49 @@ import piece.Position;
 public class GameController {
   public static int[] stalemateFlag = {0, 0, 0, 0};
   public static int[] checkmateFlag = {0, 0, 0, 0};
-  public static int[] checkFlag = {0, 0, 0, 0};
+  //public static int[] checkFlag = {0, 0, 0, 0};
 
+  public static void setStalemateFlag(TEAM team) {
+    Stalemate s = new Stalemate(ChessGui.b.king[Tile.cvtTeam(team)]);
+    if(s.isStalemate(team)) {
+      stalemateFlag[Tile.cvtTeam(team)] = 1;
+    }
+  }
+  
+  public static void resetStalemateFlag(TEAM team) {
+    Stalemate s = new Stalemate(ChessGui.b.king[Tile.cvtTeam(team)]);
+    if(!s.isStalemate(team)) {
+      stalemateFlag[Tile.cvtTeam(team)] = 0;
+    }
+  }
+  
+  public static void setCheckmateFlag(King king) {
+    Checkmate c = new Checkmate(king);
+    Color c1 = king.getColor();
+    if(c.isCheckmate(king.getPosition(), ChessGui.b.getcBoard())) {
+      checkmateFlag[Tile.cvtTeam(colorToTeam(c1))] = 1;
+    }
+  }
+  
+  public static void resetCheckmateFlag(King king) {
+    Checkmate c = new Checkmate(king);
+    Color c1 = king.getColor();
+    if(!c.isCheckmate(king.getPosition(), ChessGui.b.getcBoard())) {
+      checkmateFlag[Tile.cvtTeam(colorToTeam(c1))] = 0;
+    }
+  }
+  /*
+  public static void setCheckFlag(TEAM team) {
+    Check c = new Check();
+    if(c.isCheck()) {
+      checkFlag[Tile.cvtTeam(team)] = 1;
+    }
+  }
+  
+  public static void resetCheckFlag(TEAM team) {
+    checkFlag[Tile.cvtTeam(team)] = 0;
+  }
+  */
   public static Color teamToColor(int num) {
     Color color = null;
     
