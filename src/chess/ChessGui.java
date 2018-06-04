@@ -2,14 +2,16 @@ package chess;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -17,7 +19,6 @@ import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
 import piece.Position;
-import voice.Speech;
 
 
 /**
@@ -98,17 +99,19 @@ public class ChessGui {
    */
  public static void setup2vs2ChessGUI() {   
    mainFrame = new JFrame("2 vs 2 Chess");
-   chessBoard = new JPanel();
-   btn = new ImagePanel[b.getcBoard().length][b.getcBoard().length];
-   
    mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   mainFrame.setLayout(new BorderLayout(0, 0));
    mainFrame.setLocationRelativeTo(null);
    
+   Container contentPane = mainFrame.getContentPane();
+   contentPane.setLayout(new BorderLayout());
+   
+   chessBoard = new JPanel(); 
    chessBoard.setLayout(new GridLayout(14, 14));
    chessBoard.setBackground(white);
    chessBoard.setBorder(new EmptyBorder(50, 50, 50, 50));
+   
+   btn = new ImagePanel[b.getcBoard().length][b.getcBoard().length];
    
    for(int i = 0; i < b.getcBoard().length; i++) {
      for(int j = 0; j < b.getcBoard().length; j++) {
@@ -132,8 +135,25 @@ public class ChessGui {
      }
    }
 
-   mainFrame.repaint();
-   mainFrame.add(chessBoard);
+   JPanel panel1 = new JPanel();
+   panel1.setLayout(new BorderLayout());
+
+
+   JLabel JLabel1 = new JLabel("JLabel1");
+   JLabel JLabel2 = new JLabel("JLabel2");
+   JLabel JLabel3 = new JLabel("JLabel3");
+   JLabel JLabel4 = new JLabel("JLabel4");
+   JLabel JLabel5 = new JLabel("JLabel5");
+
+   panel1.add(JLabel1, BorderLayout.NORTH);
+   panel1.add(JLabel2, BorderLayout.SOUTH);
+   panel1.add(JLabel3, BorderLayout.WEST);
+   panel1.add(JLabel4, BorderLayout.EAST);
+   panel1.add(JLabel5, BorderLayout.CENTER);
+
+   contentPane.add(chessBoard, BorderLayout.CENTER);
+   contentPane.add(panel1, BorderLayout.LINE_END);
+
    mainFrame.setVisible(true);
    
    return;
