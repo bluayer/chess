@@ -14,7 +14,6 @@ public class MClickBridge implements MouseListener{
     MouseClick.mouseInput(e);
   }
 
-  
   @Override
   public void mousePressed(MouseEvent e) {
     return;

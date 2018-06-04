@@ -144,7 +144,7 @@ public class MouseClick{
   }
  
   
-  private static void firstClickSetup(int i,int j) {
+  public static void firstClickSetup(int i,int j) {
     varsClear();
     if(btn[i][j].getImage() == null) {
       return;
@@ -175,7 +175,7 @@ public class MouseClick{
   }
   
   
-  private static void secondClickSetup(int i, int j) {
+  public static void secondClickSetup(int i, int j) {
     firstClk.setBackground(backgroundBackup);
     secondClk = btn[i][j];
     secondPos = new Position(i,j);

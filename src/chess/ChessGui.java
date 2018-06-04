@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +17,8 @@ import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
 import piece.Position;
+import voice.Speech;
+
 
 /**
  * @author ChangminYi
@@ -136,10 +139,9 @@ public class ChessGui {
    return;
  }
  
-
   public static void main(String[] args) {
     setupStartUI();
-    
+
     return;
   }
 
