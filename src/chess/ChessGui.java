@@ -3,6 +3,7 @@ package chess;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -26,10 +27,12 @@ import piece.Position;
  * class about executing program and setting initial screen
  */
 public class ChessGui {
-  static final int FRAME_WIDTH = 1000, FRAME_HEIGHT = 1000;
+  static final int FRAME_WIDTH = 1050, FRAME_HEIGHT = 1000;
   
   private static JFrame mainFrame;
-  public static JPanel chessBoard;
+  public static JPanel chessBoard, underBar;
+  public static JLabel currentTeam, gameStatus, turnCount;
+  public static JLabel[] checkLabel = new JLabel[4];
   static ImagePanel btn[][];
   public static Color white = Color.WHITE, gray = Color.GRAY, black = Color.black, red = Color.RED, green = Color.GREEN;
   private static MClickBridge mClkB;
@@ -37,14 +40,14 @@ public class ChessGui {
   
   public static void setupStartUI() {
     mainFrame = new JFrame("Selection Mode");
-    mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+    mainFrame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
     mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     mainFrame.setLayout(new BorderLayout());
     mainFrame.setLocationRelativeTo(null);
     
     JPanel midPanel = new JPanel();
     midPanel.setLayout(new FlowLayout());
-    midPanel.setBorder(new EmptyBorder(400, 200, 400, 200));
+    midPanel.setBorder(new EmptyBorder(200, 200, 200, 200));
     midPanel.setBackground(new Color(230, 230, 230));
     midPanel.setOpaque(true);
     
@@ -104,12 +107,12 @@ public class ChessGui {
    mainFrame.setLocationRelativeTo(null);
    
    Container contentPane = mainFrame.getContentPane();
-   contentPane.setLayout(new BorderLayout());
+   contentPane.setLayout(new BorderLayout(10, 10));
    
    chessBoard = new JPanel(); 
    chessBoard.setLayout(new GridLayout(14, 14));
    chessBoard.setBackground(white);
-   chessBoard.setBorder(new EmptyBorder(50, 50, 50, 50));
+   chessBoard.setBorder(new EmptyBorder(30, 30, 30, 30));
    
    btn = new ImagePanel[b.getcBoard().length][b.getcBoard().length];
    
@@ -135,24 +138,29 @@ public class ChessGui {
      }
    }
 
+   underBar = new JPanel();
+   underBar.setLayout(new BorderLayout(10, 10));
+   underBar.setBorder(new EmptyBorder(20, 150, 20, 150));
+   currentTeam = new JLabel("White's turn");
+   gameStatus = new JLabel("Test gameStatus");
+   underBar.add(currentTeam, BorderLayout.WEST);
+   underBar.add(gameStatus, BorderLayout.EAST);
+   
    JPanel panel1 = new JPanel();
-   panel1.setLayout(new BorderLayout());
+   panel1.setLayout(new GridLayout(0, 1));
+   panel1.setBorder(new EmptyBorder(0, 20, 0, 20));
 
-
-   JLabel JLabel1 = new JLabel("JLabel1");
-   JLabel JLabel2 = new JLabel("JLabel2");
-   JLabel JLabel3 = new JLabel("JLabel3");
-   JLabel JLabel4 = new JLabel("JLabel4");
-   JLabel JLabel5 = new JLabel("JLabel5");
-
-   panel1.add(JLabel1, BorderLayout.NORTH);
-   panel1.add(JLabel2, BorderLayout.SOUTH);
-   panel1.add(JLabel3, BorderLayout.WEST);
-   panel1.add(JLabel4, BorderLayout.EAST);
-   panel1.add(JLabel5, BorderLayout.CENTER);
+   turnCount = new JLabel("Turn: 1");
+   panel1.add(turnCount);
+   
+   for(int i = 0; i < checkLabel.length; i++) {
+     checkLabel[i] = new JLabel();
+     panel1.add(checkLabel[i]);
+   }
 
    contentPane.add(chessBoard, BorderLayout.CENTER);
    contentPane.add(panel1, BorderLayout.LINE_END);
+   contentPane.add(underBar, BorderLayout.SOUTH);
 
    mainFrame.setVisible(true);
    

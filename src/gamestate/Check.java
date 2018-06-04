@@ -68,14 +68,39 @@ public class Check {
       return false;
     }
     
+    
     for(int i = 0; i < aw.length; i++) {
       if(aw[i].getX() == allKing[op1].getPosition().getX() && aw[i].getY() == allKing[op1].getPosition().getY()) {
-        System.out.println("Player" + ((i + 1) % 4) + " is on Check");
+        if(i % 4 == 0) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Red checked");
+        }
+        if(i % 4 == 1) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Green checked");
+        }
+        if(i % 4 == 2) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Black checked");
+        }
+        if(i % 4 == 3) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("White checked");
+        }
+        
         checkFlag = 1;
       }
       
       if(aw[i].getX() == allKing[op2].getPosition().getX() && aw[i].getY() == allKing[op2].getPosition().getY()) {
-        System.out.println("Player" + ((i + 1) % 4)+ " is on Check");
+        if(i % 4 == 0) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Red checked");
+        }
+        if(i % 4 == 1) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Green checked");
+        }
+        if(i % 4 == 2) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("Black checked");
+        }
+        if(i % 4 == 3) {
+          ChessGui.checkLabel[(i + 1) % 4].setText("White checked");
+        }
+        
         checkFlag = 1;
       }
     }

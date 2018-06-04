@@ -36,17 +36,23 @@ public class TurnCheck {
 		
     if(this.getter() == 0) {
       ChessGui.chessBoard.setBackground(ChessGui.white);
+      ChessGui.currentTeam.setText("White's turn");
     }
     else if(this.getter() == 1){
       ChessGui.chessBoard.setBackground(ChessGui.red);
+      ChessGui.currentTeam.setText("Red's turn");
     }
     else if(this.getter() == 2){
       ChessGui.chessBoard.setBackground(ChessGui.black);
+      ChessGui.currentTeam.setText("Black's turn");
     }
     else {
       ChessGui.chessBoard.setBackground(ChessGui.green);
+      ChessGui.currentTeam.setText("Green's turn");
     }
 		
+    ChessGui.turnCount.setText("Turn: " + (mturn + 1));
+    
 		return;
 	}
 	

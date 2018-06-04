@@ -194,7 +194,11 @@ public class MouseClick{
       btn[tileBackup[k].getX()][tileBackup[k].getY()].repaint();
     }
     
-    //if it's check or checkmate
+    //Cleaning ChessGui's chess state message
+    for(int k = 0; k < ChessGui.checkLabel.length; k++) {
+      ChessGui.checkLabel[k].setText(null);
+    }
+    //...and see it's check or checkmate
     check.isCheck();
     
     return;
