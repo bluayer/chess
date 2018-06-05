@@ -2,6 +2,9 @@ package chess;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+
+import javax.swing.border.LineBorder;
+
 import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
@@ -21,7 +24,7 @@ import piece.Position;
  * class about overall reaction to mouse click
  */
 public class MouseClick{
-  private static Color clicked = Color.YELLOW;
+  private static Color clicked = new Color(0x41bdb5);
   private static Color backgroundBackup;
   private static Color[] possMoveBGBackup;
   public static ImagePanel firstClk, secondClk;
@@ -142,7 +145,7 @@ public class MouseClick{
     for(int k = 0; k < possMove.length; k++) {
       tileBackup[k] = new Position(possMove[k].getX(), possMove[k].getY());
       possMoveBGBackup[k] = btn[possMove[k].getX()][possMove[k].getY()].getBackground();
-      btn[possMove[k].getX()][possMove[k].getY()].setBackground(new Color(255, 0, 0));
+      btn[possMove[k].getX()][possMove[k].getY()].setBackground(new Color(0xf6c467));
       btn[possMove[k].getX()][possMove[k].getY()].repaint();
     }
     
