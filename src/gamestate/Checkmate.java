@@ -55,13 +55,13 @@ public class Checkmate {
 		for(int playerNum = 0; playerNum < 4; playerNum++) {
 			if(GameController.checkFlag[playerNum] == 0) {
   			GameController.checkmateFlag[playerNum] = 0;
-  			break;
+  			continue;
   		}
 			
 			else {
 				if(king[playerNum].getCanMoves().length != 0) {
   				GameController.checkmateFlag[playerNum] = 0;
-  				break;
+  				continue;
 				}
 				
 				else {
@@ -107,7 +107,7 @@ public class Checkmate {
 					 */
 					if(enemyPieceNum > 2) {
 						GameController.checkmateFlag[playerNum] = 1;
-						break;
+						continue;
 					}
 					
 					else if(enemyPieceNum == 2) {
@@ -118,7 +118,7 @@ public class Checkmate {
 						if(enemyPiece[0].getColor() == GameController.teamToColor(opposite2) &&
 								enemyPiece[1].getColor() == GameController.teamToColor(opposite2)) {
 							GameController.checkmateFlag[playerNum] = 1;
-							break;
+							continue;
 						}
 						
 						/*
@@ -133,24 +133,24 @@ public class Checkmate {
 								if(enemyPiece[1].getPieceType() == PieceType.KNIGHT || enemyPiece[0].getPieceType() == PieceType.PAWN) {
 									enemyIsKnightOrPawn(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									enemyIsKnightOrPawn(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 								}
 								
 								else {
 									enemyIsKnightOrPawn(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									pieceWay(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 								}
 							}
@@ -159,23 +159,23 @@ public class Checkmate {
 								if(enemyPiece[1].getPieceType() == PieceType.KNIGHT || enemyPiece[0].getPieceType() == PieceType.PAWN) {
 									pieceWay(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									enemyIsKnightOrPawn(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 								}
 								else {
 									pieceWay(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									pieceWay(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										break;
+										continue;
 									}
 								}
 							}
@@ -629,7 +629,7 @@ public class Checkmate {
   }
 	
   /*
-   * if enemypiece is pawn of knight, we can't bloc it's path. we must delte it.
+   * if enemypiece is pawn of knight, we can't block it's path. we must delete it.
    */
   private void enemyIsKnightOrPawn(int pieceNum, int oneOfTeam, int player) {
   	targetX = enemyPiece[pieceNum].getPosition().getX();
