@@ -29,7 +29,7 @@ public class MouseClick{
   private static GamePiece toMovePiece;
   public static ChessBoard board = ChessGui.b;
   private static Tile[][] cBoard = ChessGui.b.getcBoard();
-  private static boolean isClicked;
+  static boolean isClicked;
   private static Position[] tileBackup;
   public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
