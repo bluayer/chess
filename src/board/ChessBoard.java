@@ -5,7 +5,6 @@ import piece.CreatePiece;
 import piece.GamePiece.PieceType;
 import piece.King;
 import piece.Knight;
-import piece.Nope;
 import piece.Pawn;
 import piece.Position;
 import piece.Queen;
