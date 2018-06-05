@@ -196,79 +196,72 @@ public class ChessGui {
       @Override
       //for voice recognition: not completely written
       public void actionPerformed(ActionEvent e) {
-        int flag = 0;
+        System.out.println("Record Button Clicked");
         Position wholeFirstPos = null;
-        
-        if(MouseClick.isClicked) {
-          System.out.println("Record Button Clicked");
-          
-          first:
-          while (true) {
-            Position firstPos = null;
-            
-            try {
-              firstPos = Speech.recognition();
-            } catch (IOException e1) {
-              e1.printStackTrace();
-            }
-            
-            if (SearchPieceByPos.searchPiece(firstPos, b) != null) {
-              MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
-              System.out.println("Piece is" + SearchPieceByPos.searchPiece(firstPos, b).getPieceType());
-              System.out.println("X : " +  firstPos.getX() + " Y : " + firstPos.getY());
-              wholeFirstPos = firstPos;
-              break;
-            } 
-            else {
-              System.out.println("voice is unvalid");
-              continue first;
-            }
+        first:
+        while (true) {
+          Position firstPos = null;
+          try {
+            firstPos = Speech.recognition();
+          } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
           }
-          
-          firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
-          firstLabel.repaint();
-          flag = 0; //  flag媛� 0 �씠硫� break�븯怨� �걹�굹嫄곕굹 searchPiece�븯怨� 寃곌낵 媛� �븞�굹�솕�쓣 �븣 flag 1濡� 珥덇린�솕�븯怨�, flag瑜� 0�쑝濡� 珥덇린�솕�븯硫� continue
+          if (SearchPieceByPos.searchPiece(firstPos, b) != null) {
+            MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
+            System.out.println("Piece is" + SearchPieceByPos.searchPiece(firstPos, b).getPieceType());
+            System.out.println("X : " +  firstPos.getX() + " Y : " + firstPos.getY());
+            wholeFirstPos = firstPos;
+            break;
+          } 
+          else {
+            System.out.println("voice is unvalid");
+            continue first;
+          }
         }
-        else {
-          second:
-          while(true) {
-            Position secondPos = null;
-            
-            try {
-              secondPos = Speech.recognition();
-            } catch (IOException e1) {
-              e1.printStackTrace();
-            }
-            
-            System.out.println("secondPos is Okay");
-            System.out.println("secondPos X : " + secondPos.getX() + " secondPos Y : " + secondPos.getY());
-            
-            Tile secondTile = b.getcBoard()[secondPos.getX()][secondPos.getY()];
-            
-            System.out.println(secondTile.isOnPiece());
-            
-            if (secondTile.isOnPiece() == false) {
-              if(flag == 0) {
-                for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
-                  if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
-                      SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
-                    MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
-                    System.out.println("Il-Hi");
-                    secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
-                    break second;
-                  }
-               }
-               flag = 1;
+        
+        firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
+        firstLabel.repaint();
+        int flag = 0; //  flag가 0 이면 break하고 끝나거나 searchPiece하고 결과 값 안나왔을 때 flag 1로 초기화하고, flag를 0으로 초기화하며 continue
+        
+        second:
+        while(true) {
+          Position secondPos = null;
+          
+          try {
+            secondPos = Speech.recognition();
+          } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
+          System.out.println("secondPos is Okay");
+          System.out.println("secondPos X : " + secondPos.getX() + " secondPos Y : " + secondPos.getY());
+          
+          Tile secondTile = b.getcBoard()[secondPos.getX()][secondPos.getY()];
+          
+          System.out.println(secondTile.isOnPiece());
+          
+          if (secondTile.isOnPiece() == false) {
+            if(flag == 0) {
+              for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
+                if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
+                    SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
+                  MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
+                  System.out.println("일-하 ");
+                  secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
+                  break second;
+                }
              }
-             if(flag == 1) {
-                flag = 0; 
-                continue second;
-              }
-            } 
-            else {
-              System.out.println("Second voice is unvalid");
+             flag = 1;
+           }
+           if(flag == 1) {
+              flag = 0; 
               continue second;
             }
+          } 
+          else {
+            System.out.println("Second voice is unvalid");
+            continue second;
           }
         }  
       }
