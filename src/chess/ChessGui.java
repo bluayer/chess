@@ -221,7 +221,7 @@ public class ChessGui {
    underBar = new JPanel();
    underBar.setLayout(new BorderLayout(10, 10));
    underBar.setBorder(new EmptyBorder(20, 150, 20, 150));
-   currentTeam = new JLabel("White's turn");
+   currentTeam = new JLabel(playerName[0] + "'s turn");
    gameStatus = new JLabel("Test gameStatus");
    underBar.add(currentTeam, BorderLayout.WEST);
    underBar.add(gameStatus, BorderLayout.EAST);
@@ -262,7 +262,7 @@ public class ChessGui {
       
       firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
       firstLabel.repaint();
-      int flag = 0; //  flag가 0 이면 break하고 끝나거나 searchPiece하고 결과 값 안나왔을 때 flag 1로 초기화하고, flag를 0으로 초기화하며 continue
+      int flag = 0; //  flag媛� 0 �씠硫� break�븯怨� �걹�굹嫄곕굹 searchPiece�븯怨� 寃곌낵 媛� �븞�굹�솕�쓣 �븣 flag 1濡� 珥덇린�솕�븯怨�, flag瑜� 0�쑝濡� 珥덇린�솕�븯硫� continue
       
       second:
       while(true) {
@@ -287,7 +287,7 @@ public class ChessGui {
               if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
                   SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
                 MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
-                System.out.println("일-하 ");
+                System.out.println("�씪-�븯 ");
                 secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
                 break second;
               }
