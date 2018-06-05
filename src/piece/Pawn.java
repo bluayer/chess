@@ -29,4 +29,9 @@ public class Pawn extends GamePiece{
     Position[] PawnWay = way.waysPawnPos(color);
     return PawnWay;
   }
+  @Override
+  public Position[] getCanMovesForKing() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

@@ -30,4 +30,11 @@ public class Rook extends GamePiece{
     Position[] RookWay = way.waysRookPos(color);
     return RookWay;
   }
+
+  @Override
+  public Position[] getCanMovesForKing() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] RookWay = way.waysRookPosForKing(color);
+    return RookWay;
+  }
 }

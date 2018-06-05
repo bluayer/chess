@@ -29,4 +29,11 @@ public class Bishop extends GamePiece{
     Position[] BishopWay = way.waysBishopPos(color);
     return BishopWay;
   }
+
+  @Override
+  public Position[] getCanMovesForKing() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] BishopWay = way.waysBishopPosForKing(color);
+    return BishopWay;
+  }
 }

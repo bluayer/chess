@@ -229,4 +229,41 @@ public class Position {
     return posList;
   }
   
+  ArrayList<Position> findPosForKing(Direction direction, Color color) {
+    ArrayList<Position> posList = new ArrayList<Position>();
+    Position nowPos = moveTo(direction);
+    int nowPosX = nowPos.getX();
+    int nowPosY = nowPos.getY();
+    
+    ChessBoard board = ChessGui.b;
+    
+    if (nowPos.isValid()) {    
+      Tile tile = board.getcBoard()[nowPosX][nowPosY];
+      while (nowPos.isValid()) {
+        if(tile.isOnPiece() == false) {
+          posList.add(nowPos);
+          nowPos = nowPos.moveTo(direction);
+          if (nowPos.isValid()) {
+            tile = ChessGui.b.getcBoard()[nowPos.getX()][nowPos.getY()];
+          } else {
+            break;
+          }
+        } 
+        else {
+          posList.add(nowPos);
+          break;
+        }
+      }
+    }
+    /* 
+    for(int i=0; i<posList.size(); i++) {
+      System.out.println(posList.get(i).getX());
+      System.out.println(posList.get(i).getY());
+      System.out.println("Next");
+    }
+    */
+    
+    return posList;
+  }
+  
 }

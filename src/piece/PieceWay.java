@@ -501,6 +501,194 @@ public class PieceWay {
     }
   }
 
+  public Position[] waysRookPosForKing(Color color) {
+    ArrayList<Position> RookPos = new ArrayList<Position>();
+    if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
+      Direction[] WRook = Direction.WRookD();
+      RookPos = mpos.findPosForKing(WRook[0], color);
+      for (int i = 1; i < WRook.length; i++) {
+        RookPos.addAll(mpos.findPosForKing(WRook[i], color));
+      }
+
+      if (RookPos.size() != 0) {
+        for (int k = 0; k < RookPos.size(); k++) {
+          if (RookPos.get(k).getX() == 0 && RookPos.get(k).getY() == 0) {
+            RookPos.remove(k);
+          }
+        }
+      }
+
+      Position[] Wresult = RookPos.toArray(new Position[RookPos.size()]);
+      return Wresult;
+    } else {
+      Direction[] RRook = Direction.RRookD();
+      RookPos = mpos.findPosForKing(RRook[0], color);
+      for (int i = 1; i < RRook.length; i++) {
+        RookPos.addAll(mpos.findPosForKing(RRook[i], color));
+      }
+
+      if (RookPos.size() != 0) {
+        for (int k = 0; k < RookPos.size(); k++) {
+          if (RookPos.get(k).getX() == 0 && RookPos.get(k).getY() == 0) {
+            RookPos.remove(k);
+          }
+        }
+      }
+
+      Position[] Rresult = RookPos.toArray(new Position[RookPos.size()]);
+      return Rresult;
+    }
+
+  }
+  
+  public Position[] waysBishopPosForKing(Color color) {
+    ArrayList<Position> BishopPos = new ArrayList<Position>();
+    if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
+      Direction[] WBishop = Direction.WBishopD();
+      BishopPos = mpos.findPosForKing(WBishop[0], color);
+      for (int i = 1; i < WBishop.length; i++) {
+        BishopPos.addAll(mpos.findPosForKing(WBishop[i], color));
+      }
+      if (BishopPos.size() != 0) {
+        for (int k = 0; k < BishopPos.size(); k++) {
+          if (BishopPos.get(k).getX() == 0 && BishopPos.get(k).getY() == 0) {
+            BishopPos.remove(k);
+          }
+        }
+      }
+
+      Position[] Wresult = BishopPos.toArray(new Position[BishopPos.size()]);
+      return Wresult;
+    } else {
+      Direction[] RBishop = Direction.RBishopD();
+      BishopPos = mpos.findPosForKing(RBishop[0], color);
+      for (int i = 1; i < RBishop.length; i++) {
+        BishopPos.addAll(mpos.findPos(RBishop[i], color));
+      }
+
+      if (BishopPos.size() != 0) {
+        for (int k = 0; k < BishopPos.size(); k++) {
+          if (BishopPos.get(k).getX() == 0 && BishopPos.get(k).getY() == 0) {
+            BishopPos.remove(k);
+          }
+        }
+      }
+
+      Position[] Rresult = BishopPos.toArray(new Position[BishopPos.size()]);
+      return Rresult;
+    }
+  }
+
+  public Position[] waysQueenPosForKing(Color color) {
+    ArrayList<Position> QueenPos = new ArrayList<Position>();
+    if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
+      Direction[] WQueen = Direction.WAllD();
+      QueenPos = mpos.findPosForKing(WQueen[0], color);
+      for (int i = 1; i < WQueen.length; i++) {
+        QueenPos.addAll(mpos.findPosForKing(WQueen[i], color));
+      }
+
+      if (QueenPos.size() != 0) {
+        for (int k = 0; k < QueenPos.size(); k++) {
+          if (QueenPos.get(k).getX() == 0 && QueenPos.get(k).getY() == 0) {
+            QueenPos.remove(k);
+          }
+        }
+      }
+      
+      for (int i = 0; i < QueenPos.size(); i++) {
+        for (int j = i +1; j < QueenPos.size(); j++) {
+          if (QueenPos.get(i).getX() == QueenPos.get(j).getX() && QueenPos.get(i).getY() == QueenPos.get(j).getY()) {
+            QueenPos.remove(j);
+          }
+        }
+      }
+
+      Position[] Wresult = QueenPos.toArray(new Position[QueenPos.size()]);
+      return Wresult;
+    } else {
+      Direction[] RQueen = Direction.RAllD();
+      QueenPos = mpos.findPosForKing(RQueen[0], color);
+      for (int i = 0; i < RQueen.length; i++) {
+        QueenPos.addAll(mpos.findPosForKing(RQueen[i], color));
+      }
+
+      if (QueenPos.size() != 0) {
+        for (int k = 0; k < QueenPos.size(); k++) {
+          if (QueenPos.get(k).getX() == 0 && QueenPos.get(k).getY() == 0) {
+            QueenPos.remove(k);
+          }
+        }
+
+      }
+
+      for (int i = 0; i < QueenPos.size(); i++) {
+        for (int j = i +1; j < QueenPos.size(); j++) {
+          if (QueenPos.get(i).getX() == QueenPos.get(j).getX() && QueenPos.get(i).getY() == QueenPos.get(j).getY()) {
+            QueenPos.remove(j);
+          }
+        }
+      }
+
+      Position[] Rresult = QueenPos.toArray(new Position[QueenPos.size()]);
+      return Rresult;
+    }
+  }
+  
+  public Position[] waysKnightPosForKing(Color color) {
+    ArrayList<Position> KnightPos = new ArrayList<Position>();
+    if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
+      Direction[] WKnight = Direction.WKnightD();
+      for (int i = 0; i < WKnight.length; i++) {
+        Position oneMovedPos = mpos.moveTo(WKnight[i]);
+        if (oneMovedPos.isValid()) {
+            KnightPos.add(oneMovedPos);
+        }
+      }
+      Position[] Wresult = KnightPos.toArray(new Position[KnightPos.size()]);
+      return Wresult;
+
+    } else {
+      Direction[] RKnight = Direction.RKnightD();
+      for (int i = 0; i < RKnight.length; i++) {
+        Position oneMovedPos = mpos.moveTo(RKnight[i]);
+        if (oneMovedPos.isValid()) {
+          KnightPos.add(oneMovedPos);
+        }
+      }
+      Position[] Rresult = KnightPos.toArray(new Position[KnightPos.size()]);
+      return Rresult;
+    }
+  }
+  
+  public Position[] waysKingPosForKing(Color color) {
+    ArrayList<Position> KingPos = new ArrayList<Position>();
+    if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
+      Direction[] WKing = Direction.WAllD();
+      for (int i = 0; i < WKing.length; i++) {
+        Position oneMovedPos = mpos.moveTo(WKing[i]);
+        if (oneMovedPos.isValid()) {
+            KingPos.add(oneMovedPos);
+        }
+      }
+
+      Position[] Wresult = KingPos.toArray(new Position[KingPos.size()]);
+      return Wresult;
+    } 
+    else {
+      Direction[] RKing = Direction.RAllD();
+      for (int i = 0; i < RKing.length; i++) {
+        Position oneMovedPos = mpos.moveTo(RKing[i]);
+        if (oneMovedPos.isValid()) {
+          KingPos.add(oneMovedPos); 
+        }
+      }
+
+      Position[] Rresult = KingPos.toArray(new Position[KingPos.size()]);
+      return Rresult;
+    }
+  }
+
   public Position[] waysKingPosCheck(Color color) {
 
     Color oppositeColor1 = null, oppositeColor2 = null;
@@ -546,33 +734,41 @@ public class PieceWay {
                     if (piece.isWhite()) {
                       diagonalMove1 = diagonalMove1.moveTo(Direction.WNE);
                       diagonalMove2 = diagonalMove2.moveTo(Direction.WNW);
-                    } else if (piece.isBlack()) {
+                    } 
+                    else if (piece.isBlack()) {
                       diagonalMove1 = diagonalMove1.moveTo(Direction.WSE);
                       diagonalMove2 = diagonalMove2.moveTo(Direction.WSW);
-                    } else if (piece.isRed()) {
+                    } 
+                    else if (piece.isRed()) {
                       diagonalMove1 = diagonalMove1.moveTo(Direction.RNE);
                       diagonalMove2 = diagonalMove2.moveTo(Direction.RNW);
-                    } else if (piece.isGreen()) {
+                    } 
+                    else if (piece.isGreen()) {
                       diagonalMove1 = diagonalMove1.moveTo(Direction.RSE);
                       diagonalMove2 = diagonalMove2.moveTo(Direction.RSW);
                     }
 
                     PawnPos.add(diagonalMove1);
                     PawnPos.add(diagonalMove2);
-                    for (int k = 0; k < PawnPos.size(); k++) {
-                      for (int l = 0; l < kingPos.size(); l++) {
-                        if (PawnPos.get(k).getX() == kingPos.get(l).getX()
-                            && PawnPos.get(k).getY() == kingPos.get(l).getY()) {
-                          kingPos.remove(l);
+                    if (PawnPos.size() != 0 ) {
+                      for (int k = 0; k < PawnPos.size(); k++) {
+                        for (int l = 0; l < kingPos.size(); l++) {
+                          if (PawnPos.get(k).getX() == kingPos.get(l).getX()
+                              && PawnPos.get(k).getY() == kingPos.get(l).getY()) {
+                            kingPos.remove(l);
+                          }
                         }
                       }
                     }
-                  } else {
-                    for (int f = 0; f < piece.getCanMoves().length; f++) {
-                      for (int e = 0; e < kingPos.size(); e++) {
-                        if (piece.getCanMoves()[f].getX() == kingPos.get(e).getX()
-                            && piece.getCanMoves()[f].getY() == kingPos.get(e).getY()) {
-                          kingPos.remove(e);
+                  } 
+                  else {
+                    if(piece.getCanMovesForKing().length != 0) {
+                      for (int f = 0; f < piece.getCanMovesForKing().length; f++) {
+                        for (int e = 0; e < kingPos.size(); e++) {
+                          if (piece.getCanMovesForKing()[f].getX() == kingPos.get(e).getX()
+                              && piece.getCanMovesForKing()[f].getY() == kingPos.get(e).getY()) {
+                            kingPos.remove(e);
+                          }
                         }
                       }
                     }

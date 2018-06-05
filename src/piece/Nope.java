@@ -26,4 +26,9 @@ public class Nope extends GamePiece {
   public Position[] getCanMoves() {
     return null;
   }
+  @Override
+  public Position[] getCanMovesForKing() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

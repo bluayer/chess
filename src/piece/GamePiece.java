@@ -84,6 +84,10 @@ public abstract class GamePiece extends Piece{
     }
   }
   
+  @Override
+  public abstract Position[] getCanMovesForKing();
+  
+  @Override
   public abstract Position[] getCanMoves();
   
   @Override

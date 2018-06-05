@@ -23,4 +23,5 @@ public abstract class Piece {
   public abstract Position getPosition();
   public abstract GamePiece move(Position goal);
   public abstract Position[] getCanMoves();
+  public abstract Position[] getCanMovesForKing();
 }

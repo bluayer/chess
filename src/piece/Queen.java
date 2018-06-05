@@ -28,4 +28,10 @@ public class Queen extends GamePiece{
     Position[] QueenWay = way.waysQueenPos(color);
     return QueenWay;
   }
+  @Override
+  public Position[] getCanMovesForKing() {
+    PieceWay way = new PieceWay(getPosition());
+    Position[] QueenWay = way.waysQueenPosForKing(color);
+    return QueenWay;
+  }
 }
