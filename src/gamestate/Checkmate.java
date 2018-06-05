@@ -53,6 +53,7 @@ public class Checkmate {
 	
 	public void isCheckmate() {
 		for(int playerNum = 0; playerNum < 4; playerNum++) {
+			int enemyPieceNum = 0;
 			if(GameController.checkFlag[playerNum] == 0) {
   			GameController.checkmateFlag[playerNum] = 0;
   			continue;
