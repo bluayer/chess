@@ -35,7 +35,7 @@ public class ChessGui {
   static final int FRAME_WIDTH = 1050, FRAME_HEIGHT = 1000;
   
   private static JButton recog, reset;
-  private static JFrame mainFrame;
+  static JFrame mainFrame;
   public static JPanel chessBoard, underBar, forVoice;
   public static JLabel currentTeam, gameStatus, turnCount;
   public static JLabel[] checkLabel = new JLabel[4];
@@ -44,56 +44,17 @@ public class ChessGui {
   private static MClickBridge mClkB;
   public static ChessBoard b;
   public static String[] playerName = new String[4];
-  private static boolean vRecFlag = false;
+  static boolean vRecFlag = false;
   
-  public static void setupStartUI() throws IOException {
-    ImageIcon bGd = new ImageIcon("mainBackground.jpg");
-    JLabel bGdLb = new JLabel(bGd);
+  public static void setupStartUI(){
     mainFrame = new JFrame("Mode Selection");
     mainFrame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
     mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //mainFrame.setLayout(new GridLayout(3, 3));
+    mainFrame.setLayout(new BorderLayout(10, 10));
     mainFrame.setLocationRelativeTo(null);
     
-    JPanel midPanel = new JPanel();
-    midPanel.setLayout(new FlowLayout());
-    midPanel.setBorder(new EmptyBorder(170, 200, 170, 200));
-
-    JButton voiceRec= new JButton("Voice Recongnition");
-    JButton twoVStwo = new JButton("2 VS 2 Chess");
-    class UIclick implements MouseListener{
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        mainFrame.setVisible(false);
-        
-        if(e.getSource().equals(voiceRec)) {
-          setupNameInputGUI();
-          vRecFlag = true;
-        }
-        else if(e.getSource().equals(twoVStwo)) {
-          setupNameInputGUI();
-        }
-      }
-      @Override
-      public void mousePressed(MouseEvent e) {
-      }
-      @Override
-      public void mouseReleased(MouseEvent e) {
-      }
-      @Override
-      public void mouseEntered(MouseEvent e) {  
-      }
-      @Override
-      public void mouseExited(MouseEvent e) {   
-      }
-    }
-    
-    voiceRec.setBackground(Color.GRAY);
-    twoVStwo.setBackground(Color.GRAY);
-    voiceRec.addMouseListener(new UIclick());
-    twoVStwo.addMouseListener(new UIclick());
-    midPanel.add(twoVStwo);
-    midPanel.add(voiceRec);
+    BackgroundPanel midPanel = new BackgroundPanel();
+    midPanel.setGUI();
     
     mainFrame.add(midPanel);
     mainFrame.setVisible(true);
