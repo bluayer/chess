@@ -39,46 +39,18 @@ public class MouseClick{
   private static Checkmate checkMate = new Checkmate();
   
   public MouseClick() {
-    this.firstClk = null;
-    this.secondClk = null;
-    this.firstPos = null;
-    this.secondPos = null;
-    this.btn = ChessGui.btn;
-    this.isClicked = false;
-    this.board = ChessGui.b;
+    firstClk = null;
+    secondClk = null;
+    firstPos = null;
+    secondPos = null;
+    btn = ChessGui.btn;
+    isClicked = false;
+    board = ChessGui.b;
     cBoard = ChessGui.b.getcBoard();
-    this.clicked = new Color(255, 255, 0);
-    this.backgroundBackup = null;
-    this.toMovePiece = null;
-    this.clickedPiece = null;
-  }
-  
-  private static GamePiece.Color teamToColor(TEAM t) {
-    GamePiece.Color color = null;
-    
-    switch(t) {
-    case BLACK:{
-      color = GamePiece.Color.BLACK;
-      break;
-      }
-    case WHITE:{
-      color = GamePiece.Color.WHITE;
-      break;
-      }
-    case RED:{
-      color = GamePiece.Color.RED;
-      break;
-      }
-    case GREEN:{
-      color = GamePiece.Color.GREEN;
-      break;
-      }
-    default :{
-      System.out.println("teamToColor:Error");
-      }
-    }
-    
-    return color;
+    clicked = new Color(255, 255, 0);
+    backgroundBackup = null;
+    toMovePiece = null;
+    clickedPiece = null;
   }
   
   public static GamePiece getMovePiece() {
@@ -213,6 +185,7 @@ public class MouseClick{
     }
     System.out.println();
     
+
     return;
   }
   

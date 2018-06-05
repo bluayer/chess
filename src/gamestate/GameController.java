@@ -1,14 +1,7 @@
 package gamestate;
 
 import board.Status.TEAM;
-import board.ChessBoard;
-import board.Tile;
-import chess.ChessGui;
-import gamestate.Checkmate;
-import gamestate.Stalemate;
 import piece.GamePiece.Color;
-import piece.King;
-import piece.Position;
 
 public class GameController {
   public static int[] stalemateFlag = {0, 0, 0, 0};

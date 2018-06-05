@@ -2,7 +2,6 @@ package gamestate;
 
 import board.ChessBoard;
 import board.SearchPieceByPos;
-import board.Status;
 import board.Status.TEAM;
 import chess.ChessGui;
 import piece.GamePiece;
@@ -34,6 +33,8 @@ public class TurnCheck {
 	public void nextTurn() {
 		this.mturn++;
 		
+		ChessGui.currentTeam.setText(ChessGui.playerName[this.getter()] + "'s turn");
+		ChessGui.turnCount.setText("Turn: " + (mturn + 1));
     if(this.getter() == 0) {
       ChessGui.chessBoard.setBackground(ChessGui.white);
     }

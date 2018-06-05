@@ -5,11 +5,9 @@ import board.Tile;
 import chess.ChessGui;
 import piece.Position;
 import piece.Bishop;
-import piece.GamePiece.Color;
 import piece.King;
 import piece.Knight;
 import piece.Pawn;
-import piece.PieceWay;
 import piece.Queen;
 import piece.Rook;
 

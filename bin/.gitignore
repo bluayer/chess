@@ -1,0 +1,10 @@
+/.classpath
+/.project
+/board/
+/chess/
+/gamestate/
+/piece/
+/speechDIC.dic
+/speechLM.lm
+/sprite2.png
+/voice/

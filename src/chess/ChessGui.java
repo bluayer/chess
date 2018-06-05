@@ -178,7 +178,7 @@ public class ChessGui {
    underBar.setLayout(new BorderLayout(10, 10));
    underBar.setBorder(new EmptyBorder(20, 150, 20, 150));
    currentTeam = new JLabel(playerName[0] + "'s turn");
-   gameStatus = new JLabel("Test gameStatus");
+   gameStatus = new JLabel("Test game Status");
    underBar.add(currentTeam, BorderLayout.WEST);
    underBar.add(gameStatus, BorderLayout.EAST);
    
