@@ -9,6 +9,8 @@ import board.Status.TEAM;
 import board.Tile;
 import board.UpdatePiece;
 import gamestate.Check;
+import gamestate.Checkmate;
+import gamestate.GameController;
 import gamestate.TurnCheck;
 import piece.GamePiece;
 import piece.GamePiece.PieceType;
@@ -34,6 +36,7 @@ public class MouseClick{
   public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
   private static Check check = new Check();
+  private static Checkmate checkMate = new Checkmate();
   
   public MouseClick() {
     this.firstClk = null;
@@ -199,7 +202,16 @@ public class MouseClick{
       ChessGui.checkLabel[k].setText(null);
     }
     //...and see it's check or checkmate
+    
     check.isCheck();
+    checkMate.isCheckmate();
+    for(int a = 0; a < 4; a++) {
+    	System.out.print(GameController.checkFlag[a]);
+    }
+    for(int a = 0; a < 4; a++) {
+    	System.out.print(GameController.checkmateFlag[a]);
+    }
+    System.out.println();
     
     return;
   }

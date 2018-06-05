@@ -43,10 +43,9 @@ public class Stalemate {
 
 	public boolean isStalemate(TEAM team) {
 		int t = Tile.cvtTeam(team);
-		
-		Check p = new Check();
+
 	
-		if(p.isCheck()) {
+		if(GameController.checkFlag[t] == 1) {
 			return false;
 		}
 		 
