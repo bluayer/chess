@@ -261,6 +261,8 @@ public class ChessGui {
       }
       
       firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
+      firstLabel.repaint();
+      int flag = 0; //  flag가 0 이면 break하고 끝나거나 searchPiece하고 결과 값 안나왔을 때 flag 1로 초기화하고, flag를 0으로 초기화하며 continue
       
       second:
       while(true) {
@@ -280,16 +282,22 @@ public class ChessGui {
         System.out.println(secondTile.isOnPiece());
         
         if (secondTile.isOnPiece() == false) {
-          for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
-            if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
-                SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
-              MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
-              System.out.println("일-하 ");
-              secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
-              break;
-            }
+          if(flag == 0) {
+            for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
+              if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
+                  SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
+                MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
+                System.out.println("일-하 ");
+                secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
+                break second;
+              }
+           }
+           flag = 1;
+         }
+         if(flag == 1) {
+            flag = 0; 
+            continue second;
           }
-          break;
         } 
         else {
           System.out.println("Second voice is unvalid");
