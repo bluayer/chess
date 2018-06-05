@@ -53,7 +53,7 @@ public class Checkmate {
 	
 	public void isCheckmate() {
 		for(int playerNum = 0; playerNum < 4; playerNum++) {
-			int enemyPieceNum = 0;
+			enemyPieceNum = 0;
 			if(GameController.checkFlag[playerNum] == 0) {
   			GameController.checkmateFlag[playerNum] = 0;
   			continue;
@@ -128,30 +128,31 @@ public class Checkmate {
 						 */
 						else if(enemyPiece[0].getColor() == GameController.teamToColor(opposite1) &&
 								enemyPiece[1].getColor() == GameController.teamToColor(opposite2)) {
+							int[] flag = {0, 0};
 							GameController.checkmateFlag[playerNum] = 1;
 							
 							if(enemyPiece[0].getPieceType() == PieceType.KNIGHT || enemyPiece[0].getPieceType() == PieceType.PAWN) {
 								if(enemyPiece[1].getPieceType() == PieceType.KNIGHT || enemyPiece[0].getPieceType() == PieceType.PAWN) {
 									enemyIsKnightOrPawn(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[1] = 1;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									enemyIsKnightOrPawn(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[0] = 1;
 									}
 								}
 								
 								else {
 									enemyIsKnightOrPawn(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[1] = 1;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									pieceWay(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[0] = 1;
 									}
 								}
 							}
@@ -160,26 +161,31 @@ public class Checkmate {
 								if(enemyPiece[1].getPieceType() == PieceType.KNIGHT || enemyPiece[0].getPieceType() == PieceType.PAWN) {
 									pieceWay(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[1] = 1;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									enemyIsKnightOrPawn(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[0] = 1;
 									}
 								}
 								else {
 									pieceWay(0, teammate, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[1] = 1;
 									}
 									GameController.checkmateFlag[playerNum] = 1;
 									pieceWay(1, playerNum, playerNum);
 									if(GameController.checkmateFlag[playerNum] == 1) {
-										continue;
+										flag[0] = 1;
 									}
 								}
 							}
+							if(flag[0] + flag[1] != 2) {
+								GameController.checkmateFlag[playerNum] = 1;
+								continue;
+							}
+							
 						}
 						
 						/*
@@ -307,30 +313,63 @@ public class Checkmate {
 					}
 					/*
 					 * if PieceNum is one, there are two cases.
-					 * first, if piece[0] = op1, the player delete enemypieces isn't matter.
+					 * first, if piece[0] = op1, which player delete enemypieces isn't matter.
 					 * second, if piece[0] = op2, player must delte enemypieces.
 					 */
 					else { //case PieceNum = 1
 						if(enemyPiece[0].getColor() == GameController.teamToColor(opposite1)) {
+							int[] flag = {0, 0};
 							GameController.checkmateFlag[playerNum] = 1;
 							if(enemyPiece[0].getPieceType() == PieceType.KNIGHT || enemyPiece[0].getPieceType() == PieceType.PAWN) {
 								enemyIsKnightOrPawn(0, playerNum, playerNum);
+								if(GameController.checkmateFlag[playerNum] == 0) {
+									flag[0] = 1;
+								}
+								GameController.checkmateFlag[playerNum] = 1;
 								enemyIsKnightOrPawn(0, teammate, playerNum);
+								if(GameController.checkmateFlag[playerNum] == 0) {
+									flag[1] = 1;
+								}
 							}
 							
 							else {
 								pieceWay(0, playerNum, playerNum);
+								if(GameController.checkmateFlag[playerNum] == 0) {
+									flag[0] = 1;
+								}
+								GameController.checkmateFlag[playerNum] = 1;
 								pieceWay(0, teammate, playerNum);
+								if(GameController.checkmateFlag[playerNum] == 0) {
+									flag[1] = 1;
+								}
 							}
+							if(flag[0] + flag[1] < 0) {
+								GameController.checkmateFlag[playerNum] = 1;
+								continue;
+							}
+							
 						}
 						
 						else {
+							int flag = 0;
+							GameController.checkmateFlag[playerNum] = 1;
 							if(enemyPiece[0].getPieceType() == PieceType.KNIGHT || enemyPiece[0].getPieceType() == PieceType.PAWN) {
 								enemyIsKnightOrPawn(0, playerNum, playerNum);
+								if(GameController.checkmateFlag[playerNum] == 0) {
+									flag = 1;
+								}
 							}
 							
 							else {
 								pieceWay(0, playerNum, playerNum);
+								if(GameController.checkmateFlag[playerNum] == 0) {
+									flag = 1;
+								}
+							}
+							
+							if(flag == 0) {
+								GameController.checkmateFlag[playerNum] = 1;
+								continue;
 							}
 						}
 					}
