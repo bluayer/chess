@@ -43,7 +43,7 @@ public class ChessGui {
   private static MClickBridge mClkB;
   public static ChessBoard b;
   public static String[] playerName = new String[4];
-  
+  private static boolean vRecFlag = false;
   
   public static void setupStartUI() {
     mainFrame = new JFrame("Selection Mode");
@@ -58,15 +58,16 @@ public class ChessGui {
     midPanel.setBackground(new Color(230, 230, 230));
     midPanel.setOpaque(true);
     
-    JButton oneVSone = new JButton("1 vs 1");
-    JButton twoVStwo = new JButton("2 VS 2");
+    JButton voiceRec= new JButton("Voice Recongnition");
+    JButton twoVStwo = new JButton("2 VS 2 Chess");
     class UIclick implements MouseListener{
       @Override
       public void mouseClicked(MouseEvent e) {
         mainFrame.setVisible(false);
         
-        if(e.getSource().equals(oneVSone)) {
-          System.out.println("We didn't make 1 vs 1 Chess!");
+        if(e.getSource().equals(voiceRec)) {
+          setupNameInputGUI();
+          vRecFlag = true;
         }
         else if(e.getSource().equals(twoVStwo)) {
           setupNameInputGUI();
@@ -90,12 +91,12 @@ public class ChessGui {
       }
     }
     
-    oneVSone.setBackground(Color.GRAY);
+    voiceRec.setBackground(Color.GRAY);
     twoVStwo.setBackground(Color.GRAY);
-    oneVSone.addMouseListener(new UIclick());
+    voiceRec.addMouseListener(new UIclick());
     twoVStwo.addMouseListener(new UIclick());
     
-    midPanel.add(oneVSone);
+    midPanel.add(voiceRec);
     midPanel.add(twoVStwo);
     mainFrame.add(midPanel);
     mainFrame.setVisible(true);
@@ -226,102 +227,104 @@ public class ChessGui {
    underBar.add(currentTeam, BorderLayout.WEST);
    underBar.add(gameStatus, BorderLayout.EAST);
    
-   forVoice = new JPanel();
-   forVoice.setLayout(new FlowLayout());
-   forVoice.setBorder(new EmptyBorder(0, 50, 0, 50));
-   JLabel firstLabel = new JLabel("first Position");
-   JLabel secondLabel = new JLabel("Second Position");
-   recog = new JButton("Rec.");
-   recog.addActionListener(new ActionListener() {
-    @Override
-    //for voice recognition: not completely written
-    public void actionPerformed(ActionEvent e) {
-      System.out.println("Record Button Clicked");
-      Position wholeFirstPos = null;
-      first:
-      while (true) {
-        Position firstPos = null;
-        try {
-          firstPos = Speech.recognition();
-        } catch (IOException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
+   if(vRecFlag == true) {
+     forVoice = new JPanel();
+     forVoice.setLayout(new FlowLayout());
+     forVoice.setBorder(new EmptyBorder(0, 50, 0, 50));
+     JLabel firstLabel = new JLabel("first Position");
+     JLabel secondLabel = new JLabel("Second Position");
+     recog = new JButton("Rec.");
+     recog.addActionListener(new ActionListener() {
+      @Override
+      //for voice recognition: not completely written
+      public void actionPerformed(ActionEvent e) {
+        System.out.println("Record Button Clicked");
+        Position wholeFirstPos = null;
+        first:
+        while (true) {
+          Position firstPos = null;
+          try {
+            firstPos = Speech.recognition();
+          } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
+          if (SearchPieceByPos.searchPiece(firstPos, b) != null) {
+            MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
+            System.out.println("Piece is" + SearchPieceByPos.searchPiece(firstPos, b).getPieceType());
+            System.out.println("X : " +  firstPos.getX() + " Y : " + firstPos.getY());
+            wholeFirstPos = firstPos;
+            break;
+          } 
+          else {
+            System.out.println("voice is unvalid");
+            continue first;
+          }
         }
-        if (SearchPieceByPos.searchPiece(firstPos, b) != null) {
-          MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
-          System.out.println("Piece is" + SearchPieceByPos.searchPiece(firstPos, b).getPieceType());
-          System.out.println("X : " +  firstPos.getX() + " Y : " + firstPos.getY());
-          wholeFirstPos = firstPos;
-          break;
-        } 
-        else {
-          System.out.println("voice is unvalid");
-          continue first;
-        }
-      }
-      
-      firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
-      firstLabel.repaint();
-      int flag = 0; //  flag媛� 0 �씠硫� break�븯怨� �걹�굹嫄곕굹 searchPiece�븯怨� 寃곌낵 媛� �븞�굹�솕�쓣 �븣 flag 1濡� 珥덇린�솕�븯怨�, flag瑜� 0�쑝濡� 珥덇린�솕�븯硫� continue
-      
-      second:
-      while(true) {
-        Position secondPos = null;
         
-        try {
-          secondPos = Speech.recognition();
-        } catch (IOException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
-        System.out.println("secondPos is Okay");
-        System.out.println("secondPos X : " + secondPos.getX() + " secondPos Y : " + secondPos.getY());
+        firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
+        firstLabel.repaint();
+        int flag = 0; //  flag媛� 0 �씠硫� break�븯怨� �걹�굹嫄곕굹 searchPiece�븯怨� 寃곌낵 媛� �븞�굹�솕�쓣 �븣 flag 1濡� 珥덇린�솕�븯怨�, flag瑜� 0�쑝濡� 珥덇린�솕�븯硫� continue
         
-        Tile secondTile = b.getcBoard()[secondPos.getX()][secondPos.getY()];
-        
-        System.out.println(secondTile.isOnPiece());
-        
-        if (secondTile.isOnPiece() == false) {
-          if(flag == 0) {
-            for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
-              if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
-                  SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
-                MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
-                System.out.println("�씪-�븯 ");
-                secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
-                break second;
-              }
+        second:
+        while(true) {
+          Position secondPos = null;
+          
+          try {
+            secondPos = Speech.recognition();
+          } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
+          System.out.println("secondPos is Okay");
+          System.out.println("secondPos X : " + secondPos.getX() + " secondPos Y : " + secondPos.getY());
+          
+          Tile secondTile = b.getcBoard()[secondPos.getX()][secondPos.getY()];
+          
+          System.out.println(secondTile.isOnPiece());
+          
+          if (secondTile.isOnPiece() == false) {
+            if(flag == 0) {
+              for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
+                if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
+                    SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
+                  MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
+                  System.out.println("�씪-�븯 ");
+                  secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
+                  break second;
+                }
+             }
+             flag = 1;
            }
-           flag = 1;
-         }
-         if(flag == 1) {
-            flag = 0; 
+           if(flag == 1) {
+              flag = 0; 
+              continue second;
+            }
+          } 
+          else {
+            System.out.println("Second voice is unvalid");
             continue second;
           }
-        } 
-        else {
-          System.out.println("Second voice is unvalid");
-          continue second;
-        }
-      }  
-    }
-  });
-   reset = new JButton("Reset");
-   reset.addActionListener(new ActionListener() {
-    @Override
-    //for voice reset
-    public void actionPerformed(ActionEvent e) {
-      System.out.println("Reset Button Clicked");
-      MouseClick.varsClear();
-    }
-  });
-   
-   forVoice.add(firstLabel);
-   forVoice.add(secondLabel);
-   forVoice.add(recog);
-   forVoice.add(reset);
-
-   underBar.add(forVoice, BorderLayout.CENTER);
+        }  
+      }
+    });
+     reset = new JButton("Reset");
+     reset.addActionListener(new ActionListener() {
+      @Override
+      //for voice reset
+      public void actionPerformed(ActionEvent e) {
+        System.out.println("Reset Button Clicked");
+        MouseClick.varsClear();
+      }
+    });
+     
+     forVoice.add(firstLabel);
+     forVoice.add(secondLabel);
+     forVoice.add(recog);
+     forVoice.add(reset);
+  
+     underBar.add(forVoice, BorderLayout.CENTER);
+   }
    
    JPanel panel1 = new JPanel();
    panel1.setLayout(new GridLayout(0, 1));
