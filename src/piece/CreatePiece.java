@@ -7,9 +7,6 @@ import board.ChessPieceSprite.ChessPieceSpriteType;
 import piece.GamePiece.Color;
 
 public class CreatePiece {
-  public static Piece NOPE(Position position, boolean alive) {
-    return new Nope(position, alive);
-  }
   
   public static GamePiece WPawn(Position position) {
     BufferedImage Wpawn = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.WHITE_PAWN);
