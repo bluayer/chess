@@ -36,30 +36,59 @@ public void isStalemate() {
 		}
 			 
 		else {
+				GameController.stalemateFlag[t] = 1;
+				
 				aw = king[t].getCanMoves();
-				if(aw.length != 0) {return;}
-				aw = queen[t].getCanMoves();
-				if(this.aw.length != 0) {return;}
+				if(aw.length != 0) {
+					GameController.stalemateFlag[t] = 0;
+					}
+				
+				if(queen[t].isAlive()) {
+					aw = queen[t].getCanMoves();
+				}
+				if(this.aw.length != 0) {
+					GameController.stalemateFlag[t] = 0;
+				}
 			
 				for(int i = 0; i < rook[t].length; i++) {
-					aw = rook[t][i].getCanMoves();
-					if(aw.length != 0) {return;}
-				}
-				for(int i = 0; i < bishop[t].length; i++) {
-					aw = bishop[t][i].getCanMoves();
-					if(aw.length != 0) {return;}
-				}
-				for(int i = 0; i < knight[t].length; i++) {
-					aw = knight[t][i].getCanMoves();
-					if(aw.length != 0) {return;}
-				}
-				for (int i = 0; i < pawn[t].length; i++) {
-					aw = pawn[t][i].getCanMoves();
-					if(aw.length != 0) {return;}
+					if(!rook[t][i].isAlive()) {
+						continue;
+					}
+						aw = rook[t][i].getCanMoves();
+					if(aw.length != 0) {
+						GameController.stalemateFlag[t] = 0;
+					}
 				}
 				
-				GameController.stalemateFlag[t] = 1;
-				return;
+				for(int i = 0; i < bishop[t].length; i++) {
+					if(!bishop[t][i].isAlive()) {
+						continue;
+					}
+					aw = bishop[t][i].getCanMoves();
+					if(aw.length != 0) {
+						GameController.stalemateFlag[t] = 0;
+					}
+				}
+				
+				for(int i = 0; i < knight[t].length; i++) {
+					if(!knight[t][i].isAlive()) {
+						continue;
+					}
+					aw = knight[t][i].getCanMoves();
+					if(aw.length != 0) {
+						GameController.stalemateFlag[t] = 0;
+					}
+				}
+				
+				for (int i = 0; i < pawn[t].length; i++) {
+					if(!pawn[t][i].isAlive()) {
+						continue;
+					}
+					aw = pawn[t][i].getCanMoves();
+					if(aw.length != 0) {
+						GameController.stalemateFlag[t] = 0;
+					}
+				}
 			}
 		}		
 	}	

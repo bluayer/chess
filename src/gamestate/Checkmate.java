@@ -380,7 +380,9 @@ public class Checkmate {
 	}
 	
 	private void enemyCanAttackKing(int opposite) {
-		aw = queen[opposite].getCanMoves();
+		if(queen[opposite].isAlive()) {
+			aw = queen[opposite].getCanMoves();
+		}
 		for(int i = 0; i < aw.length; i++) {
 			if(aw[i].getX() == kingX && aw[i].getY() == kingY) {
 				enemyPiece[enemyPieceNum] = queen[opposite];
@@ -389,6 +391,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < bishop[opposite].length; i++) {
+			if(!bishop[opposite][i].isAlive()) {
+				continue;
+			}
 			aw = bishop[opposite][i].getCanMoves();
 			for(int k = 0; k < aw.length; k++) {
 				if(aw[k].getX() == kingX && aw[k].getY() == kingY) {
@@ -399,6 +404,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < rook[opposite].length; i++) {
+			if(!rook[opposite][i].isAlive()) {
+				continue;
+			}
 			aw = rook[opposite][i].getCanMoves();
 			for(int k = 0; k < aw.length; k++) {
 				if(aw[k].getX() == kingX && aw[k].getY() == kingY) {
@@ -409,6 +417,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < knight[opposite].length; i++) {
+			if(!knight[opposite][i].isAlive()) {
+				continue;
+			}
 			aw = knight[opposite][i].getCanMoves();
 			for(int k = 0; k < aw.length; k++) {
 				if(aw[k].getX() == kingX && aw[k].getY() == kingY) {
@@ -419,6 +430,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < pawn[opposite].length; i++) {
+			if(!pawn[opposite][i].isAlive()) {
+				continue;
+			}
 			aw = pawn[opposite][i].getCanMoves();
 			for(int k = 0; k < aw.length; k++) {
 				if(aw[k].getX() == kingX && aw[k].getY() == kingY) {
@@ -437,7 +451,9 @@ public class Checkmate {
 		directionY = targetY - kingY;
   	
 		//can delete enemy
-		aw = queen[oneOfTeam].getCanMoves();
+		if(queen[oneOfTeam].isAlive()) {
+			aw = queen[oneOfTeam].getCanMoves();
+		}
 		for(int i = 0; i < aw.length; i++) {
 			if(aw[i].getY() == targetY && aw[i].getX() == targetX) {
 				GameController.checkmateFlag[player] = 0;
@@ -446,7 +462,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < bishop[oneOfTeam].length; i++) {
-			aw = bishop[oneOfTeam][i].getCanMoves();
+			if(!bishop[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {
 					GameController.checkmateFlag[player] = 0;
@@ -456,6 +474,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < rook[oneOfTeam].length; i++) {
+			if(!rook[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			aw = rook[oneOfTeam][i].getCanMoves();
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {
@@ -466,6 +487,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < knight[oneOfTeam].length; i++) {
+			if(!knight[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			aw = knight[oneOfTeam][i].getCanMoves();
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {
@@ -476,6 +500,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < pawn[oneOfTeam].length; i++) {
+			if(!pawn[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			aw = pawn[oneOfTeam][i].getCanMoves();
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {
@@ -487,6 +514,9 @@ public class Checkmate {
 		
 		//can block enemy's path
 		if(targetX == kingX) {
+			if(queen[oneOfTeam].isAlive()) {
+				aw = queen[oneOfTeam].getCanMoves();
+			}
 			aw = queen[oneOfTeam].getCanMoves();
 			for(int i = 0; i < aw.length; i++) {
 				for(int j = 0; j < Math.abs(directionY); j++) {
@@ -498,6 +528,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < bishop[oneOfTeam].length; i++) {
+				if(!bishop[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = bishop[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -510,6 +543,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < rook[oneOfTeam].length; i++) {
+				if(!rook[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = rook[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -522,6 +558,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < knight[oneOfTeam].length; i++) {
+				if(!knight[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = knight[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -534,6 +573,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < pawn[oneOfTeam].length; i++) {
+				if(!pawn[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = pawn[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -547,6 +589,9 @@ public class Checkmate {
 		}
 		
 		else if(targetY == kingY) {
+			if(queen[oneOfTeam].isAlive()) {
+				aw = queen[oneOfTeam].getCanMoves();
+			}
 			aw = queen[oneOfTeam].getCanMoves();
 			for(int i = 0; i < aw.length; i++) {
 				for(int j = 0; j < Math.abs(directionY); j++) {
@@ -558,6 +603,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < bishop[oneOfTeam].length; i++) {
+				if(!bishop[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = bishop[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -570,6 +618,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < rook[oneOfTeam].length; i++) {
+				if(!rook[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = rook[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -582,6 +633,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < knight[oneOfTeam].length; i++) {
+				if(!knight[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = knight[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -594,6 +648,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < pawn[oneOfTeam].length; i++) {
+				if(!pawn[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = pawn[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -607,7 +664,9 @@ public class Checkmate {
 		}
 		
 		else {
-			aw = queen[oneOfTeam].getCanMoves();
+			if(queen[oneOfTeam].isAlive()) {
+				aw = queen[oneOfTeam].getCanMoves();
+			}
 			for(int i = 0; i < aw.length; i++) {
 				for(int j = 0; j < Math.abs(directionY); j++) {
 					if(aw[i].getX() == targetX  + (j * directionX/Math.abs(directionX))&& aw[i].getY() == targetY+ (j * directionY/Math.abs(directionY))){
@@ -618,6 +677,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < bishop[oneOfTeam].length; i++) {
+				if(!bishop[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = bishop[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -630,6 +692,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < rook[oneOfTeam].length; i++) {
+				if(!rook[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = rook[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -642,6 +707,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < knight[oneOfTeam].length; i++) {
+				if(!knight[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = knight[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -654,6 +722,9 @@ public class Checkmate {
 			}
 			
 			for(int i = 0; i < pawn[oneOfTeam].length; i++) {
+				if(!pawn[oneOfTeam][i].isAlive()) {
+					continue;
+				}
 				aw = pawn[oneOfTeam][i].getCanMoves();
 				for(int j = 0; j < aw.length; j++) {
 					for(int k = 0; k < Math.abs(directionY); k++) {
@@ -678,7 +749,9 @@ public class Checkmate {
 		directionY = targetY - kingY;
   	
 		//can delete enemy
-		aw = queen[oneOfTeam].getCanMoves();
+		if(queen[oneOfTeam].isAlive()) {
+			aw = queen[oneOfTeam].getCanMoves();
+		}
 		for(int i = 0; i < aw.length; i++) {
 			if(aw[i].getY() == targetY && aw[i].getX() == targetX) {
 				GameController.checkmateFlag[player] = 0;
@@ -687,6 +760,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < bishop[oneOfTeam].length; i++) {
+			if(!bishop[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			aw = bishop[oneOfTeam][i].getCanMoves();
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {
@@ -697,6 +773,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < rook[oneOfTeam].length; i++) {
+			if(!rook[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			aw = rook[oneOfTeam][i].getCanMoves();
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {
@@ -707,6 +786,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < knight[oneOfTeam].length; i++) {
+			if(!knight[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			aw = knight[oneOfTeam][i].getCanMoves();
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {
@@ -717,6 +799,9 @@ public class Checkmate {
 		}
 		
 		for(int i = 0; i < pawn[oneOfTeam].length; i++) {
+			if(!pawn[oneOfTeam][i].isAlive()) {
+				continue;
+			}
 			aw = pawn[oneOfTeam][i].getCanMoves();
 			for(int j = 0; j < aw.length; j++) {
 				if(aw[j].getY() == targetY && aw[j].getX() == targetX) {

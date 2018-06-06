@@ -181,7 +181,7 @@ public class MouseClick{
     //...and see it's check or checkmate
     
     check.isCheck();
-    //stalemate.isStalemate();
+    stalemate.isStalemate();
     checkmate.isCheckmate();
     for(int a = 0; a < 4; a++) {
     	System.out.print(GameController.checkFlag[a]);
