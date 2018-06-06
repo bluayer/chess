@@ -44,6 +44,7 @@ public class ChessGui {
   public static ChessBoard b;
   public static String[] playerName = new String[4];
   static boolean vRecFlag = false;
+  static Position wholeFirstPos = null;
   
   public static void setupStartUI(){
     mainFrame = new JFrame("Mode Selection");
@@ -196,7 +197,6 @@ public class ChessGui {
         @Override
         public void actionPerformed(ActionEvent e) {
           System.out.println("Record Button Clicked");
-          Position wholeFirstPos = null;
           int flag = 0;
           
           if( !MouseClick.isClicked ) {
@@ -256,7 +256,9 @@ public class ChessGui {
               }
               System.out.println("secondPos is Okay");
               System.out.println("secondPos X : " + secondPos.getX() + " secondPos Y : " + secondPos.getY());
-
+               
+              
+              
               if(flag == 0) {
                 if(SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length !=0 ) {
                   for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
@@ -284,7 +286,6 @@ public class ChessGui {
       forVoice.add(firstLabel);
       forVoice.add(secondLabel);
       forVoice.add(recog);
-      forVoice.add(reset);
   
       underBar.add(forVoice, BorderLayout.CENTER);
     }

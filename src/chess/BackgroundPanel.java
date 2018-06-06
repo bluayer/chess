@@ -2,6 +2,7 @@ package chess;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -81,13 +82,22 @@ public class BackgroundPanel extends JPanel{
       }
     }
     
-    voiceRec.setBackground(Color.LIGHT_GRAY);
-    twoVStwo.setBackground(Color.LIGHT_GRAY);
-    voiceRec.setBorder(new LineBorder(Color.BLACK));
-    twoVStwo.setBorder(new LineBorder(Color.BLACK));
+
+    Color pink = new Color(255,160,154);
+    Color red = new Color(165, 8, 33);
+    
+    voiceRec.setBackground(pink);
+    twoVStwo.setBackground(pink);
+    voiceRec.setForeground(Color.WHITE);
+    twoVStwo.setForeground(Color.WHITE);
+    voiceRec.setBorder(new LineBorder(red));
+    twoVStwo.setBorder(new LineBorder(red));
+    
     voiceRec.addMouseListener(new UIclick());
     twoVStwo.addMouseListener(new UIclick());
     
+    voiceRec.setOpaque(true);
+    twoVStwo.setOpaque(true);
     voiceBtnPanel.add(voiceRec);
     twoBtnPanel.add(twoVStwo);
     
