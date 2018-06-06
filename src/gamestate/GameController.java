@@ -42,23 +42,4 @@ public class GameController {
     
     return color;
   }
-
-  public int GameResult() {
-    if(checkmateFlag[0] + checkmateFlag[2] == 2) {
-      return 1; //Team1(Black, White) is win
-    }
-    else if(checkmateFlag[1] + checkmateFlag[3] == 2) {
-      return 2; //Team2(Red, Green) is win
-    }
-    else if(stalemateFlag[0] + stalemateFlag[2] == 2) {
-      return -1; //draw
-    }
-    else if(stalemateFlag[1] + stalemateFlag[3] == 2) {
-      return -1;
-    }
-    
-    else {
-      return 0;
-    }
-  }
 }

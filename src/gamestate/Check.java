@@ -1,7 +1,6 @@
 package gamestate; 
 
 import chess.ChessGui;
-import chess.MouseClick;
 import gamestate.GameController;
 import piece.Bishop;
 import piece.GamePiece;
@@ -42,6 +41,9 @@ public class Check {
     this.pawn = ChessGui.b.pawn;
   } 
   
+  /*
+   * isCheck method checks which player's king is on check state. 
+   */
   public void isCheck() { 
   	for(int i = 0; i < 4; i++) { //initialize whole flags.
   		GameController.checkFlag[i] = 0;
@@ -53,19 +55,19 @@ public class Check {
   		int king1X = 0, king1Y = 0, king2X = 0, king2Y = 0;
   		
   		switch(i) { //set op1, op2.
-  		case 0:
+  		case 0: //White
   			op1 = 1;
   			op2 = 3;
   			break;
-  		case 1:
+  		case 1: //Red
   			op1 = 0;
   			op2 = 2;
   			break;
-  		case 2:
+  		case 2: //Black
   			op1 = 1;
   			op2 = 3;
   			break;
-  		case 3:
+  		case 3: //Green
   			op1 = 0;
   			op2 = 2;
   			break;
