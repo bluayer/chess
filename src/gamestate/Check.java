@@ -1,11 +1,8 @@
 package gamestate; 
 
-import board.ChessBoard;
-import board.Status.TEAM;
 import chess.ChessGui;
 import chess.MouseClick;
 import gamestate.GameController;
-import piece.GamePiece.Color;
 import piece.Bishop;
 import piece.GamePiece;
 import piece.King;

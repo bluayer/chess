@@ -1,6 +1,5 @@
 package gamestate;
 
-import board.Status.TEAM;
 import piece.GamePiece.Color;
 
 /**

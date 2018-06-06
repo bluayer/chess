@@ -1,7 +1,5 @@
 package gamestate;
 
-import board.ChessBoard;
-import board.Status.TEAM;
 import chess.ChessGui;
 import gamestate.GameController;
 import piece.Bishop;
