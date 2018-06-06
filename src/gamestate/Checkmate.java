@@ -320,29 +320,20 @@ public class Checkmate {
 								if(GameController.checkmateFlag[playerNum] == 0) {
 									flag[0] = 1;
 								}
+								
 								GameController.checkmateFlag[playerNum] = 1;
 								enemyIsKnightOrPawn(0, teammate, playerNum);
 								if(GameController.checkmateFlag[playerNum] == 0) {
 									flag[1] = 1;
 								}
 							}
+							if(flag[0] == 1 || flag[1] == 1) {
+								GameController.checkmateFlag[playerNum] = 0;
+							}
 							
 							else {
-								pieceWay(0, playerNum, playerNum);
-								if(GameController.checkmateFlag[playerNum] == 0) {
-									flag[0] = 1;
-								}
 								GameController.checkmateFlag[playerNum] = 1;
-								pieceWay(0, teammate, playerNum);
-								if(GameController.checkmateFlag[playerNum] == 0) {
-									flag[1] = 1;
-								}
 							}
-							if(flag[0] + flag[1] < 0) {
-								GameController.checkmateFlag[playerNum] = 1;
-								continue;
-							}
-							
 						}
 						
 						else {
@@ -362,9 +353,12 @@ public class Checkmate {
 								}
 							}
 							
-							if(flag == 0) {
-								GameController.checkmateFlag[playerNum] = 1;
+							if(flag == 1) {
+								GameController.checkmateFlag[playerNum] = 0;
 								continue;
+							}
+							else {
+								GameController.checkmateFlag[playerNum] = 1;
 							}
 						}
 					}

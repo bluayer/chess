@@ -267,7 +267,7 @@ public class ChessGui {
                     if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
                         SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
                       MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
-                      System.out.println("일-하 ");
+                      System.out.println("�씪-�븯 ");
                       secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
                       break second;
                     }
@@ -330,7 +330,7 @@ public class ChessGui {
       center.setOpaque(true);
       center.setLayout(new BorderLayout(20, 20));
       center.setBorder(new EmptyBorder(20, 20, 20, 20));
-      center.add(new JLabel("Team " + playerName[1] + " and " + playerName[3] + " win!", Font.CENTER_BASELINE), BorderLayout.NORTH);
+      center.add(new JLabel("Team " + playerName[1] + " and " + playerName[3] + " win!"), BorderLayout.NORTH);
       JButton exit = new JButton("Exit");
       exit.setOpaque(true);
       exit.addActionListener(new ActionListener() {
@@ -359,7 +359,7 @@ public class ChessGui {
       center.setOpaque(true);
       center.setLayout(new BorderLayout(20, 20));
       center.setBorder(new EmptyBorder(20, 20, 20, 20));
-      center.add(new JLabel("Team " + playerName[0] + " and " + playerName[2] + " win!", Font.CENTER_BASELINE), BorderLayout.NORTH);
+      center.add(new JLabel("Team " + playerName[0] + " and " + playerName[2] + " win!"), BorderLayout.NORTH);
       JButton exit = new JButton("Exit");
       exit.setOpaque(true);
       exit.addActionListener(new ActionListener() {
@@ -390,7 +390,7 @@ public class ChessGui {
      center.setOpaque(true);
      center.setLayout(new BorderLayout(20, 20));
      center.setBorder(new EmptyBorder(20, 20, 20, 20));
-     center.add(new JLabel("It is stalemate, so draw!", Font.CENTER_BASELINE), BorderLayout.NORTH);
+     center.add(new JLabel("It is stalemate, so draw!"), BorderLayout.NORTH);
      JButton exit = new JButton("Exit");
      exit.setOpaque(true);
      exit.addActionListener(new ActionListener() {
