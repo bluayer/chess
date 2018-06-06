@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -20,6 +23,7 @@ import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
 import board.Tile;
+import gamestate.GameController;
 import gamestate.TurnCheck;
 import piece.Position;
 import voice.Speech;
@@ -126,7 +130,6 @@ public class ChessGui {
         b = new ChessBoard();
         mClkB = new MClickBridge();
         setup2vs2ChessGUI();
-        printChessBoard();
       }
     });
     textPanel[4].add(inputEnter);
@@ -220,22 +223,22 @@ public class ChessGui {
                       break;
                     }
                     else {
-                      System.out.println("It's not your Piece! Try again.");
+                      gameStatus.setText("It's not your Piece! Try again.");
                       continue first;
                     }
                   }
                   else {
-                    System.out.println("This Piece can't move anyway! Try again.");
+                    gameStatus.setText("This Piece can't move anyway! Try again.");
                     continue first;
                   }
                 } 
                 else {
-                  System.out.println("There is no Piece in firstPos and it's null");
+                  gameStatus.setText("There is no Piece in firstPos and it's null");
                   continue first;
                 }
               }
               else {
-                System.out.println("There is no Piece in firstPos");
+                gameStatus.setText("There is no Piece in firstPos");
                 continue first;
               }
             }
@@ -309,56 +312,108 @@ public class ChessGui {
    
     return;
   }
- 
+  
+  public static void printResultScreen() {
+    //checkmate
+    if(GameController.checkmateFlag[0] == 1 && GameController.checkmateFlag[2] == 1) {
+      JFrame endGame = new JFrame("Checkmate!");
+      endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      endGame.setLocationRelativeTo(mainFrame);
+      endGame.setLayout(new BorderLayout(0, 0));
+      
+      JPanel cont = new JPanel();
+      cont.setOpaque(true);
+      cont.setLayout(new BorderLayout(0, 0));
+      cont.setBorder(new EmptyBorder(150, 150, 150, 150));
+      
+      JPanel center = new JPanel();
+      center.setOpaque(true);
+      center.setLayout(new BorderLayout(20, 20));
+      center.setBorder(new EmptyBorder(20, 20, 20, 20));
+      center.add(new JLabel("Team " + playerName[1] + " and " + playerName[3] + " win!", Font.CENTER_BASELINE), BorderLayout.NORTH);
+      JButton exit = new JButton("Exit");
+      exit.setOpaque(true);
+      exit.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+         System.exit(0); 
+        }
+      });
+      center.add(exit);
+      
+      cont.add(center);
+      endGame.add(cont);
+    }
+    else if(GameController.checkmateFlag[1] == 1 && GameController.checkmateFlag[3] == 1) {
+      JFrame endGame = new JFrame("Checkmate!");
+      endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      endGame.setLocationRelativeTo(mainFrame);
+      endGame.setLayout(new BorderLayout(0, 0));
+      
+      JPanel cont = new JPanel();
+      cont.setOpaque(true);
+      cont.setLayout(new BorderLayout(0, 0));
+      cont.setBorder(new EmptyBorder(150, 150, 150, 150));
+      
+      JPanel center = new JPanel();
+      center.setOpaque(true);
+      center.setLayout(new BorderLayout(20, 20));
+      center.setBorder(new EmptyBorder(20, 20, 20, 20));
+      center.add(new JLabel("Team " + playerName[0] + " and " + playerName[2] + " win!", Font.CENTER_BASELINE), BorderLayout.NORTH);
+      JButton exit = new JButton("Exit");
+      exit.setOpaque(true);
+      exit.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+         System.exit(0); 
+        }
+      });
+      center.add(exit);
+      
+      cont.add(center);
+      endGame.add(cont);
+    }
+    //stalemate
+    else if((GameController.stalemateFlag[0] == 1 && GameController.stalemateFlag[2] == 1) && (GameController.stalemateFlag[1] == 1 && GameController.stalemateFlag[3] == 1)) {
+     JFrame endGame = new JFrame("Stalemate!");
+     
+     endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     endGame.setLocationRelativeTo(mainFrame);
+     endGame.setLayout(new BorderLayout(0, 0));
+     
+     JPanel cont = new JPanel();
+     cont.setOpaque(true);
+     cont.setLayout(new BorderLayout(0, 0));
+     cont.setBorder(new EmptyBorder(150, 150, 150, 150));
+     
+     JPanel center = new JPanel();
+     center.setOpaque(true);
+     center.setLayout(new BorderLayout(20, 20));
+     center.setBorder(new EmptyBorder(20, 20, 20, 20));
+     center.add(new JLabel("It is stalemate, so draw!", Font.CENTER_BASELINE), BorderLayout.NORTH);
+     JButton exit = new JButton("Exit");
+     exit.setOpaque(true);
+     exit.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent arg0) {
+        System.exit(0); 
+       }
+     });
+     center.add(exit);
+     
+     cont.add(center);
+     endGame.add(cont);
+    }
+    else {
+      //not yet any status (including stalemate-checkmate)
+      return;
+    }
+  }
+  
   public static void main(String[] args) throws IOException {
     setupStartUI();
     return;
   }
-
-  public static void printChessBoard() {
-    for(int i = 0; i < 14; i++) {
-      for(int j = 0; j < 14; j++) {
-        
-        
-        
-        if(b.getcBoard()[i][j].getActive() == false) {
-          System.out.print("  ");
-        }
-        else {
-          if(b.getcBoard()[i][j].isOnPiece() == false) {
-            System.out.print(". ");
-          }
-          else {
-            switch(b.getcBoard()[i][j].getOccupyPiece()) {
-            case PAWN:
-              System.out.print("P ");
-              break;
-            case KNIGHT:
-              System.out.print("N ");
-              break;
-            case BISHOP:
-              System.out.print("B ");
-              break;
-            case ROOK:
-              System.out.print("R ");
-              break;
-            case QUEEN:
-              System.out.print("Q ");
-              break;
-            case KING:
-              System.out.print("K ");
-            default:
-              break;
-            }
-          }
-        }
-      }
-      
-      System.out.println();
-    }
-    System.out.println("----------------------------------");
-    return;
-  }
-
+  
   
 }

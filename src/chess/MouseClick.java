@@ -251,7 +251,7 @@ public class MouseClick{
           }
           else {
             secondClickSetup(i, j);
-            ChessGui.printChessBoard();
+            ChessGui.printResultScreen();
           }
             
         }
