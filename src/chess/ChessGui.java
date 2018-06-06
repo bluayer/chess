@@ -317,6 +317,7 @@ public class ChessGui {
     //checkmate
     if(GameController.checkmateFlag[0] == 1 && GameController.checkmateFlag[2] == 1) {
       JFrame endGame = new JFrame("Checkmate!");
+      endGame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
       endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       endGame.setLocationRelativeTo(mainFrame);
       endGame.setLayout(new BorderLayout(0, 0));
@@ -343,9 +344,11 @@ public class ChessGui {
       
       cont.add(center);
       endGame.add(cont);
+      endGame.setVisible(true);
     }
     else if(GameController.checkmateFlag[1] == 1 && GameController.checkmateFlag[3] == 1) {
       JFrame endGame = new JFrame("Checkmate!");
+      endGame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
       endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       endGame.setLocationRelativeTo(mainFrame);
       endGame.setLayout(new BorderLayout(0, 0));
@@ -372,11 +375,12 @@ public class ChessGui {
       
       cont.add(center);
       endGame.add(cont);
+      endGame.setVisible(true);
     }
     //stalemate
     else if((GameController.stalemateFlag[0] == 1 && GameController.stalemateFlag[2] == 1) && (GameController.stalemateFlag[1] == 1 && GameController.stalemateFlag[3] == 1)) {
      JFrame endGame = new JFrame("Stalemate!");
-     
+     endGame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
      endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      endGame.setLocationRelativeTo(mainFrame);
      endGame.setLayout(new BorderLayout(0, 0));
@@ -403,6 +407,7 @@ public class ChessGui {
      
      cont.add(center);
      endGame.add(cont);
+     endGame.setVisible(true);
     }
     else {
       //not yet any status (including stalemate-checkmate)
