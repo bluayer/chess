@@ -66,6 +66,17 @@ public class TurnCheck {
 			return TEAM.GREEN;
 	}
 	
+	public static Color getTurnColor() {
+	   if((mturn % 4) == 0)
+	      return Color.WHITE;
+	    else if((mturn % 4) == 1)
+	      return Color.RED;
+	    else if((mturn % 4) == 2)
+	      return Color.BLACK;
+	    else
+	      return Color.GREEN;
+	}
+	
 	public boolean isValidTurn(TurnCheck nowTurn, Position pos) {
 	  
 	  if(ChessGui.b.getcBoard()[pos.getX()][pos.getY()].isOnPiece()) {
@@ -98,4 +109,5 @@ public class TurnCheck {
 	    return false;
 	  }
 	}
+
 }

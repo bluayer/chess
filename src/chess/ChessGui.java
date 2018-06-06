@@ -20,6 +20,8 @@ import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
 import board.Tile;
+import gamestate.GameController;
+import gamestate.TurnCheck;
 import piece.Position;
 import voice.Speech;
 
@@ -137,175 +139,176 @@ public class ChessGui {
    * setting 2 vs 2 chess screen
    */
   public static void setup2vs2ChessGUI() {   
-   mainFrame = new JFrame("2 vs 2 Chess");
-   mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-   mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   mainFrame.setLocationRelativeTo(null);
+    mainFrame = new JFrame("2 vs 2 Chess");
+    mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    mainFrame.setLocationRelativeTo(null);
    
-   Container contentPane = mainFrame.getContentPane();
-   contentPane.setLayout(new BorderLayout(10, 10));
+    Container contentPane = mainFrame.getContentPane();
+    contentPane.setLayout(new BorderLayout(10, 10));
    
-   chessBoard = new JPanel(); 
-   chessBoard.setLayout(new GridLayout(14, 14));
-   chessBoard.setBackground(white);
-   chessBoard.setBorder(new EmptyBorder(30, 30, 30, 30));
+    chessBoard = new JPanel(); 
+    chessBoard.setLayout(new GridLayout(14, 14));
+    chessBoard.setBackground(white);
+    chessBoard.setBorder(new EmptyBorder(30, 30, 30, 30));
    
-   btn = new ImagePanel[b.getcBoard().length][b.getcBoard().length];
+    btn = new ImagePanel[b.getcBoard().length][b.getcBoard().length];
    
-   for(int i = 0; i < b.getcBoard().length; i++) {
-     for(int j = 0; j < b.getcBoard().length; j++) {
-       btn[i][j] = new ImagePanel();
-       btn[i][j].setOpaque(true);
-       btn[i][j].addMouseListener(mClkB);
+    for(int i = 0; i < b.getcBoard().length; i++) {
+      for(int j = 0; j < b.getcBoard().length; j++) {
+        btn[i][j] = new ImagePanel();
+        btn[i][j].setOpaque(true);
+        btn[i][j].addMouseListener(mClkB);
        
-       if( !b.getcBoard()[i][j].getActive() ) {
-         btn[i][j].setBackground(Color.DARK_GRAY);
-       }
-       else {
-         btn[i][j].setBackground(((i + j) % 2 == 0)? white: gray);
-         
-         if(b.getcBoard()[i][j].isOnPiece()) {
-           btn[i][j].setImage(SearchPieceByPos.searchPiece(new Position(i, j), b).getSprite());
-         }
-       }
-       
-       chessBoard.add(btn[i][j]);
-       btn[i][j].repaint();
-     }
-   }
-
-   underBar = new JPanel();
-   underBar.setLayout(new BorderLayout(10, 10));
-   underBar.setBorder(new EmptyBorder(20, 150, 20, 150));
-   currentTeam = new JLabel(playerName[0] + "'s turn");
-   gameStatus = new JLabel("Test game Status");
-   underBar.add(currentTeam, BorderLayout.WEST);
-   underBar.add(gameStatus, BorderLayout.EAST);
-   
-   //creating Voice Recognition Button
-   if(vRecFlag == true) {
-     forVoice = new JPanel();
-     forVoice.setLayout(new FlowLayout());
-     forVoice.setBorder(new EmptyBorder(0, 50, 0, 50));
-     JLabel firstLabel = new JLabel("first Position");
-     JLabel secondLabel = new JLabel("Second Position");
-     recog = new JButton("Rec.");
-     recog.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.out.println("Record Button Clicked");
-        Position wholeFirstPos = null;
-        int flag = 0;
-        
-        if( !MouseClick.isClicked ) {
-          first:
-          while (true) {
-            Position firstPos = null;
-            try {
-              firstPos = Speech.recognition();
-            } catch (IOException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
-            if (SearchPieceByPos.searchPiece(firstPos, b) != null) {
-              MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
-              System.out.println("Piece is" + SearchPieceByPos.searchPiece(firstPos, b).getPieceType());
-              System.out.println("X : " +  firstPos.getX() + " Y : " + firstPos.getY());
-              wholeFirstPos = firstPos;
-              break;
-            } 
-            else {
-              System.out.println("voice is unvalid");
-              continue first;
-            }
-          }
-          
-          firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
-          firstLabel.repaint();
-          flag = 0; //  flag가 0 이면 break하고 끝나거나 searchPiece하고 결과 값 안나왔을 때 flag 1로 초기화하고, flag를 0으로 초기화하며 continue
+        if( !b.getcBoard()[i][j].getActive() ) {
+          btn[i][j].setBackground(Color.DARK_GRAY);
         }
         else {
-          second:
-          while(true) {
-            Position secondPos = null;
-            
-            try {
-              secondPos = Speech.recognition();
-            } catch (IOException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
-            System.out.println("secondPos is Okay");
-            System.out.println("secondPos X : " + secondPos.getX() + " secondPos Y : " + secondPos.getY());
-            
-            Tile secondTile = b.getcBoard()[secondPos.getX()][secondPos.getY()];
-            
-            System.out.println(secondTile.isOnPiece());
-            
-            if (secondTile.isOnPiece() == false) {
-              if(flag == 0) {
-                for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
-                  if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
-                      SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
-                    MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
-                    System.out.println("일-하 ");
-                    secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
-                    break second;
+          btn[i][j].setBackground(((i + j) % 2 == 0)? white: gray);
+          
+          if(b.getcBoard()[i][j].isOnPiece()) {
+            btn[i][j].setImage(SearchPieceByPos.searchPiece(new Position(i, j), b).getSprite());
+          }
+        }
+       
+        chessBoard.add(btn[i][j]);
+        btn[i][j].repaint();
+      }
+    }
+
+    underBar = new JPanel();
+    underBar.setLayout(new BorderLayout(10, 10));
+    underBar.setBorder(new EmptyBorder(20, 150, 20, 150));
+    currentTeam = new JLabel(playerName[0] + "'s turn");
+    gameStatus = new JLabel("Test game Status");
+    underBar.add(currentTeam, BorderLayout.WEST);
+    underBar.add(gameStatus, BorderLayout.EAST);
+   
+    //creating Voice Recognition Button
+    if(vRecFlag == true) {
+      forVoice = new JPanel();
+      forVoice.setLayout(new FlowLayout());
+      forVoice.setBorder(new EmptyBorder(0, 50, 0, 50));
+      JLabel firstLabel = new JLabel("first Position   ");
+      JLabel secondLabel = new JLabel("Second Position");
+      recog = new JButton("Rec.");
+      recog.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          System.out.println("Record Button Clicked");
+          Position wholeFirstPos = null;
+          int flag = 0;
+          
+          if( !MouseClick.isClicked ) {
+            first:
+            while (true) {
+              Position firstPos = null;
+              try {
+                firstPos = Speech.recognition();
+              } catch (IOException e1) {
+                e1.printStackTrace();
+              }
+              Tile firstTile = b.getcBoard()[firstPos.getX()][firstPos.getY()];
+              
+              if(firstTile.isOnPiece() == true) {
+                if (SearchPieceByPos.searchPiece(firstPos, b) != null) {
+                  if(SearchPieceByPos.searchPiece(firstPos, b).getCanMoves().length !=0) {
+                    if (SearchPieceByPos.searchPiece(firstPos, b).getColor() == TurnCheck.getTurnColor()) {
+                      MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
+                      System.out.println("Piece is" + SearchPieceByPos.searchPiece(firstPos, b).getPieceType());
+                      System.out.println("X : " +  firstPos.getX() + " Y : " + firstPos.getY());
+                      wholeFirstPos = firstPos;
+                      break;
+                    }
+                    else {
+                      System.out.println("It's not your Piece! Try again.");
+                      continue first;
+                    }
                   }
-               }
-               flag = 1;
-             }
-             if(flag == 1) {
-                flag = 0; 
-                continue second;
+                  else {
+                    System.out.println("This Piece can't move anyway! Try again.");
+                    continue first;
+                  }
+                } 
+                else {
+                  System.out.println("There is no Piece in firstPos and it's null");
+                  continue first;
+                }
+              }
+              else {
+                System.out.println("There is no Piece in firstPos");
+                continue first;
+              }
+            }
+            
+            firstLabel.setText("first Position : " + "(" + wholeFirstPos.getX() + "," + wholeFirstPos.getY() + ")" ); 
+            firstLabel.repaint();
+          }
+          else {
+            second:
+            while(true) {
+              Position secondPos = null;
+              
+              try {
+                secondPos = Speech.recognition();
+              } catch (IOException e1) {
+                e1.printStackTrace();
+              }
+              System.out.println("secondPos is Okay");
+              System.out.println("secondPos X : " + secondPos.getX() + " secondPos Y : " + secondPos.getY());
+
+              if(flag == 0) {
+                if(SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length !=0 ) {
+                  for (int i =0; i < SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves().length; i++) {
+                    if (SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getX() == secondPos.getX() &&
+                        SearchPieceByPos.searchPiece(wholeFirstPos, b).getCanMoves()[i].getY() == secondPos.getY()) {
+                      MouseClick.secondClickSetup(secondPos.getX(), secondPos.getY());
+                      System.out.println("일-하 ");
+                      secondLabel.setText("second Position : " + "(" + secondPos.getX() + "," + secondPos.getY() + ")" );
+                      break second;
+                    }
+                  }
+                }  
+                flag = 1;
+              }
+              if(flag == 1) {
+                 flag = 0; 
+                 System.out.println("You can't move that Position. Try again");
+                 continue second;
               }
             } 
-            else {
-              System.out.println("Second voice is unvalid");
-              continue second;
-            }
-          }
-        }  
-      }
-    });
-     reset = new JButton("Reset");
-     reset.addActionListener(new ActionListener() {
-      @Override
-      //for voice reset
-      public void actionPerformed(ActionEvent e) {
-        System.out.println("Reset Button Clicked");
-        MouseClick.varsClear();
-      }
-    });
+          }  
+        }
+      });
      
-     forVoice.add(firstLabel);
-     forVoice.add(secondLabel);
-     forVoice.add(recog);
-     forVoice.add(reset);
+      forVoice.add(firstLabel);
+      forVoice.add(secondLabel);
+      forVoice.add(recog);
+      forVoice.add(reset);
   
-     underBar.add(forVoice, BorderLayout.CENTER);
-   }
+      underBar.add(forVoice, BorderLayout.CENTER);
+    }
    
-   JPanel panel1 = new JPanel();
-   panel1.setLayout(new GridLayout(0, 1));
-   panel1.setBorder(new EmptyBorder(0, 20, 0, 20));
+    JPanel panel1 = new JPanel();
+    panel1.setLayout(new GridLayout(0, 1));
+    panel1.setBorder(new EmptyBorder(0, 20, 0, 20));
 
-   turnCount = new JLabel("Turn: 1");
-   panel1.add(turnCount);
+    turnCount = new JLabel("Turn: 1");
+    panel1.add(turnCount);
    
-   for(int i = 0; i < checkLabel.length; i++) {
-     checkLabel[i] = new JLabel();
-     panel1.add(checkLabel[i]);
-   }
+    for(int i = 0; i < checkLabel.length; i++) {
+      checkLabel[i] = new JLabel();
+      panel1.add(checkLabel[i]);
+    }
 
-   contentPane.add(chessBoard, BorderLayout.CENTER);
-   contentPane.add(panel1, BorderLayout.LINE_END);
-   contentPane.add(underBar, BorderLayout.SOUTH);
+    contentPane.add(chessBoard, BorderLayout.CENTER);
+    contentPane.add(panel1, BorderLayout.LINE_END);
+    contentPane.add(underBar, BorderLayout.SOUTH);
 
-   mainFrame.setVisible(true);
+    mainFrame.setVisible(true);
    
-   return;
- }
+    return;
+  }
  
   public static void main(String[] args) throws IOException {
     setupStartUI();
