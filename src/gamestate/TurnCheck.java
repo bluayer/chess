@@ -11,9 +11,9 @@ import piece.Position;
 /**
  * This is the class to count turns.
  * 
+ * @see MouseClick
  * @author Yeoilgoo
  * @since 2018-05-29
- * 
  */
 
 public class TurnCheck {
@@ -23,7 +23,7 @@ public class TurnCheck {
 	GamePiece nowPiece;
 	
 	public TurnCheck(){
-	  this.mturn = 0;
+	  mturn = 0;
 	}
 	
 	public int getter() {
@@ -31,7 +31,7 @@ public class TurnCheck {
 	}
 	
 	public void nextTurn() {
-		this.mturn++;
+		mturn++;
 		
 		ChessGui.currentTeam.setText(ChessGui.playerName[this.getter()] + "'s turn");
 		ChessGui.turnCount.setText("Turn: " + (mturn + 1));
