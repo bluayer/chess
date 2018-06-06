@@ -16,25 +16,26 @@ import piece.Queen;
 import piece.Rook;
 
 /** 
-*  
-* @author SongJeongWoo 
-* 
+* This class decide opposite team kings are on check 
+* @see MouseClick
+* @author Yeoilgoo
+* @since 2018-05-28
 */ 
 
 public class Check { 
 
-  protected GamePiece nowPiece;
-  
   King[] king;
   Queen[] queen;
   Knight[][] knight;
   Bishop[][] bishop;
   Rook[][] rook;
   Pawn[][] pawn;
-  private Position[] aw; //available way
+  Position[] aw; //available way
   
+  /*
+   * get information of all pieces on board.
+   */
   public Check(){
-    this.nowPiece = MouseClick.clickedPiece;
     this.king = ChessGui.b.king;
     this.queen = ChessGui.b.queen;
     this.knight = ChessGui.b.knight;
@@ -44,242 +45,109 @@ public class Check {
   } 
   
   public void isCheck() { 
-    this.nowPiece = MouseClick.clickedPiece;
-    Color color = nowPiece.getColor();
-    Color oppositeColor1 = null, oppositeColor2 = null, teammate = null; 
-    TEAM oppositeTeam1, oppositeTeam2, playerTeam, teamT;
-    int op1 = 0, op2 = 0, player = 0, team = 0;
-    int flag = 0;
-
-    switch (color) { 
-    case BLACK: 
-      oppositeColor1 = Color.RED; 
-      oppositeColor2 = Color.GREEN;
-      teammate = Color.WHITE;
-      break; 
-    case WHITE: 
-      oppositeColor1 = Color.RED; 
-      oppositeColor2 = Color.GREEN; 
-      teammate = Color.BLACK;
-      break; 
-    case RED: 
-      oppositeColor1 = Color.BLACK; 
-      oppositeColor2 = Color.WHITE; 
-      teammate = Color.GREEN;
-      break; 
-    case GREEN: 
-      oppositeColor1 = Color.BLACK; 
-      oppositeColor2 = Color.WHITE; 
-      teammate = Color.RED;
-      break; 
-    default: 
-    } 
-    
-    oppositeTeam1 = GameController.colorToTeam(oppositeColor1);
-    oppositeTeam2 = GameController.colorToTeam(oppositeColor2);
-    op1 = ChessBoard.cvtTeam(oppositeTeam1);
-    op2 = ChessBoard.cvtTeam(oppositeTeam2);
-    playerTeam = GameController.colorToTeam(color);
-    player = ChessBoard.cvtTeam(playerTeam);
-    teamT = GameController.colorToTeam(teammate);
-    team = ChessBoard.cvtTeam(teamT);
-    
-    /*
-     * player case
-     */
-    
-    aw = king[player].getCanMoves();
-    for(int i = 0; i < aw.length; i++) {
-    	if(aw[i].getX() == king[op1].getPosition().getX() && aw[i].getY() == king[op1].getPosition().getY()) {
-    		GameController.checkFlag[op1] = 1;
-    		flag = 1;
-    	}
-    	if(aw[i].getX() == king[op2].getPosition().getX() && aw[i].getY() == king[op2].getPosition().getY()) {
-    		GameController.checkFlag[op2] = 1;
-    		flag = 1;
-    	}
-    }
-    
-    aw = queen[player].getCanMoves();
-    for(int i = 0; i < aw.length; i++) {
-    	if(aw[i].getX() == king[op1].getPosition().getX() && aw[i].getY() == king[op1].getPosition().getY()) {
-    		GameController.checkFlag[op1] = 1;
-    		flag = 1;
-    	}
-    	if(aw[i].getX() == king[op2].getPosition().getX() && aw[i].getY() == king[op2].getPosition().getY()) {
-    		GameController.checkFlag[op2] = 1;
-    		flag = 1;
-    	}
-    }
-    
-    for(int i = 0; i < bishop[player].length; i++) {
-    	aw = bishop[player][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    for(int i = 0; i < rook[player].length; i++) {
-    	aw = rook[player][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    for(int i = 0; i < knight[player].length; i++) {
-    	aw = knight[player][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    for(int i = 0; i < pawn[player].length; i++) {
-    	aw = pawn[player][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    /*
-     * teammate case
-     */
-    
-    aw = king[team].getCanMoves();
-    for(int i = 0; i < aw.length; i++) {
-    	if(aw[i].getX() == king[op1].getPosition().getX() && aw[i].getY() == king[op1].getPosition().getY()) {
-    		GameController.checkFlag[op1] = 1;
-    		flag = 1;
-    	}
-    	if(aw[i].getX() == king[op2].getPosition().getX() && aw[i].getY() == king[op2].getPosition().getY()) {
-    		GameController.checkFlag[op2] = 1;
-    		flag = 1;
-    	}
-    }
-    
-    aw = queen[team].getCanMoves();
-    for(int i = 0; i < aw.length; i++) {
-    	if(aw[i].getX() == king[op1].getPosition().getX() && aw[i].getY() == king[op1].getPosition().getY()) {
-    		GameController.checkFlag[op1] = 1;
-    		flag = 1;
-    	}
-    	if(aw[i].getX() == king[op2].getPosition().getX() && aw[i].getY() == king[op2].getPosition().getY()) {
-    		GameController.checkFlag[op2] = 1;
-    		flag = 1;
-    	}
-    }
-    
-    for(int i = 0; i < bishop[team].length; i++) {
-    	aw = bishop[team][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    for(int i = 0; i < rook[team].length; i++) {
-    	aw = rook[team][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    for(int i = 0; i < knight[team].length; i++) {
-    	aw = knight[team][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    for(int i = 0; i < pawn[team].length; i++) {
-    	aw = pawn[team][i].getCanMoves();
-    	for(int j = 0; j < aw.length; j++) {
-    		if(aw[j].getX() == king[op1].getPosition().getX() && aw[j].getY() == king[op1].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    		if(aw[j].getX() == king[op2].getPosition().getX() && aw[j].getY() == king[op2].getPosition().getY()) {
-    			GameController.checkFlag[op1] = 1;
-    			flag = 1;
-    		}
-    	}
-    }
-    
-    if(flag == 1) {
-      return;
-    }
-    
-    else {
-      GameController.checkFlag[op1] = 0;
-      GameController.checkFlag[op2] = 0;
-    }
+  	for(int i = 0; i < 4; i++) {
+  		GameController.checkFlag[i] = 0;
+  	}
+  	
+  	for(int i = 0; i < 4; i++) {
+  		aw = null;
+  		int op1 = 0, op2 = 0;
+  		int king1X = 0, king1Y = 0, king2X = 0, king2Y = 0;
+  		
+  		switch(i) {
+  		case 0:
+  			op1 = 2;
+  			op2 = 3;
+  			break;
+  		case 1:
+  			op1 = 2;
+  			op2 = 3;
+  			break;
+  		case 2:
+  			op1 = 0;
+  			op2 = 1;
+  			break;
+  		case 3:
+  			op1 = 0;
+  			op2 = 1;
+  			break;
+  		}
+  		
+  		king1X = king[op1].getPosition().getX(); king1Y = king[op1].getPosition().getY();
+  		king2X = king[op2].getPosition().getX(); king2Y = king[op2].getPosition().getY();
+  		
+  		aw = queen[i].getCanMoves();
+  		for(int j = 0; j < aw.length; j++) {
+  			if(!queen[i].isAlive()) {
+  				break;
+  			}
+  			if(aw[j].getX() == king1X && aw[j].getY() == king1Y) {
+  				GameController.checkFlag[op1] = 1;
+  			}
+  			if(aw[j].getX() == king2X && aw[j].getY() == king2Y) {
+  				GameController.checkFlag[op2] = 1;
+  			}
+  		}
+  		
+  		for(int j = 0; j < bishop[i].length; j++) {
+  			aw = bishop[i][j].getCanMoves();
+  			for(int k = 0; k < aw.length; k++) {
+  				if(!bishop[i][j].isAlive()) {
+  					break;
+  				}
+  				if(aw[k].getX() == king1X && aw[k].getY() == king1Y) {
+  					GameController.checkFlag[op1] = 1;
+  				}
+  				if(aw[k].getX() == king2X && aw[k].getY() == king2Y) {
+  					GameController.checkFlag[op2] = 1;
+  				}
+  			}
+  		}
+  		
+  		for(int j = 0; j < rook[i].length; j++) {
+  			aw = rook[i][j].getCanMoves();
+  			for(int k = 0; k < aw.length; k++) {
+  				if(!rook[i][j].isAlive()) {
+  					break;
+  				}
+  				if(aw[k].getX() == king1X && aw[k].getY() == king1Y) {
+  					GameController.checkFlag[op1] = 1;
+  				}
+  				if(aw[k].getX() == king2X && aw[k].getY() == king2Y) {
+  					GameController.checkFlag[op2] = 1;
+  				}
+  			}
+  		}
+  		
+  		for(int j = 0; j < knight[i].length; j++) {
+  			aw = knight[i][j].getCanMoves();
+  			for(int k = 0; k < aw.length; k++) {
+  				if(!knight[i][j].isAlive()) {
+  					break;
+  				}
+  				if(aw[k].getX() == king1X && aw[k].getY() == king1Y) {
+  					GameController.checkFlag[op1] = 1;
+  				}
+  				if(aw[k].getX() == king2X && aw[k].getY() == king2Y) {
+  					GameController.checkFlag[op2] = 1;
+  				}
+  			}
+  		}
+  		
+  		for(int j = 0; j < pawn[i].length; j++) {
+  			aw = pawn[i][j].getCanMoves();
+  			for(int k = 0; k < aw.length; k++) {
+  				if(!pawn[i][j].isAlive()) {
+  					break;
+  				}
+  				if(aw[k].getX() == king1X && aw[k].getY() == king1Y) {
+  					GameController.checkFlag[op1] = 1;
+  				}
+  				if(aw[k].getX() == king2X && aw[k].getY() == king2Y) {
+  					GameController.checkFlag[op2] = 1;
+  				}
+  			}
+  		}
+  	}
   }
-  
-  public boolean returnCheck() {
-    int sum = 0;
-    
-   for(int i = 0; i < 4; i++) {
-      if(GameController.checkFlag[i] == 1) {
-        System.out.println(i + "is on Check");
-      }
-    }
-   for(int i = 0; i < 4; i++) {
-     sum += GameController.checkmateFlag[i];
-   }
-   
-   if(sum == 0) {
-     return false;
-   }
-   
-   else {
-     return true;
-   }
-  } 
 }

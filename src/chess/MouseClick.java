@@ -14,6 +14,7 @@ import board.UpdatePiece;
 import gamestate.Check;
 import gamestate.Checkmate;
 import gamestate.GameController;
+import gamestate.Stalemate;
 import gamestate.TurnCheck;
 import piece.GamePiece;
 import piece.GamePiece.PieceType;
@@ -39,7 +40,8 @@ public class MouseClick{
   public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
   private static Check check = new Check();
-  private static Checkmate checkMate = new Checkmate();
+  private static Checkmate checkmate = new Checkmate();
+  private static Stalemate stalemate = new Stalemate();
   
   public MouseClick() {
     firstClk = null;
@@ -179,12 +181,18 @@ public class MouseClick{
     //...and see it's check or checkmate
     
     check.isCheck();
-    checkMate.isCheckmate();
+    //stalemate.isStalemate();
+    checkmate.isCheckmate();
     for(int a = 0; a < 4; a++) {
     	System.out.print(GameController.checkFlag[a]);
     }
+    System.out.println();
     for(int a = 0; a < 4; a++) {
     	System.out.print(GameController.checkmateFlag[a]);
+    }
+    System.out.println();
+    for(int a = 0; a < 4; a++) {
+    	System.out.print(GameController.stalemateFlag[a]);
     }
     System.out.println();
     

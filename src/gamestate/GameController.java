@@ -3,6 +3,15 @@ package gamestate;
 import board.Status.TEAM;
 import piece.GamePiece.Color;
 
+/**
+ * This class manages checkFlag, stalemateFlag, checkmateFlag.
+ * @see Check
+ * @see Stalemate
+ * @see Checkmate
+ * @author Yeoilgoo
+ * @since 2018-06-01
+ */
+
 public class GameController {
   public static int[] stalemateFlag = {0, 0, 0, 0};
   public static int[] checkmateFlag = {0, 0, 0, 0};
@@ -55,16 +64,16 @@ public class GameController {
   }
   
   public int GameResult() {
-    if(this.checkmateFlag[0] + this.checkmateFlag[1] == 2) {
+    if(checkmateFlag[0] + checkmateFlag[1] == 2) {
       return 1; //Team1(Black, White) is win
     }
-    else if(this.checkmateFlag[2] + this.checkmateFlag[3] == 2) {
-      return 2; //Team2(Black, White) is win
+    else if(this.checkmateFlag[2] + checkmateFlag[3] == 2) {
+      return 2; //Team2(Red, Green) is win
     }
-    else if(this.stalemateFlag[0] + this.stalemateFlag[1] == 2) {
+    else if(stalemateFlag[0] + stalemateFlag[1] == 2) {
       return -1; //draw
     }
-    else if(this.stalemateFlag[2] + this.stalemateFlag[3] == 2) {
+    else if(stalemateFlag[2] + stalemateFlag[3] == 2) {
       return -1;
     }
     
