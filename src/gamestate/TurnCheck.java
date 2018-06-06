@@ -56,25 +56,34 @@ public class TurnCheck {
 	 * @return Return color that which player's turn
 	 */
 	public Color getTurn() {
-		if(this.getter() == 0)
+		if(this.getter() == 0) {
 			return Color.WHITE;
-		else if(this.getter() == 1)
+		}
+		else if(this.getter() == 1) {
 			return Color.RED;
-		else if(this.getter() == 2)
+		}
+		else if(this.getter() == 2) {
 			return Color.BLACK;
-		else
+		}
+		else {
 			return Color.GREEN;
+		}
 	}
 	
+	
 	public static Color getTurnColor() {
-	   if((mturn % 4) == 0)
-	      return Color.WHITE;
-	    else if((mturn % 4) == 1)
-	      return Color.RED;
-	    else if((mturn % 4) == 2)
-	      return Color.BLACK;
-	    else
-	      return Color.GREEN;
+	  if((mturn % 4) == 0) {
+	     return Color.WHITE;
+	   }
+	  else if((mturn % 4) == 1) {
+	    return Color.RED;
+	  }
+	  else if((mturn % 4) == 2) {
+	    return Color.BLACK;
+	  }
+	  else {
+	    return Color.GREEN;
+	  }
 	}
 	
 	public boolean isValidTurn(TurnCheck nowTurn, Position pos) {
@@ -84,20 +93,21 @@ public class TurnCheck {
 	  }
 	  
 	  Color nowColor = nowPiece.getColor();
+	  System.out.println("isValidTurn: get color " + nowColor);
 	  
 	  switch(nowColor) {
-	  case WHITE :
-	    this.nowTurn = Color.WHITE;
-	    break;
-	  case BLACK :
-	    this.nowTurn = Color.RED;
-	    break;
-	  case RED :
-	    this.nowTurn = Color.BLACK;
-	    break;
-	  case GREEN :
-	    this.nowTurn = Color.GREEN;
-	    break;
+  	  case WHITE :
+  	    this.nowTurn = Color.WHITE;
+  	    break;
+  	  case BLACK :
+  	    this.nowTurn = Color.BLACK;
+  	    break;
+  	  case RED :
+  	    this.nowTurn = Color.RED;
+  	    break;
+  	  case GREEN :
+  	    this.nowTurn = Color.GREEN;
+  	    break;
 	  }
 	  
 	  if(this.nowTurn == nowTurn.getTurn()) {

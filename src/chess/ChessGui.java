@@ -20,7 +20,6 @@ import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
 import board.Tile;
-import gamestate.GameController;
 import gamestate.TurnCheck;
 import piece.Position;
 import voice.Speech;
@@ -319,6 +318,8 @@ public class ChessGui {
   public static void printChessBoard() {
     for(int i = 0; i < 14; i++) {
       for(int j = 0; j < 14; j++) {
+        
+        
         
         if(b.getcBoard()[i][j].getActive() == false) {
           System.out.print("  ");

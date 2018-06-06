@@ -18,7 +18,7 @@ import board.ChessBoard;
 public abstract class GamePiece extends Piece{
 
   public static enum Color {
-    WHITE, BLACK, RED, GREEN
+    WHITE, RED, BLACK, GREEN
   }
 	
   public static enum PieceType {

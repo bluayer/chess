@@ -3,8 +3,6 @@ package chess;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import javax.swing.border.LineBorder;
-
 import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
@@ -117,6 +115,7 @@ public class MouseClick{
   private static Position[] getPossMove() {
     //set clickPiece for whether is check
     clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
+    System.out.println("You Clicked " + clickedPiece.getColor());
     
     //return possible moves
     return clickedPiece.getCanMoves();
@@ -162,8 +161,10 @@ public class MouseClick{
     
     if(isValidTurnClick()) {
       if((firstClk != null) && (secondClk != null) && (firstClk != secondClk)) {
+        System.out.println("secondClickSetup: valid click");
         UpdatePiece.updateDead(secondPos);
         movePiece(secondClk, firstClk);
+        nowTurn.nextTurn();
       }
     }
 
@@ -179,12 +180,12 @@ public class MouseClick{
     }
     
     //...and see it's check or checkmate
-    
+    /*
     if(GameController.checkmateFlag[(nowTurn.getter())] == 1 || GameController.stalemateFlag[(nowTurn.getter())] == 1) {
     	nowTurn.nextTurn();
     }
-    nowTurn.nextTurn();
-    
+    */
+
     check.isCheck();
     stalemate.isStalemate();
     checkmate.isCheckmate();

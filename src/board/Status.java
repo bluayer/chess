@@ -1,13 +1,13 @@
 package board;
 
+import piece.GamePiece.PieceType;
+
 /**
  * @author ¿Ã√¢πŒ
- * enum about team status
+ * interface about moving on tile
  */
-public class Status {
-	/*
-  public static enum TEAM{
-    BLACK, WHITE, RED, GREEN
-  }
-  */
+interface Status {
+  public void setActive(boolean tf);
+  public void setOnPiece(boolean onPiece);
+  public void setOccupyPiece(PieceType pc);
 }
