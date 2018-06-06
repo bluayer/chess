@@ -40,6 +40,9 @@ public class MouseClick{
   private static Checkmate checkmate = new Checkmate();
   private static Stalemate stalemate = new Stalemate();
   
+  /**
+   * constructor of mouseclick class, never used
+   */
   public MouseClick() {
     firstClk = null;
     secondClk = null;
@@ -53,10 +56,6 @@ public class MouseClick{
     backgroundBackup = null;
     toMovePiece = null;
     clickedPiece = null;
-  }
-  
-  public static GamePiece getMovePiece() {
-    return toMovePiece;
   }
   
   
@@ -73,9 +72,7 @@ public class MouseClick{
     cBoard[firstPos.getX()][firstPos.getY()].setOccupyPiece(PieceType.NOPE);
     cBoard[secondPos.getX()][secondPos.getY()].setOnPiece(true);
     
-    //setting attacked piece dead
-
-    
+    //setting moving piece's position
     switch(clickedPiece.getPieceType()) {
     case PAWN:
       UpdatePiece.updatePawn(firstPos, secondPos);
@@ -96,12 +93,16 @@ public class MouseClick{
       UpdatePiece.updateKing(firstPos, secondPos);
       break;
     default:
+      //error check
       System.out.println("movePiece: cannot get type of clicked piece");
       break;
     }
     return;
   }
   
+  /**
+   * using when first click is in.
+   */
   public static void varsClear() {
     //clearing variables
     backgroundBackup = null;
@@ -112,16 +113,12 @@ public class MouseClick{
     return;
   }
   
-  private static Position[] getPossMove() {
-    //set clickPiece for whether is check
-    clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
-    System.out.println("You Clicked " + clickedPiece.getColor());
-    
-    //return possible moves
-    return clickedPiece.getCanMoves();
-  }
- 
-  
+  /**
+   * method that setting variables at first click
+   * setting first clicked panel, piece, and flags
+   * change background tile of clicked piece, and movable tile
+   * @param i, j (index of imagepanel[i][j])
+   */
   public static void firstClickSetup(int i,int j) {
     varsClear();
     if(btn[i][j].getImage() == null) {
@@ -139,7 +136,8 @@ public class MouseClick{
     isClicked = true;
     
     //get movable area and backup the areas' tile status
-    Position[] possMove = getPossMove();
+    clickedPiece = SearchPieceByPos.searchPiece(firstPos, board);
+    Position[] possMove = clickedPiece.getCanMoves();
     tileBackup = new Position[possMove.length];
     possMoveBGBackup = new Color[possMove.length];
     for(int k = 0; k < possMove.length; k++) {
@@ -152,7 +150,12 @@ public class MouseClick{
     return;
   }
   
-  
+  /**
+   * method that sets the second click's status
+   * restore tile color, and reset flags
+   * see whether game state (check, checkmate or stalemate)
+   * @param i, j (index of imagepanel[i][j])
+   */
   public static void secondClickSetup(int i, int j) {
     firstClk.setBackground(backgroundBackup);
     secondClk = btn[i][j];
@@ -178,18 +181,8 @@ public class MouseClick{
     for(int k = 0; k < ChessGui.checkLabel.length; k++) {
       ChessGui.checkLabel[k].setText(null);
     }
-    
-    //...and see it's check or checkmate
-    /*
-    if(GameController.checkmateFlag[(nowTurn.getter())] == 1 || GameController.stalemateFlag[(nowTurn.getter())] == 1) {
-    	nowTurn.nextTurn();
-    }
-    */
-
-    check.isCheck();
-    stalemate.isStalemate();
-    checkmate.isCheckmate();
-    
+       
+    skipCheck();
     
     for(int a = 0; a < 4; a++) {
     	System.out.print(GameController.checkFlag[a]);
@@ -208,23 +201,46 @@ public class MouseClick{
     return;
   }
   
-  private static boolean isValidTurnClick() {
+  
+  /**
+   * skipping turn when checkmate or stalemate
+   */
+  private static void skipCheck() {
+    //seeing the game status
+    check.isCheck();
+    checkmate.isCheckmate();
+    stalemate.isStalemate();
     
+    if(GameController.checkmateFlag[nowTurn.getter()] == 1 || GameController.stalemateFlag[nowTurn.getter()] == 1) {
+      nowTurn.nextTurn();
+    }
+  }
+  
+  /**
+   * checking if click is valid
+   * using at secondClick
+   * @return true at valid click, false at not
+   */
+  private static boolean isValidTurnClick() {
     if( !nowTurn.isValidTurn(nowTurn, firstPos) ) {
       return false;
     }
- 
-    for(int i = 0; i < tileBackup.length; i++) {
-      if(tileBackup[i].getX() == secondPos.getX() && tileBackup[i].getY() == secondPos.getY()) {
-        //nowTurn.nextTurn();
-        
-        return true;
+    else {
+      for(int i = 0; i < tileBackup.length; i++) {
+        if(tileBackup[i].getX() == secondPos.getX() && tileBackup[i].getY() == secondPos.getY()) {
+          return true;
+        }
       }
     }
+    
     return false;
   }
 
-
+  
+  /**
+   * calling firstClick and secondClick by checking isClicked flag
+   * @param MouseEvent e
+   */
   public static void mouseInput(MouseEvent e) {
     for(int i = 0; i < btn.length; i++) {
       for(int j = 0; j < btn.length; j++) {
@@ -235,7 +251,6 @@ public class MouseClick{
           }
           else {
             secondClickSetup(i, j);
-            
             ChessGui.printChessBoard();
           }
             

@@ -6,7 +6,7 @@ import piece.GamePiece.PieceType;
  * @author ChangminYi
  * class about single tile
  */
-public class Tile implements Status{
+public class Tile implements Moving{
   
 	private boolean active;
 	private boolean onPiece;
