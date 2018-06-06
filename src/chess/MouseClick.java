@@ -8,7 +8,6 @@ import javax.swing.border.LineBorder;
 import board.ChessBoard;
 import board.ImagePanel;
 import board.SearchPieceByPos;
-import board.Status.TEAM;
 import board.Tile;
 import board.UpdatePiece;
 import gamestate.Check;
@@ -178,11 +177,19 @@ public class MouseClick{
     for(int k = 0; k < ChessGui.checkLabel.length; k++) {
       ChessGui.checkLabel[k].setText(null);
     }
+    
     //...and see it's check or checkmate
+    
+    if(GameController.checkmateFlag[(nowTurn.getter())] == 1 || GameController.stalemateFlag[(nowTurn.getter())] == 1) {
+    	nowTurn.nextTurn();
+    }
+    nowTurn.nextTurn();
     
     check.isCheck();
     stalemate.isStalemate();
     checkmate.isCheckmate();
+    
+    
     for(int a = 0; a < 4; a++) {
     	System.out.print(GameController.checkFlag[a]);
     }
@@ -208,7 +215,8 @@ public class MouseClick{
  
     for(int i = 0; i < tileBackup.length; i++) {
       if(tileBackup[i].getX() == secondPos.getX() && tileBackup[i].getY() == secondPos.getY()) {
-        nowTurn.nextTurn();
+        //nowTurn.nextTurn();
+        
         return true;
       }
     }
@@ -226,6 +234,7 @@ public class MouseClick{
           }
           else {
             secondClickSetup(i, j);
+            
             ChessGui.printChessBoard();
           }
             

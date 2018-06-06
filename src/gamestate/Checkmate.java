@@ -70,23 +70,23 @@ public class Checkmate {
   				switch(myColor) {
   				case WHITE:
   					opposite1 = 3;
-  					opposite2 = 2;
-  					teammate = 0;
-  					break;
-  				case BLACK:
-  					opposite1 = 2;
-  					opposite2 = 3;
-  					teammate = 1;
-  					break;
-  				case RED:
-  					opposite1 = 1;
-  					opposite2 = 0;
-  					teammate = 3;
-  					break;
-  				case GREEN:
-  					opposite1 = 0;
   					opposite2 = 1;
   					teammate = 2;
+  					break;
+  				case RED:
+  					opposite1 = 0;
+  					opposite2 = 2;
+  					teammate = 3;
+  					break;
+  				case BLACK:
+  					opposite1 = 1;
+  					opposite2 = 3;
+  					teammate = 0;
+  					break;
+  				case GREEN:
+  					opposite1 = 2;
+  					opposite2 = 0;
+  					teammate = 1;
   				}
 					
   				kingX = king[playerNum].getPosition().getX();

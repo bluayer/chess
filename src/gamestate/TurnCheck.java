@@ -2,7 +2,6 @@ package gamestate;
 
 import board.ChessBoard;
 import board.SearchPieceByPos;
-import board.Status.TEAM;
 import chess.ChessGui;
 import piece.GamePiece;
 import piece.GamePiece.Color;
@@ -21,6 +20,7 @@ public class TurnCheck {
 	private static int mturn;
 	private ChessBoard board = ChessGui.b;
 	GamePiece nowPiece;
+	private Color nowTurn;
 	
 	public TurnCheck(){
 	  mturn = 0;
@@ -55,15 +55,15 @@ public class TurnCheck {
 	 * 
 	 * @return Return color that which player's turn
 	 */
-	public TEAM getTurn() {
+	public Color getTurn() {
 		if(this.getter() == 0)
-			return TEAM.WHITE;
+			return Color.WHITE;
 		else if(this.getter() == 1)
-			return TEAM.RED;
+			return Color.RED;
 		else if(this.getter() == 2)
-			return TEAM.BLACK;
+			return Color.BLACK;
 		else
-			return TEAM.GREEN;
+			return Color.GREEN;
 	}
 	
 	public static Color getTurnColor() {
@@ -84,24 +84,23 @@ public class TurnCheck {
 	  }
 	  
 	  Color nowColor = nowPiece.getColor();
-	  TEAM nowTEAM = null;
 	  
 	  switch(nowColor) {
 	  case WHITE :
-	    nowTEAM = TEAM.WHITE;
+	    this.nowTurn = Color.WHITE;
 	    break;
 	  case BLACK :
-	    nowTEAM = TEAM.BLACK;
+	    this.nowTurn = Color.RED;
 	    break;
 	  case RED :
-	    nowTEAM = TEAM.RED;
+	    this.nowTurn = Color.BLACK;
 	    break;
 	  case GREEN :
-	    nowTEAM = TEAM.GREEN;
+	    this.nowTurn = Color.GREEN;
 	    break;
 	  }
 	  
-	  if(nowTEAM == nowTurn.getTurn()) {
+	  if(this.nowTurn == nowTurn.getTurn()) {
 	    return true;
 	  }
 	  else {

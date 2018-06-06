@@ -54,20 +54,20 @@ public class Check {
   		
   		switch(i) { //set op1, op2.
   		case 0:
-  			op1 = 2;
+  			op1 = 1;
   			op2 = 3;
   			break;
   		case 1:
-  			op1 = 2;
-  			op2 = 3;
+  			op1 = 0;
+  			op2 = 2;
   			break;
   		case 2:
-  			op1 = 0;
-  			op2 = 1;
+  			op1 = 1;
+  			op2 = 3;
   			break;
   		case 3:
   			op1 = 0;
-  			op2 = 1;
+  			op2 = 2;
   			break;
   		}
   		

@@ -53,48 +53,47 @@ public class ChessBoard extends Tile{
 	  
 	  
 	  for(int i = 0; i < 4; i++) {
-	    switch(i) {
-	    case 0:	//black
-	      for(int j = 0; j < 8; j++) {
-	        pawn[i][j] = (Pawn) CreatePiece.BPawn(new Position(1, 3 + j));
+	  	switch(i) {
+	  	case 0:	//white
+	  		for(int j = 0; j < 8; j++) {
+	  			pawn[i][j] = (Pawn) CreatePiece.WPawn(new Position(12, 3 + j));
+	  		}
+	  		for(int j = 0; j < 2; j++) {
+	  			bishop[i][j] = (Bishop) CreatePiece.WBishop(new Position(13, 5 + 3 * j));
+	  			knight[i][j] = (Knight) CreatePiece.WKnight(new Position(13, 4 + 5 * j));
+	  			rook[i][j] = (Rook) CreatePiece.WRook(new Position(13, 3 + 7 * j));
 				}
-				for(int j = 0; j < 2; j++) {
-					bishop[i][j] = (Bishop) CreatePiece.BBishop(new Position(0, 5 + 3 * j));
-					knight[i][j] = (Knight) CreatePiece.BKnight(new Position(0, 4 + 5 * j));
-					rook[i][j] = (Rook) CreatePiece.BRook(new Position(0, 3 + 7 * j));
-
-				}
-				queen[i] = (Queen) CreatePiece.BQueen(new Position(0, 7));
-				king[i] = (King) CreatePiece.BKing(new Position(0, 6));
-				break;
+	  		queen[i] = (Queen) CreatePiece.WQueen(new Position(13, 6));
+	  		king[i] = (King) CreatePiece.WKing(new Position(13, 7));
+	  		break;
 				
-			case 1:	//white
-				for(int j = 0; j < 8; j++) {
-					pawn[i][j] = (Pawn) CreatePiece.WPawn(new Position(12, 3 + j));
-				}
-				for(int j = 0; j < 2; j++) {
-					bishop[i][j] = (Bishop) CreatePiece.WBishop(new Position(13, 5 + 3 * j));
-					knight[i][j] = (Knight) CreatePiece.WKnight(new Position(13, 4 + 5 * j));
-					rook[i][j] = (Rook) CreatePiece.WRook(new Position(13, 3 + 7 * j));
+	  	case 1:	//red
+	  		for(int j = 0; j < 8; j++) {
+	  			pawn[i][j] = (Pawn) CreatePiece.RPawn(new Position(3 + j, 1));
+			}
+			for(int j = 0; j < 2; j++) {
+				bishop[i][j] = (Bishop) CreatePiece.RBishop(new Position(5 + 3 * j, 0));
+				knight[i][j] = (Knight) CreatePiece.RKnight(new Position(4 + 5 * j, 0));
+				rook[i][j] = (Rook) CreatePiece.RRook(new Position(3 + 7 * j, 0));
 
-				}
-				queen[i] = (Queen) CreatePiece.WQueen(new Position(13, 6));
-				king[i] = (King) CreatePiece.WKing(new Position(13, 7));				
-				break;
+			}
+			queen[i] = (Queen) CreatePiece.RQueen(new Position(7, 0));
+			king[i] = (King) CreatePiece.RKing(new Position(6, 0));
+			break;
 				
-			case 2:	//red
-				for(int j = 0; j < 8; j++) {
-					pawn[i][j] = (Pawn) CreatePiece.RPawn(new Position(3 + j, 1));
+			case 2:	//black
+	  		for(int j = 0; j < 8; j++) {
+	  			pawn[i][j] = (Pawn) CreatePiece.BPawn(new Position(1, 3 + j));
+	  		}
+	  		for(int j = 0; j < 2; j++) {
+	  			bishop[i][j] = (Bishop) CreatePiece.BBishop(new Position(0, 5 + 3 * j));
+	  			knight[i][j] = (Knight) CreatePiece.BKnight(new Position(0, 4 + 5 * j));
+	  			rook[i][j] = (Rook) CreatePiece.BRook(new Position(0, 3 + 7 * j));
 				}
-				for(int j = 0; j < 2; j++) {
-					bishop[i][j] = (Bishop) CreatePiece.RBishop(new Position(5 + 3 * j, 0));
-					knight[i][j] = (Knight) CreatePiece.RKnight(new Position(4 + 5 * j, 0));
-					rook[i][j] = (Rook) CreatePiece.RRook(new Position(3 + 7 * j, 0));
-
-				}
-				queen[i] = (Queen) CreatePiece.RQueen(new Position(7, 0));
-				king[i] = (King) CreatePiece.RKing(new Position(6, 0));
-				break;
+	  		queen[i] = (Queen) CreatePiece.BQueen(new Position(0, 7));
+	  		king[i] = (King) CreatePiece.BKing(new Position(0, 6));
+	  		break;
+	  		
 			case 3:	//green
 			  
 				for(int j = 0; j < 8; j++) {

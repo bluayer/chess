@@ -14,7 +14,7 @@ import piece.GamePiece.Color;
 public class GameController {
 	/*
 	 * if Flag[i]  = 1, then player i is on that state.
-	 * 0 = black, 1 = white, 2 = red, 3 = green.
+	 * 0 = white, 1 = red, 2 = black, 3 = green.
 	 */
   public static int[] stalemateFlag = {0, 0, 0, 0};
   public static int[] checkmateFlag = {0, 0, 0, 0};
@@ -25,13 +25,13 @@ public class GameController {
     
     switch(num) {
     case 0:
-      color = Color.BLACK;
-      break;
-    case 1:
       color = Color.WHITE;
       break;
-    case 2:
+    case 1:
       color = Color.RED;
+      break;
+    case 2:
+      color = Color.BLACK;
       break;
     case 3:
       color = Color.GREEN;
@@ -44,16 +44,16 @@ public class GameController {
   }
 
   public int GameResult() {
-    if(checkmateFlag[0] + checkmateFlag[1] == 2) {
+    if(checkmateFlag[0] + checkmateFlag[2] == 2) {
       return 1; //Team1(Black, White) is win
     }
-    else if(checkmateFlag[2] + checkmateFlag[3] == 2) {
+    else if(checkmateFlag[1] + checkmateFlag[3] == 2) {
       return 2; //Team2(Red, Green) is win
     }
-    else if(stalemateFlag[0] + stalemateFlag[1] == 2) {
+    else if(stalemateFlag[0] + stalemateFlag[2] == 2) {
       return -1; //draw
     }
-    else if(stalemateFlag[2] + stalemateFlag[3] == 2) {
+    else if(stalemateFlag[1] + stalemateFlag[3] == 2) {
       return -1;
     }
     

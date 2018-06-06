@@ -16,6 +16,8 @@ public class Tile extends Status{
 	 * @param TEAM
 	 * @return index of team. black is 0, white is 1, red is 2, green is 3
 	 */
+	
+	/*
 	public static int cvtTeam(TEAM t) {
 		switch(t) {
 		case BLACK:
@@ -29,7 +31,7 @@ public class Tile extends Status{
 		}
 		return -1;
 	}
-
+*/
 	
 	public Tile(boolean active, PieceType Piece){
 		this.active = active;
