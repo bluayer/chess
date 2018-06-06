@@ -9,6 +9,14 @@ import piece.Pawn;
 import piece.Queen;
 import piece.Rook;
 
+/**
+ * Class to decide which player is on stalemate.
+ * @see Check
+ * @see GamePiece
+ * @author Yeoilgoo
+ * @since 2018-06-06
+ */
+
 public class Stalemate {
   King myKing;
   
@@ -20,6 +28,9 @@ public class Stalemate {
 	Pawn[][] pawn;
 	Position[] aw; // availableWay
 
+	/*
+   * get information of all pieces on board.
+   */
 	public Stalemate() {
 		this.king = ChessGui.b.king;
 		this.queen = ChessGui.b.queen;
@@ -30,11 +41,18 @@ public class Stalemate {
 	}
 	
 public void isStalemate() {
-	for(int t = 0; t < 4; t++) {
+	for(int t = 0; t < 4; t++) { //check whole players.
+		
+		/*
+		 * if player is on check state, it isn't on stalemate.
+		 */
 		if(GameController.checkFlag[t] == 1) {
-			return;
+			GameController.stalemateFlag[t] = 0;
 		}
 			 
+		/*
+		 * if whole pieces of player don't have possible way, it is stalemate state.
+		 */
 		else {
 				GameController.stalemateFlag[t] = 1;
 				

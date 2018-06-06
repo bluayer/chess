@@ -13,6 +13,10 @@ import piece.GamePiece.Color;
  */
 
 public class GameController {
+	/*
+	 * if Flag[i]  = 1, then player i is on that state.
+	 * 0 = black, 1 = white, 2 = red, 3 = green.
+	 */
   public static int[] stalemateFlag = {0, 0, 0, 0};
   public static int[] checkmateFlag = {0, 0, 0, 0};
   public static int[] checkFlag = {0, 0, 0, 0};
@@ -39,35 +43,12 @@ public class GameController {
     
     return color;
   }
-  
-  public static TEAM colorToTeam(Color color) {
-    TEAM team = null;
-    
-    switch(color) {
-    case WHITE:
-      team = TEAM.WHITE;
-      break;
-    case BLACK:
-      team = TEAM.BLACK;
-      break;
-    case RED:
-      team = TEAM.RED;
-      break;
-    case GREEN:
-      team = TEAM.GREEN;
-      break;
-    default:
-        System.out.println("coloToTeam:Error");
-    }
-    
-    return team;
-  }
-  
+
   public int GameResult() {
     if(checkmateFlag[0] + checkmateFlag[1] == 2) {
       return 1; //Team1(Black, White) is win
     }
-    else if(this.checkmateFlag[2] + checkmateFlag[3] == 2) {
+    else if(checkmateFlag[2] + checkmateFlag[3] == 2) {
       return 2; //Team2(Red, Green) is win
     }
     else if(stalemateFlag[0] + stalemateFlag[1] == 2) {
@@ -76,8 +57,6 @@ public class GameController {
     else if(stalemateFlag[2] + stalemateFlag[3] == 2) {
       return -1;
     }
-    
-    //add code here about skip some player's turn and other draw condition.
     
     else {
       return 0;

@@ -17,6 +17,7 @@ import piece.Rook;
 
 /** 
 * This class decide opposite team kings are on check 
+* @see GamePiece
 * @see MouseClick
 * @author Yeoilgoo
 * @since 2018-05-28
@@ -45,16 +46,16 @@ public class Check {
   } 
   
   public void isCheck() { 
-  	for(int i = 0; i < 4; i++) {
+  	for(int i = 0; i < 4; i++) { //initialize whole flags.
   		GameController.checkFlag[i] = 0;
   	}
   	
-  	for(int i = 0; i < 4; i++) {
+  	for(int i = 0; i < 4; i++) { //check all players.
   		aw = null;
   		int op1 = 0, op2 = 0;
   		int king1X = 0, king1Y = 0, king2X = 0, king2Y = 0;
   		
-  		switch(i) {
+  		switch(i) { //set op1, op2.
   		case 0:
   			op1 = 2;
   			op2 = 3;
@@ -73,6 +74,10 @@ public class Check {
   			break;
   		}
   		
+  		/*
+  		 * king1X, king1Y is op1 king's position. king2X, king1Y is op2 king's position.
+  		 * if one of player piece possible way's position is equal to opposite king position, set check flag.
+  		 */
   		king1X = king[op1].getPosition().getX(); king1Y = king[op1].getPosition().getY();
   		king2X = king[op2].getPosition().getX(); king2Y = king[op2].getPosition().getY();
   		

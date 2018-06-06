@@ -16,9 +16,8 @@ import piece.Queen;
 import piece.Rook;
 
 /**
- * 
+ * @see Check
  * @author Yeoilgoo
- *
  * @since 2018-06-02
  */
 
@@ -36,12 +35,14 @@ public class Checkmate {
 	
   int kingX, kingY;
 	Color myColor = null;
-	TEAM myTeam = null, teammateTeam = null, oppositeTeam1 = null, oppositeTeam2 = null; //opcolor2 is the next enemy color
 	int teammate = 0, opposite1 = 0, opposite2 = 0;
 	int enemyPieceNum = 0; // enemy piece numbers can attack my king
-	GamePiece[] enemyPiece = new GamePiece[30];
+	GamePiece[] enemyPiece = new GamePiece[30]; // enemy piece can attack my king.
 	int targetX = 0, targetY = 0, directionX = 0, directionY = 0;
 	
+	/*
+   * get information of all pieces on board.
+   */
 	public Checkmate() { 
   	this.king = ChessGui.b.king;
     this.queen = ChessGui.b.queen;
@@ -52,9 +53,9 @@ public class Checkmate {
   }
 	
 	public void isCheckmate() {
-		for(int playerNum = 0; playerNum < 4; playerNum++) {
+		for(int playerNum = 0; playerNum < 4; playerNum++) { // check whole players.
 			enemyPieceNum = 0;
-			if(GameController.checkFlag[playerNum] == 0) {
+			if(GameController.checkFlag[playerNum] == 0) { //if player is on checkmate, player must be on check state.
   			GameController.checkmateFlag[playerNum] = 0;
   			continue;
   		}
@@ -67,33 +68,29 @@ public class Checkmate {
 				
 				else {
 					myColor = king[playerNum].getColor();
-  				myTeam = GameController.colorToTeam(myColor);
   				
   				switch(myColor) {
   				case WHITE:
-  					oppositeTeam1 = TEAM.GREEN;
-  					oppositeTeam2 = TEAM.RED;
-  					teammateTeam = TEAM.BLACK;
+  					opposite1 = 3;
+  					opposite2 = 2;
+  					teammate = 0;
   					break;
   				case BLACK:
-  					oppositeTeam1 = TEAM.RED;
-  					oppositeTeam2 = TEAM.GREEN;
-  					teammateTeam = TEAM.WHITE;
+  					opposite1 = 2;
+  					opposite2 = 3;
+  					teammate = 1;
   					break;
   				case RED:
-  					oppositeTeam1 = TEAM.WHITE;
-  					oppositeTeam2 = TEAM.BLACK;
-  					teammateTeam = TEAM.GREEN;
+  					opposite1 = 1;
+  					opposite2 = 0;
+  					teammate = 3;
   					break;
   				case GREEN:
-  					oppositeTeam1 = TEAM.BLACK;
-  					oppositeTeam2 = TEAM.WHITE;
-  					teammateTeam = TEAM.RED;
+  					opposite1 = 0;
+  					opposite2 = 1;
+  					teammate = 2;
   				}
 					
-  				opposite1 = ChessBoard.cvtTeam(oppositeTeam1);
-  				opposite2 = ChessBoard.cvtTeam(oppositeTeam2);
-  				teammate = ChessBoard.cvtTeam(teammateTeam);
   				kingX = king[playerNum].getPosition().getX();
   				kingY = king[playerNum].getPosition().getY();
   				
@@ -379,6 +376,9 @@ public class Checkmate {
 		return;
 	}
 	
+	/*
+	 * method to get list of enemy pieces that can attack player's king.
+	 */
 	private void enemyCanAttackKing(int opposite) {
 		if(queen[opposite].isAlive()) {
 			aw = queen[opposite].getCanMoves();
@@ -444,6 +444,9 @@ public class Checkmate {
 		return;
 	}
 	
+	/*
+	 * method to check my pieces can attack or block enemy pieces.
+	 */
   private void pieceWay(int pieceNum, int oneOfTeam, int player) {
   	targetX = enemyPiece[pieceNum].getPosition().getX();
 		targetY = enemyPiece[pieceNum].getPosition().getY();
