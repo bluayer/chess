@@ -35,7 +35,7 @@ public class MouseClick{
   private static Position[] tileBackup;
   public static GamePiece clickedPiece;
   private static TurnCheck nowTurn = new TurnCheck();
-  private static Check check = new Check();
+  public static Check check = new Check();
   private static Checkmate checkmate = new Checkmate();
   private static Stalemate stalemate = new Stalemate();
   
