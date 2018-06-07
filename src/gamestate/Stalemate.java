@@ -241,6 +241,9 @@ public class Stalemate {
           }
         }
       }
-    }		
+    }
+    
+    Check c = new Check();
+    c.isCheck();
   }	
 }
