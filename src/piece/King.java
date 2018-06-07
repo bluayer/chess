@@ -1,14 +1,12 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * A class to make King
  * 
  * @see GamePiece
  * @see BufferedImage
- * @see ArrayList
  * @author SongJeongWoo
  * @since 2018-05-27
  */
@@ -21,7 +19,7 @@ public class King extends GamePiece{
   /**
    * returns current King can move position
    * 
-   * @return ArrayList<Position> KingWay
+   * @return Position[] KingWay
    */
   @Override
   public Position[] getCanMoves() {
@@ -30,6 +28,13 @@ public class King extends GamePiece{
     return KingWay;
   }
 
+  /**
+   * returns current King can move position for King
+   * In this method, it add the position when it finds the same team piece in ways.
+   * 
+   * @return Position[] KingWay
+   */
+  
   @Override
   public Position[] getCanMovesForKing() {
     PieceWay way = new PieceWay(getPosition());

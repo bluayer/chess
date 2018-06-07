@@ -1,10 +1,8 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 import board.ChessBoard;
 import board.SearchPieceByPos;
@@ -23,6 +21,9 @@ import piece.Position.Direction;
  * @see GamePiece
  * @see BufferedImage
  * @see ArrayList
+ * @see Arrays
+ * @see board
+ * @see GamePiece#Color, #PieceType
  * @see Position#Direction
  * @author SongJeongWoo
  * @since 2018-05-27
@@ -34,18 +35,6 @@ public class PieceWay {
 
   public PieceWay(Position mpos) {
     this.mpos = mpos;
-  }
-
-  public <T> T[] concat(T[] a, T[] b) {
-    int aLen = a.length;
-    int bLen = b.length;
-
-    @SuppressWarnings("unchecked")
-    T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + bLen);
-    System.arraycopy(a, 0, c, 0, aLen);
-    System.arraycopy(b, 0, c, aLen, bLen);
-
-    return c;
   }
 
   public Position[] waysRookPos(Color color) {
@@ -282,9 +271,6 @@ public class PieceWay {
   public Position[] waysPawnPos(Color color) {
     ArrayList<Position> PawnPos = new ArrayList<Position>();
 
-    int x = mpos.getX();
-    int y = mpos.getY();
-
     if (color == GamePiece.Color.WHITE) {
       int WPawnInitialCol = 12;
       Position oneMovedPos = mpos;
@@ -501,6 +487,15 @@ public class PieceWay {
     }
   }
 
+  /**
+   * It will use for finding ways that piece can move for King
+   * 
+   * @param Color color
+   *          
+   * @return Position[] Wresult || Position[] Rresult
+   */
+  
+  
   public Position[] waysRookPosForKing(Color color) {
     ArrayList<Position> RookPos = new ArrayList<Position>();
     if (color == GamePiece.Color.WHITE || color == GamePiece.Color.BLACK) {
@@ -688,6 +683,16 @@ public class PieceWay {
       return Rresult;
     }
   }
+  
+  /**
+   * It's for the ways of King.
+   * When King wants to move, if King can't move the position cause it's check position, it can't move on.
+   * 
+   * @param Color color
+   *          
+   * @return Position[] result
+   */
+  
 
   public Position[] waysKingPosCheck(Color color) {
 

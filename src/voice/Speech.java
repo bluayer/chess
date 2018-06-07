@@ -7,7 +7,23 @@ import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
 import piece.Position;
 
+
+/**
+ * A class to recognize the voice
+ * 
+ * @see edu.cmu.sphinx.api
+ * @see Position
+ * @author SongJeongWoo
+ * @since 2018-06-02
+ */
+
 public class Speech {
+  
+  /**
+   * returns voice recognition change to position
+   * 
+   * @return Position pos
+   */
 
   public static Position recognition() throws IOException {
       Position pos = null;
@@ -41,6 +57,14 @@ public class Speech {
       return pos;
   }
   
+  /**
+   * It's for counting words 
+   * 
+   * @param String speech
+   * @return int cnt
+   */
+
+  
   public static int countWords(String speech)
   {
     int cnt = 0;
@@ -52,6 +76,15 @@ public class Speech {
     cnt++;
     return cnt;
   }
+  
+  /**
+   * It's for changing voice into number for position
+   * And it returns position
+   * 
+   * @String speech
+   * 
+   * @return Position position
+   */
 
   public static Position change(String speech)
   {

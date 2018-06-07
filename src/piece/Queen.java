@@ -1,14 +1,12 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * A class to make Queen
  * 
  * @see GamePiece
  * @see BufferedImage
- * @see ArrayList
  * @author SongJeongWoo
  * @since 2018-05-26
  */
@@ -20,7 +18,7 @@ public class Queen extends GamePiece{
   /**
    * returns current Queen can move position
    * 
-   * @return ArrayList<Position> QueenWay
+   * @return Position[] QueenWay
    */
   @Override
   public Position[] getCanMoves() {
@@ -28,6 +26,14 @@ public class Queen extends GamePiece{
     Position[] QueenWay = way.waysQueenPos(color);
     return QueenWay;
   }
+  
+  /**
+   * returns current Queen can move position for King
+   * In this method, it add the position when it finds the same team piece in ways.
+   * 
+   * @return Position[] QueenWay
+   */
+  
   @Override
   public Position[] getCanMovesForKing() {
     PieceWay way = new PieceWay(getPosition());

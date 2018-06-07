@@ -15,6 +15,8 @@ import piece.GamePiece.Color;
  * @see GamePiece
  * @see BufferedImage
  * @see ArrayList
+ * @see board
+ * @see ChessGui
  * @author SongJeongWoo
  * @since 2018-05-27
  */
@@ -73,8 +75,8 @@ public class Position {
   /**
    * It's for Direction when piece move or expressing way that piece can move
    * 
-   * In front of enum Direction name, W means it's for White and Black. Actually W
-   * is standard of White(starting at bottom)
+   * In front of enum Direction name, W means it's for White and Black. 
+   * Actually W is standard of White(starting at bottom)
    * 
    * R means it's for Red and Green. R is standard of Red(starting at West)
    * 
@@ -148,8 +150,8 @@ public class Position {
   /**
    * One tile move with direction at current position
    * 
-   * @param Direction
-   *          direction
+   * @param Direction direction
+   *         
    * @return Position(this.mx + direction.getXD(), this.my + direction.getYD())
    */
 
@@ -159,12 +161,14 @@ public class Position {
 
   /**
    * It's for finding Position with direction in valid board. It will use in
-   * PosManage for finding ways that piece can move.
+   * PieceWay for finding ways that piece can move.
+   * For bishop, queen, rook
    * 
    * 
-   * @param Direction
-   *          direction
-   * @return ArrayList<Position> pos
+   * @param Direction direction
+   * @param Color color
+   *          
+   * @return ArrayList<Position> posList
    */
 
   ArrayList<Position> findPos(Direction direction, Color color) {
@@ -218,16 +222,21 @@ public class Position {
         }
       }
     }
-    /* 
-    for(int i=0; i<posList.size(); i++) {
-      System.out.println(posList.get(i).getX());
-      System.out.println(posList.get(i).getY());
-      System.out.println("Next");
-    }
-    */
-    
+
     return posList;
   }
+  
+  /**
+   * It's for finding Position with direction in valid board. It will use in
+   * PieceWay for finding ways that piece can move for King
+   * For bishop, queen, rook
+   * 
+   * @param Direction direction
+   * @param Color color
+   *          
+   * @return ArrayList<Position> posList
+   */
+  
   
   ArrayList<Position> findPosForKing(Direction direction, Color color) {
     ArrayList<Position> posList = new ArrayList<Position>();
@@ -255,13 +264,6 @@ public class Position {
         }
       }
     }
-    /* 
-    for(int i=0; i<posList.size(); i++) {
-      System.out.println(posList.get(i).getX());
-      System.out.println(posList.get(i).getY());
-      System.out.println("Next");
-    }
-    */
     
     return posList;
   }

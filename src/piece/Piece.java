@@ -1,12 +1,10 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import piece.GamePiece.*;
 
 /**
- * A Interface for basic Piece
+ * A abstract class for basic Piece
  * 
  * @see GamePiece
  * @see BufferedImage

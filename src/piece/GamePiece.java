@@ -1,16 +1,12 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
-import board.ChessBoard;
 
 /**
- * A abstract class to make piece in Game, so its name is GamePiece
+ * A abstract class for piece in Game, so its name is GamePiece
  * 
- * @see Piece(Interface)
+ * @see Piece
  * @see BufferedImage
- * @see ArrayList
  * @author SongJeongWoo
  * @since 2018-05-26
  */

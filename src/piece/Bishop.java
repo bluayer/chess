@@ -1,14 +1,12 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * A class to make Bishop
  * 
  * @see GamePiece
  * @see BufferedImage
- * @see ArrayList
  * @author SongJeongWoo
  * @since 2018-05-26
  */
@@ -21,7 +19,7 @@ public class Bishop extends GamePiece{
   /**
    * returns current Bishop can move position
    * 
-   * @return ArrayList<Position> BishopWay
+   * @return Position[] BishopWay
    */
   @Override
   public Position[] getCanMoves() {
@@ -30,6 +28,13 @@ public class Bishop extends GamePiece{
     return BishopWay;
   }
 
+  
+  /**
+   * returns current Bishop can move position for King
+   * In this method, it add the position when it finds the same team piece in ways.
+   * 
+   * @return Position[] BishopWay
+   */
   @Override
   public Position[] getCanMovesForKing() {
     PieceWay way = new PieceWay(getPosition());

@@ -6,6 +6,16 @@ import board.ChessPieceSprite;
 import board.ChessPieceSprite.ChessPieceSpriteType;
 import piece.GamePiece.Color;
 
+/**
+ * A class to create all Piece
+ * 
+ * @see BufferedImage
+ * @see board.ChessPieceSprite
+ * @see GamePiece.Color
+ * @author SongJeongWoo
+ * @since 2018-05-27
+ */
+
 public class CreatePiece {
   
   public static GamePiece WPawn(Position position) {

@@ -1,14 +1,12 @@
 package piece;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * A class to make Pawn
  * 
  * @see GamePiece
  * @see BufferedImage
- * @see ArrayList
  * @author SongJeongWoo
  * @since 2018-05-27
  */
@@ -17,10 +15,11 @@ public class Pawn extends GamePiece{
     Pawn(BufferedImage img, Color color, Position position, boolean alive) {
       super(img, color, PieceType.PAWN, position, alive);
   }
+    
   /**
    * returns current Pawn can move position
    * 
-   * @return ArrayList<Position> PawnWay
+   * @return Position[] PawnWay
    */
     
   @Override
@@ -31,7 +30,6 @@ public class Pawn extends GamePiece{
   }
   @Override
   public Position[] getCanMovesForKing() {
-    // TODO Auto-generated method stub
     return null;
   }
 }
