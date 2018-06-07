@@ -18,7 +18,7 @@ public class ChessBoard{
   /** 
 	 * Board is two-dimensional Tile Object array
 	 */
-  private Tile[][] cBoard = new Tile[14][14];
+  private Tile[][] cBoard;
   
   
   /**
@@ -36,6 +36,7 @@ public class ChessBoard{
 	public Queen[] queen;
 	public King[] king;
 	
+	
 	/**
 	 * black team: top side, 0
 	 * white team: bottom side, 1
@@ -51,7 +52,7 @@ public class ChessBoard{
 	  queen = new Queen[4];
 	  king = new King[4];
 	  
-	  
+	  cBoard = new Tile[14][14];
 	  
 	  for(int i = 0; i < 4; i++) {
 	    switch(i) {
@@ -192,6 +193,7 @@ public class ChessBoard{
 	  }
 	}
 	
+	
 	/** removeFromBoard
 	 * 
 	 * set cBoard[i][j].onPiece to false
@@ -204,6 +206,7 @@ public class ChessBoard{
 	  return;
 	}
 	
+	
 	/** updateTile
 	 * 
 	 * set cBoard[goalX][goalY].onPiece to true, and set cBoard[currnetX][currentY].onPiece to false
@@ -212,7 +215,6 @@ public class ChessBoard{
 	 * @param Position goal: to-move position
 	 * @param Position current: current position
 	 */
-	
 	public void updateTile(Position current, Position goal) {
 	  this.cBoard[current.getX()][current.getY()].setOnPiece(false);
 	  this.cBoard[goal.getX()][goal.getY()].setOccupyPiece(this.cBoard[current.getX()][current.getY()].getOccupyPiece());

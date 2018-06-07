@@ -48,6 +48,7 @@ public class ChessGui {
   static Position wholeFirstPos = null;
   private static JPanel statusPanels = null;
   
+  
   /**
    * starting screen
    */
@@ -64,6 +65,7 @@ public class ChessGui {
     mainFrame.add(midPanel);
     mainFrame.setVisible(true);
   }
+  
   
   /**
    * set GUI receiving player's name
@@ -140,6 +142,7 @@ public class ChessGui {
     mainFrame.setVisible(true);
   }
   
+  
   /**
    * setting 2 vs 2 chess screen
    */
@@ -189,6 +192,7 @@ public class ChessGui {
     underBar.add(currentTeam, BorderLayout.WEST);
     underBar.add(gameStatus, BorderLayout.EAST);
    
+    
     //creating Voice Recognition Button
     if(vRecFlag == true) {
       forVoice = new JPanel();
@@ -319,6 +323,7 @@ public class ChessGui {
     return;
   }
   
+  
   /**
    * showing win/lose screen
    */
@@ -425,6 +430,7 @@ public class ChessGui {
     }
   }
   
+  
   /**
    * updating status gui at right side of chess screen
    */
@@ -460,6 +466,7 @@ public class ChessGui {
       checkLabel[i].repaint();
     }
   }
+  
   
   /**
    * just main method, calls setupStartUI
