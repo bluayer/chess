@@ -2,6 +2,7 @@ package chess;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -14,9 +15,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+/**
+ * @author Yi Changmin
+ * this class makes JFrame with Background Image
+ */
 public class BackgroundPanel extends JPanel{
   private static final long serialVersionUID = -7792037863415649086L;
   private BufferedImage img;
@@ -33,7 +39,12 @@ public class BackgroundPanel extends JPanel{
   }
   
   public void setGUI() {
-    JLabel initialString = new JLabel(/*"Chess Game"*/);
+    JLabel initialString = new JLabel("Chess Game");
+    initialString.setFont(new Font("Consolas", Font.BOLD, 40));
+    initialString.setForeground(new Color(0x99191c));
+    initialString.setVerticalAlignment(SwingConstants.CENTER);
+    initialString.setHorizontalAlignment(SwingConstants.CENTER);
+    
     setLayout(new BorderLayout(10, 10));
     setBorder(new EmptyBorder(100 , 100, 100, 100));
     
@@ -100,7 +111,8 @@ public class BackgroundPanel extends JPanel{
     voiceBtnPanel.add(voiceRec);
     twoBtnPanel.add(twoVStwo);
     
-    buttonPanel.add(voiceBtnPanel, BorderLayout.NORTH);
+    buttonPanel.add(initialString);
+    buttonPanel.add(voiceBtnPanel, BorderLayout.CENTER);
     buttonPanel.add(twoBtnPanel, BorderLayout.SOUTH);
     
     add(buttonPanel);

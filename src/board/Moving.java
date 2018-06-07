@@ -3,7 +3,7 @@ package board;
 import piece.GamePiece.PieceType;
 
 /**
- * @author ¿Ã√¢πŒ
+ * @author Yi Changmin
  * interface about moving on tile
  */
 interface Moving {

@@ -3,7 +3,7 @@ package board;
 import piece.GamePiece.PieceType;
 
 /**
- * @author ChangminYi
+ * @author Yi Changmin
  * class about single tile
  */
 public class Tile implements Moving{

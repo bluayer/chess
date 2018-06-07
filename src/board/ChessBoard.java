@@ -11,7 +11,7 @@ import piece.Queen;
 import piece.Rook;
 
 /**
- * @author ChangminYi
+ * @author Yi Changmin
  * Class about chess board, and moving pieces
  */
 public class ChessBoard{

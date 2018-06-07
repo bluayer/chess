@@ -18,7 +18,7 @@ import piece.GamePiece.PieceType;
 import piece.Position;
 
 /**
- * @author ChangminYi
+ * @author Yi Changmin
  * class about overall reaction to mouse click
  */
 public class MouseClick{
@@ -29,7 +29,6 @@ public class MouseClick{
   public static Position firstPos, secondPos;
   public static ImagePanel[][] btn = ChessGui.btn;
   
-  private static GamePiece toMovePiece;
   public static ChessBoard board = ChessGui.b;
   private static Tile[][] cBoard = ChessGui.b.getcBoard();
   static boolean isClicked;
@@ -54,7 +53,6 @@ public class MouseClick{
     cBoard = ChessGui.b.getcBoard();
     clicked = new Color(255, 255, 0);
     backgroundBackup = null;
-    toMovePiece = null;
     clickedPiece = null;
   }
   
@@ -252,6 +250,7 @@ public class MouseClick{
           else {
             secondClickSetup(i, j);
             ChessGui.printResultScreen();
+            ChessGui.printStatusBar();
           }
             
         }

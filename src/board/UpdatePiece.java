@@ -6,7 +6,7 @@ import piece.GamePiece;
 import piece.Position;
 
 /**
- * @author ¿Ã√¢πŒ
+ * @author Yi Changmin
  * class about methods update piece in Chess Board
  */
 public class UpdatePiece {

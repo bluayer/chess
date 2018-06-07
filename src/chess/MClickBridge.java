@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * @author ChangminYi
+ * @author Yi Changmin
  * this class connects ChessGui's mouse input to MouseClick
  */
 public class MClickBridge implements MouseListener{

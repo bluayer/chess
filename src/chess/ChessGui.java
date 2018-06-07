@@ -4,12 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -18,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import board.ChessBoard;
 import board.ImagePanel;
@@ -30,13 +28,13 @@ import voice.Speech;
 
 
 /**
- * @author ChangminYi
+ * @author Yi Changmin
  * class about executing program and setting initial screen
  */
 public class ChessGui {
   static final int FRAME_WIDTH = 1050, FRAME_HEIGHT = 1000;
   
-  private static JButton recog, reset;
+  private static JButton recog;
   static JFrame mainFrame;
   public static JPanel chessBoard, underBar, forVoice;
   public static JLabel currentTeam, gameStatus, turnCount;
@@ -48,7 +46,11 @@ public class ChessGui {
   public static String[] playerName = new String[4];
   static boolean vRecFlag = false;
   static Position wholeFirstPos = null;
+  private static JPanel statusPanels = null;
   
+  /**
+   * starting screen
+   */
   public static void setupStartUI(){
     mainFrame = new JFrame("Mode Selection");
     mainFrame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
@@ -183,7 +185,7 @@ public class ChessGui {
     underBar.setLayout(new BorderLayout(10, 10));
     underBar.setBorder(new EmptyBorder(20, 150, 20, 150));
     currentTeam = new JLabel(playerName[0] + "'s turn");
-    gameStatus = new JLabel("Test game Status");
+    gameStatus = new JLabel();
     underBar.add(currentTeam, BorderLayout.WEST);
     underBar.add(gameStatus, BorderLayout.EAST);
    
@@ -292,20 +294,24 @@ public class ChessGui {
       underBar.add(forVoice, BorderLayout.CENTER);
     }
    
-    JPanel panel1 = new JPanel();
-    panel1.setLayout(new GridLayout(0, 1));
-    panel1.setBorder(new EmptyBorder(0, 20, 0, 20));
+    statusPanels = new JPanel();
 
-    turnCount = new JLabel("Turn: 1");
-    panel1.add(turnCount);
+    statusPanels.setLayout(new GridLayout(5, 1));
+    statusPanels.setBorder(new EmptyBorder(0, 10, 0, 10));
+
+    turnCount = new JLabel("Turn 1");
+    statusPanels.add(turnCount);
    
     for(int i = 0; i < checkLabel.length; i++) {
-      checkLabel[i] = new JLabel();
-      panel1.add(checkLabel[i]);
+      checkLabel[i] = new JLabel("");
+      checkLabel[i].setOpaque(true);
+      checkLabel[i].setBorder(new LineBorder(Color.BLACK));
+      checkLabel[i].setForeground(Color.black);
+      statusPanels.add(checkLabel[i]);
     }
 
     contentPane.add(chessBoard, BorderLayout.CENTER);
-    contentPane.add(panel1, BorderLayout.LINE_END);
+    contentPane.add(statusPanels, BorderLayout.LINE_END);
     contentPane.add(underBar, BorderLayout.SOUTH);
 
     mainFrame.setVisible(true);
@@ -313,6 +319,9 @@ public class ChessGui {
     return;
   }
   
+  /**
+   * showing win/lose screen
+   */
   public static void printResultScreen() {
     //checkmate
     if(GameController.checkmateFlag[0] == 1 && GameController.checkmateFlag[2] == 1) {
@@ -346,7 +355,8 @@ public class ChessGui {
       endGame.add(cont);
       endGame.setVisible(true);
     }
-    else if(GameController.checkmateFlag[1] == 1 && GameController.checkmateFlag[3] == 1) {
+    //checkmate
+    else if(GameController.checkmateFlag[1] == 1 && GameController.checkmateFlag[3] == 1) { 
       JFrame endGame = new JFrame("Checkmate!");
       endGame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
       endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -378,7 +388,7 @@ public class ChessGui {
       endGame.setVisible(true);
     }
     //stalemate
-    else if((GameController.stalemateFlag[0] == 1 && GameController.stalemateFlag[2] == 1) && (GameController.stalemateFlag[1] == 1 && GameController.stalemateFlag[3] == 1)) {
+    else if((GameController.stalemateFlag[0] == 1 && GameController.stalemateFlag[2] == 1) || (GameController.stalemateFlag[1] == 1 && GameController.stalemateFlag[3] == 1)) {
      JFrame endGame = new JFrame("Stalemate!");
      endGame.setSize(FRAME_WIDTH / 2, FRAME_HEIGHT / 2);
      endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -415,6 +425,47 @@ public class ChessGui {
     }
   }
   
+  /**
+   * updating status gui at right side of chess screen
+   */
+  public static void printStatusBar() {
+    //printing check status
+    for(int i = 0; i < 4; i++) {
+      if(GameController.checkFlag[i] == 1) {
+        checkLabel[i].setText(playerName[i] + ": Check!");
+      }
+      else {
+        checkLabel[i].setText(null);
+      }
+      checkLabel[i].repaint();
+    }
+    //printing checkmate status
+    for(int i = 0; i < 4; i++) {
+      if(GameController.checkmateFlag[i] == 1) {
+        checkLabel[i].setText(playerName[i] + ": Checkmate!");
+      }
+      else {
+        checkLabel[i].setText(null);
+      }
+      checkLabel[i].repaint();
+    }
+    //printing stalemate status
+    for(int i = 0; i < 4; i++) {
+      if(GameController.stalemateFlag[i] == 1) {
+        checkLabel[i].setText(playerName[i] + ": Stalemate!");
+      }
+      else {
+        checkLabel[i].setText(null);
+      }
+      checkLabel[i].repaint();
+    }
+  }
+  
+  /**
+   * just main method, calls setupStartUI
+   * @param args
+   * @throws IOException
+   */
   public static void main(String[] args) throws IOException {
     setupStartUI();
     return;

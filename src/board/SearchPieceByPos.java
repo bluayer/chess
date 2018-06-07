@@ -11,7 +11,7 @@ import piece.Queen;
 import piece.Rook;
 
 /**
- * @author ¿Ã√¢πŒ
+ * @author Yi Changmin
  * class about searching piece in chessboard by position
  */
 public class SearchPieceByPos {
