@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -301,7 +302,7 @@ public class ChessGui {
     statusPanels = new JPanel();
 
     statusPanels.setLayout(new GridLayout(5, 1));
-    statusPanels.setBorder(new EmptyBorder(0, 10, 0, 10));
+    statusPanels.setBorder(new EmptyBorder(0, 30, 0, 30));
 
     turnCount = new JLabel("Turn 1");
     statusPanels.add(turnCount);
@@ -309,7 +310,6 @@ public class ChessGui {
     for(int i = 0; i < checkLabel.length; i++) {
       checkLabel[i] = new JLabel("");
       checkLabel[i].setOpaque(true);
-      checkLabel[i].setBorder(new LineBorder(Color.BLACK));
       checkLabel[i].setForeground(Color.black);
       statusPanels.add(checkLabel[i]);
     }

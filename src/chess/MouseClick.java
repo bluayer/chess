@@ -165,7 +165,51 @@ public class MouseClick{
         System.out.println("secondClickSetup: valid click");
         UpdatePiece.updateDead(secondPos);
         movePiece(secondClk, firstClk);
-        nowTurn.nextTurn();
+        
+        //checking illigal move at check or checkmate
+        check.isCheck();
+        if(GameController.checkFlag[nowTurn.getter()] == 1) {
+           cBoard[secondPos.getX()][secondPos.getY()].setOnPiece(false);
+           cBoard[firstPos.getX()][firstPos.getY()].setOccupyPiece(cBoard[secondPos.getX()][secondPos.getY()].getOccupyPiece());
+           cBoard[secondPos.getX()][secondPos.getY()].setOccupyPiece(PieceType.NOPE);
+           cBoard[firstPos.getX()][firstPos.getY()].setOnPiece(true);
+           
+           //setting moving piece's position
+           switch(clickedPiece.getPieceType()) {
+           case PAWN:
+             UpdatePiece.updatePawn(secondPos, firstPos);
+             break;
+           case KNIGHT:
+             UpdatePiece.updateKnight(secondPos, firstPos);
+             break;
+           case BISHOP:
+             UpdatePiece.updateBishop(secondPos, firstPos);
+             break;
+           case ROOK:
+             UpdatePiece.updateRook(secondPos, firstPos);
+             break;
+           case QUEEN:
+             UpdatePiece.updateQueen(secondPos, firstPos);
+             break;
+           case KING:
+             UpdatePiece.updateKing(secondPos, firstPos);
+             break;
+           default:
+             break;
+           }
+           
+           GamePiece temp = SearchPieceByPos.searchPiece(secondPos, ChessGui.b);
+           if(temp != null) {
+             temp.setAlive(true);
+           }
+           
+           firstClk.setImage(secondClk.getImage());
+           secondClk.setImage(null);
+           System.out.println("It's illigal move!");
+        }
+        else {
+          nowTurn.nextTurn();
+        }
       }
     }
 
