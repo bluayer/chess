@@ -55,35 +55,19 @@ public class TurnCheck {
 	 * 
 	 * @return Return color that which player's turn
 	 */
-	public Color getTurn() {
-		if(this.getter() == 0) {
+	public static Color getTurn() {
+		if((mturn % 4) == 0) {
 			return Color.WHITE;
 		}
-		else if(this.getter() == 1) {
+		else if((mturn % 4) == 1) {
 			return Color.RED;
 		}
-		else if(this.getter() == 2) {
+		else if((mturn % 4) == 2) {
 			return Color.BLACK;
 		}
 		else {
 			return Color.GREEN;
 		}
-	}
-	
-	
-	public static Color getTurnColor() {
-	  if((mturn % 4) == 0) {
-	     return Color.WHITE;
-	   }
-	  else if((mturn % 4) == 1) {
-	    return Color.RED;
-	  }
-	  else if((mturn % 4) == 2) {
-	    return Color.BLACK;
-	  }
-	  else {
-	    return Color.GREEN;
-	  }
 	}
 	
 	public boolean isValidTurn(TurnCheck nowTurn, Position pos) {

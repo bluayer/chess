@@ -217,7 +217,7 @@ public class ChessGui {
               if(firstTile.isOnPiece() == true) {
                 if (SearchPieceByPos.searchPiece(firstPos, b) != null) {
                   if(SearchPieceByPos.searchPiece(firstPos, b).getCanMoves().length !=0) {
-                    if (SearchPieceByPos.searchPiece(firstPos, b).getColor() == TurnCheck.getTurnColor()) {
+                    if (SearchPieceByPos.searchPiece(firstPos, b).getColor() == TurnCheck.getTurn()) {
                       MouseClick.firstClickSetup(firstPos.getX(), firstPos.getY());
                       System.out.println("Piece is" + SearchPieceByPos.searchPiece(firstPos, b).getPieceType());
                       System.out.println("X : " +  firstPos.getX() + " Y : " + firstPos.getY());
